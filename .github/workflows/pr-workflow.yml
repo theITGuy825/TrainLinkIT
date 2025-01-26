@@ -1,0 +1,26 @@
+name: Pull Request Workflow
+
+on:
+  pull_request:
+    branches:
+      - develop  # This applies to PRs targeting develop
+      - main     # This applies to PRs targeting main
+
+jobs:
+  pr-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js (example for Node.js apps)
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
