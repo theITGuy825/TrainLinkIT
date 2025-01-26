@@ -1,5 +1,4 @@
 name: Sync Develop with Main
-
 on:
   schedule:
     - cron: '*/3 * * * *'  # Runs every 3 minutes
