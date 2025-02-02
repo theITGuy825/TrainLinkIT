@@ -1,10 +1,10 @@
-import Header from "./components/Header/header";
-import Tasks from "./components/Tasks/tasks";
+import Login from "./components/Login/Login";
+
 function App() {
   return (
     <div>
-      <Header />
-      <Tasks />
+      <Login />
+
     </div>
     
   );
