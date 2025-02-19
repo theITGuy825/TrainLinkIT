@@ -1,11 +1,17 @@
-import Header from "./components/Header/header";
-import Tasks from "./components/Tasks/tasks";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
+
 function App() {
   return (
-    <div>
-      <Header />
-      <Tasks />
-    </div>
+    <Router>
+    <Routes>
+      <Route path="/" element={<Register />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
+  </Router>
     
   );
 }
