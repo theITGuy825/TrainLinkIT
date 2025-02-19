@@ -1,7 +1,31 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import PostFeed from "./components/PostFeed/PostFeed";
 
 function Home() {
+
+
+    const [posts, setPosts] = useState([
+        { id: 1, author: "Farouk Afolabi", content: "This is my first post!" },
+        { id: 2, author: " Ethan Henderson", content: "Loving this platform! it was my idea" },
+        { id: 3, author: "Muhammed Ahsan",  content: "I am incharge of the backend stuff"}
+      ]);
+    
+      const [newPost, setNewPost] = useState("");
+    
+      const handlePostSubmit = () => {
+        if (newPost.trim() !== "") {
+          const post = {
+            id: posts.length + 1,
+            author: "Farouk Afolabi", // Replace with actual logged-in user
+            content: newPost,
+          };
+          setPosts([post, ...posts]);
+          setNewPost("");
+        }
+      };
+
+
   return (
     <div>
       <h2>Home - Feed</h2>
@@ -11,13 +35,27 @@ function Home() {
         <Link to="/blog">Blog</Link> | 
         <Link to="/profile">My Profile</Link>
       </nav>
-      <input type="text" placeholder="Search users..." />
+
+      {/* Create a Post */}
       <div>
-        <h3>Feed of Followed Profiles</h3>
-        {/* List of followed users' posts */}
+        <textarea
+          placeholder="What's on your mind?"
+          value={newPost}
+          onChange={(e) => setNewPost(e.target.value)}
+        />
+        <button onClick={handlePostSubmit}>Post</button>
       </div>
-    </div>
+ {/* Display Posts */}
+ <PostFeed posts={posts} title="All Posts" />
+
+      </div>
+
+    
+
+     
+    
   );
 };
+      
 
 export default Home;
