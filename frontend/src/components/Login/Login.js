@@ -15,6 +15,17 @@ function Login() {
         setPassword(e.target.value);
       };
 
+      const handleLogin = (e) => {
+        e.preventDefault(); // Prevent form refresh
+    
+        //  Authentication check (Replace with real authentication logic)
+        if (email === "farouk.afolabi@yahoo.com" && password === "12345") {
+          navigate("/home"); // Redirect to HomePage
+        } else {
+          alert("Invalid credentials, please try again.");
+        }
+      };
+
     return (
         <div>
             <h2>Login</h2>
@@ -44,9 +55,9 @@ function Login() {
                     />
                 </div>
 
-                <button type="submit">Login</button>
+                <button type="submit" onClick={handleLogin}>Login</button>
             </form>
-            <p>Don't have an account? <span onClick={() => navigate("/register")} >Register</span></p>
+            <p>Don't have an account? <span onClick={() => navigate("/register")}>Register</span></p>
         </div>
     );
 }
