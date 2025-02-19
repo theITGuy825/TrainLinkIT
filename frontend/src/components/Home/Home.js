@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
-import PostFeed from "./components/PostFeed/PostFeed";
+import PostFeed from "../PostFeed/PostFeed";
 
 function Home() {
 
