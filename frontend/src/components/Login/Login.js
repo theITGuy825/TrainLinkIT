@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+   const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -17,8 +20,9 @@ function Login() {
             <h2>Login</h2>
             <form>
                 <div className='input'>
-                    <label>Email</label>
-                    <input 
+                    <label htmlFor='email'>Email</label>
+                    <input
+                        id="email" 
                         type="text" 
                         value={email}
                         onChange={handleEmail}
@@ -29,8 +33,9 @@ function Login() {
                 </div>
 
                 <div className='input'>
-                    <label>Password</label>
+                    <label htmlFor="password">Password</label>
                     <input 
+                        id="password"
                         type="password" 
                         value={password}
                         onChange={handlePassword}
@@ -41,6 +46,7 @@ function Login() {
 
                 <button type="submit">Login</button>
             </form>
+            <p>Don't have an account? <span onClick={() => navigate("/register")} >Register</span></p>
         </div>
     );
 }
