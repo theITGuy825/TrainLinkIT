@@ -5,7 +5,7 @@ import './Sidebar.css';  // Make sure you create a CSS file for Sidebar styles
 function Sidebar() {
   return (
     <div className="sidebar">
-      <img src='/image073263.png' alt="description" width="300" height="300" className='logo'/>
+      <img src='/image073263.png' alt="description" width="500" height="500" className='logo'/>
 
       <nav>
         <Link to="/jobs">Job Board</Link>
