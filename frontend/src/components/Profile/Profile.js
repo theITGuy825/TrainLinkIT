@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PostFeed from "./components/PostFeed/PostFeed";
+import PostFeed from "../PostFeed/PostFeed";
 
 function Profile ({ posts }) {
     const myPosts = posts.filter((post) => post.author === "Farouk Afolabi"); // Replace with actual user check
