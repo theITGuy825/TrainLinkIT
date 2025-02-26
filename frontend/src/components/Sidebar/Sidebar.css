@@ -1,0 +1,38 @@
+/* Sidebar.css */
+
+/* Sidebar styles for the left sidebar */
+.sidebar {
+  width: 350px;  /* Fixed width for the sidebar */
+  background-color: #1e2a47;  /* Dark blue background */
+  color: white;
+  padding: 20px;
+  position: fixed;  /* Fixes the sidebar on the left side */
+  top: 0;  /* Sticks it to the top of the screen */
+  left: 0;  /* Aligns the sidebar to the left */
+  border-right: 0.5px solid #000000;  /* Border between sidebar and content */
+  height: 100vh;  /* Makes the sidebar full height */
+  overflow-y: auto;  /* Allows scrolling inside the sidebar if content overflows */
+}
+
+.sidebar h3 {
+  text-align: center;
+  color: #fff;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.sidebar nav a {
+  color: #4fa3f7;
+  text-decoration: none;
+  margin: 10px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sidebar nav a:hover {
+  color: #0a7eff;
+}

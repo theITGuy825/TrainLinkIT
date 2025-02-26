@@ -1,0 +1,44 @@
+/* PostFeed.css */
+
+/* Post Feed Scrollable Container */
+.post-feed-container {
+  max-height: 640px;  /* You can adjust the max-height as needed */
+  overflow-y: scroll;  /* Allow scrolling */
+  padding-top: 10px;
+  scrollbar-width: thin; /* For Firefox (to make the scrollbar smaller) */
+  scrollbar-color: transparent transparent; /* For Firefox (hide scrollbar) */
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.post-feed-container::-webkit-scrollbar {
+  width: 0px;  /* Make the scrollbar width 0 to hide it */
+}
+
+.post-feed-container::-webkit-scrollbar-thumb {
+  background: transparent; /* Make the thumb invisible */
+}
+
+.post-feed-container::-webkit-scrollbar-track {
+  background: transparent; /* Make the track invisible */
+}
+
+
+  
+  /* Individual Post styles */
+  .post {
+    background-color: #2a3c5d;
+    margin: 0px 0;
+    /*border-radius: 8px;*/
+    
+  }
+  
+  .post .author {
+    color: #ffffff;
+    font-weight: bold;
+  }
+  
+  .post .content {
+    margin-top: 1px;
+    color: #d1d1d1;
+  }
+  

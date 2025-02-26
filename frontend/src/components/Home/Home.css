@@ -1,93 +1,66 @@
 /* Home.css */
 
-body {
-    background-color: #1e2a47; /* Dark blue background */
-    color: #ffffff; /* White text */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  h2 {
-    color: #ffffff;
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  nav {
-    text-align: center;
-    margin: 20px 0;
-  }
-  
-  nav a {
-    color: #4fa3f7; /* Bright blue links */
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
-  }
-  
-  nav a:hover {
-    color: #0a7eff; /* Hover effect */
-  }
-  
-  textarea {
-    justify-content: center;
-    width: 80%;
-    height: 100px;
-    margin: 20px auto;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    font-size: 16px;
-    background-color: #2a3c5d; /* Slightly lighter dark blue */
-    color: #fff;
-    resize: none;
-    outline: none;
-  }
-  
-  textarea:focus {
-    background-color: #3a4b7d; /* Lighter blue when focused */
-  }
-  
-  button {
-    background-color: #4fa3f7; /* Button color */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-  }
-  
-  button:hover {
-    background-color: #0a7eff; /* Hover effect */
-  }
-  
-  button:focus {
-    outline: none;
-  }
-  
-  .post-feed {
-    margin-top: 30px;
-  }
-  
-  .post {
-    width: 80%;
-    justify-content: center;
-    background-color: #2a3c5d; /* Dark background for posts */
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 10px;
-  }
-  
-  .post .author {
-    color: #ffffff;
-    font-weight: bold;
-  }
-  
-  .post .content {
-    margin-top: 10px;
-    color: #d1d1d1;
-  }
-  
+/* Container for the whole page */
+/* Container that holds both sidebars and the main content */
+.home-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #2a3c5d;
+}
+
+/* Main content area with posts */
+.main-content {
+  margin: 0 360px; /* Leave space for both left and right sidebars */
+  padding: 20px;
+  width: 100%;
+}
+/* Post Creation Styles */
+.post-creation {
+  width: 80%;
+  margin-bottom: 20px;
+  background-color: #2a3c5d;
+  border: 1px solid #bbbbbb;
+  padding: 10px; /* Added padding to create some space inside the container */
+}
+
+/* Textarea and Button */
+.textarea {
+  width: 100%; /* Full width of the parent container */
+  height: 100px;
+  border: none; /* Remove the default border */
+  font-size: 16px;
+  background-color: #2a3c5d;
+  color: white;
+  resize: none;
+}
+
+.textarea:focus {
+  background-color: #3a4b7d;
+}
+
+.post-button {
+  background-color: #4fa3f7;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.post-button:hover {
+  background-color: #0a7eff;
+}
+
+/* Border around individual posts */
+.post {
+  background-color: #2a3c5d;
+  padding: 15px;
+  margin: 10px 0;
+  /*border-radius: 10px;*/
+  border-bottom: 0.5px solid #bbbbbb;  /* Border around individual post */
+  border-top: 0.5px solid #bbbbbb;  /* Border around individual post */
+}
+
