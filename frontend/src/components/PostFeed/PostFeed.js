@@ -45,8 +45,19 @@ function PostFeed({ title }) {
         {posts.length > 0 ? (
           posts.map((post) => (
             <div key={post.id} className="post">
-              <h4>{post.author}</h4>
+              {/* Header with image and author */}
+              <div className="post-header">
+                <img src="/profilepic.png" alt="Profile" width="50" height="50" className="profilepic" />
+                <h4>{post.author}</h4>
+              </div>
+
+              {/* Post content */}
               <p>{post.content}</p>
+
+              {/* Tool buttons */}
+              <button className="toolie">Comment</button>
+              <button className="toolie">Like</button>
+              <button className="toolie">Share</button>
             </div>
           ))
         ) : (

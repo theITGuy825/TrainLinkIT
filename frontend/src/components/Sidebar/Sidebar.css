@@ -2,7 +2,7 @@
 
 /* Sidebar styles for the left sidebar */
 .sidebar {
-  width: 350px;  /* Fixed width for the sidebar */
+  width: 300px;  /* Fixed width for the sidebar */
   background-color: #1e2a47;  /* Dark blue background */
   color: white;
   padding: 20px;
@@ -12,6 +12,7 @@
   border-right: 0.5px solid #000000;  /* Border between sidebar and content */
   height: 100vh;  /* Makes the sidebar full height */
   overflow-y: auto;  /* Allows scrolling inside the sidebar if content overflows */
+  justify-content: center;
 }
 
 .sidebar h3 {
@@ -22,7 +23,7 @@
 .sidebar nav {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: -70px;
 }
 
 .sidebar nav a {
@@ -35,4 +36,10 @@
 
 .sidebar nav a:hover {
   color: #0a7eff;
+}
+
+.logo {
+  margin-top: -100px;
+  max-width: 100%;  /* Ensures image is responsive */
+  height: auto;     /* Maintains aspect ratio */
 }
