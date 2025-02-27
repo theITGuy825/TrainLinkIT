@@ -1,0 +1,9 @@
+{
+    "name": "TrainLinkIT",
+    "short_name": "TrainLinkIT",
+    "start_url": "./src/app,js",
+    "display": "standalone",
+    "background_color": "#f4f4f4",
+    "theme_color": "#0078D7"
+  
+   }

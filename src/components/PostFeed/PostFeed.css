@@ -34,6 +34,15 @@
   margin-bottom: 10px; /* Add space below the header */
 }
 
+.post-creation-header {
+  display: flex;
+  align-items: center; /* Vertically align image and text */
+  margin-bottom: 10px; /* Add space below the header */
+}
+.profilepic-post-creation{
+  margin-top: -50px;
+}
+
 .post-header img {
   margin-right: 10px; /* Space between image and author name */
 }

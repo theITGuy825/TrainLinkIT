@@ -17,27 +17,43 @@ import {
 function PostFeed({ title }) {
   const [newPost, setNewPost] = useState("");
   const [posts, setPosts] = useState([]);
+  const [userProfilePic, setUserProfilePic] = useState("/profilepic.png"); // Default placeholder
 
-  // Fetch user full name
-  const getUserName = async (userId) => {
+  // Fetch current user's data (including profile picture)
+  const getUserData = async (userId) => {
     try {
       const userDoc = await getDoc(doc(db, "users", userId));
-      return userDoc.exists() ? `${userDoc.data().firstName} ${userDoc.data().lastName}` : "Anonymous";
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        const fullName = `${userData.firstName} ${userData.lastName}`;
+        const profilePic = userData.profilePic || "/profilepic.png"; // Default to placeholder if not set
+        return { fullName, profilePic }; // Return both full name and profile picture
+      } else {
+        return { fullName: "Anonymous", profilePic: "/profilepic.png" }; // Default values
+      }
     } catch (error) {
       console.error("Error fetching user:", error);
-      return "Anonymous";
+      return { fullName: "Anonymous", profilePic: "/profilepic.png" }; // Default values on error
     }
   };
 
   // Fetch posts from Firestore in real time
   useEffect(() => {
+    const user = auth.currentUser;
+    if (user) {
+      // Fetch current user's profile pic
+      getUserData(user.uid).then((userData) => {
+        setUserProfilePic(userData.profilePic);
+      });
+    }
+
     const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
     const unsubscribe = onSnapshot(q, async (snapshot) => {
       const postsArray = await Promise.all(
         snapshot.docs.map(async (doc) => {
           const postData = doc.data();
-          const fullName = await getUserName(postData.userId);
-          return { id: doc.id, author: fullName, ...postData };
+          const { fullName, profilePic } = await getUserData(postData.userId); // Fetch both name and profile pic
+          return { id: doc.id, author: fullName, profilePic, ...postData };
         })
       );
       setPosts(postsArray);
@@ -109,12 +125,22 @@ function PostFeed({ title }) {
 
       {/* Create a Post */}
       <div className="post-creation">
-        <textarea
-          className="textarea"
-          placeholder="What's on your mind?"
-          value={newPost}
-          onChange={(e) => setNewPost(e.target.value)}
-        />
+        <div className="post-creation-header">
+          {/* Display the current user's profile picture */}
+          <img
+            src={userProfilePic}
+            alt="Your Profile"
+            width="50"
+            height="50"
+            className="profilepic-post-creation"
+          />
+          <textarea
+            className="textarea"
+            placeholder="What's on your mind?"
+            value={newPost}
+            onChange={(e) => setNewPost(e.target.value)}
+          />
+        </div>
         <button className="post-button" onClick={handlePostSubmit}>
           Post
         </button>
@@ -126,8 +152,14 @@ function PostFeed({ title }) {
           posts.map((post) => (
             <div key={post.id} className="post">
               <div className="post-header">
-                <img src="/profilepic.png" alt="Profile" width="50" height="50" className="profilepic" />
-                <h4>{post.author}</h4>
+                <img
+                  src={post.profilePic}
+                  alt="Profile"
+                  width="50"
+                  height="50"
+                  className="profilepic"
+                />
+                <h4>{post.author}</h4> {/* Display full name */}
               </div>
               <p>{post.content}</p>
 

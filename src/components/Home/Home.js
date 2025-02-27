@@ -1,5 +1,5 @@
 import React from "react";
-import PostFeed from "../PostFeed/PostFeed";  // Import the PostFeed component
+import PostFeed from "../PostFeed/PostFeed.js";  // Import the PostFeed component
 import Sidebar from "../Sidebar/sidebar.js";
 import Sidebarfeeds from "../sidebarfeeds/Sidebarfeeds.js";
 import './Home.css'; 

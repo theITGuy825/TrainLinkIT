@@ -52,6 +52,7 @@ function Register() {
           email: formData.email,
           userType: formData.userType,
           uid: user.uid, // Store the UID as userId
+          profilePic: ""
         });
 
         alert("Registration successful!");
