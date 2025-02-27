@@ -14,11 +14,7 @@
     "react-uuid": "^2.0.0"
   },
   "scripts": {
-      "start": "parcel src/index.html",        
-      "build": "parcel build public/index.html --dist-dir docs --public-url /trainlinkit/", 
-      "dev:build": "parcel build public/index.html --dist-dir dist --no-content-hash",  
-      "dev:run": "npm run dev:build && npm run dev:start", 
-      "dev:start": "parcel serve --dist-dir dist public/index.html"   
+ 
   }
 ,
   "eslintConfig": {
