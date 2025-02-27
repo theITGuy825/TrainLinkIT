@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
-import Home from "./components/Home/Home";
-import Profile from "./components/Profile/Profile";
-import PostFeed from "./components/PostFeed/PostFeed"; // Import PostFeed
+import Login from "./src/components/Login/Login";
+import Register from "./src/components/Register/Register";
+import Home from "./src/components/Home/Home";
+import Profile from "./src/components/Profile/Profile";
+import PostFeed from "./src/components/PostFeed/PostFeed"; // Import PostFeed
 
 function App() {
   return (
