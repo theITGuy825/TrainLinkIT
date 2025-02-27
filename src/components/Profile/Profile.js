@@ -1,8 +1,8 @@
 import React from "react";
 import Sidebar from "../Sidebar/sidebar.js";
-import ProfilePost from "../ProfilePost/ProfilePost.js";
+import PostFeed from "../PostFeed/PostFeed.js";
 import '../Sidebar/Sidebar.css';
-import '../ProfilePost/ProfilePost.css';
+import '../Postfeed/Postfeed.css';
 import './Profile.css';
 
 function Profile() {
@@ -11,7 +11,7 @@ function Profile() {
       <Sidebar />
       <div className="profile-content">
         <h2>My Profile</h2>
-        <ProfilePost />
+        <PostFeed />
       </div>
     </div>
   );

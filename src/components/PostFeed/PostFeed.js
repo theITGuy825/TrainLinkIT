@@ -14,12 +14,12 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
-function PostFeed({ title }) {
+function PostFeed({ title, userId }) {
   const [newPost, setNewPost] = useState("");
   const [posts, setPosts] = useState([]);
   const [userProfilePic, setUserProfilePic] = useState("/profilepic.png"); // Default placeholder
 
-  // Fetch current user's data (including profile picture)
+  // Fetch user data (including profile picture)
   const getUserData = async (userId) => {
     try {
       const userDoc = await getDoc(doc(db, "users", userId));
@@ -37,16 +37,8 @@ function PostFeed({ title }) {
     }
   };
 
-  // Fetch posts from Firestore in real time
+  // Fetch posts from Firestore in real-time
   useEffect(() => {
-    const user = auth.currentUser;
-    if (user) {
-      // Fetch current user's profile pic
-      getUserData(user.uid).then((userData) => {
-        setUserProfilePic(userData.profilePic);
-      });
-    }
-
     const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
     const unsubscribe = onSnapshot(q, async (snapshot) => {
       const postsArray = await Promise.all(
