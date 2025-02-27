@@ -14,10 +14,14 @@
     "react-uuid": "^2.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "parcel ./src/app.js react-scripts start",
+    "build": "parcel build --dist-dir docs --public-url /trainlinkit/ ./src/app.js",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev:build": "parcel build --dist-dir dist --no-content-hash ./src/app.js",
+    "dev:run": "npm run dev:build && npm run dev:start",
+    "dev:start": "parcel serve --dist-dir dist ./src/app.js",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
