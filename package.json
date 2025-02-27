@@ -6,7 +6,6 @@
     "cors": "^2.8.5",
     "cra-template": "1.2.0",
     "firebase": "^11.3.1",
-    "parcel": "^2.13.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.2.0",
@@ -14,11 +13,10 @@
     "react-uuid": "^2.0.0"
   },
   "scripts": {
-    "start": "parcel ./src/app.js",
-    "build": "parcel build --dist-dir docs --public-url /trainlinkit/ ./src/app.js",
-    "dev:build": "parcel build --dist-dir dist --no-content-hash ./src/app.js",
-    "dev:run": "npm run dev:build && npm run dev:start",
-    "dev:start": "parcel serve --dist-dir dist ./src/app.js"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -37,8 +35,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "process": "^0.11.10"
   }
 }

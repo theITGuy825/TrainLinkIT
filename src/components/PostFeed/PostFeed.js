@@ -95,21 +95,24 @@ function PostFeed({ title }) {
       alert("You must be logged in to like a post.");
       return;
     }
-
+  
     const likeRef = doc(db, "posts", postId, "likes", user.uid);
+    const userLikesRef = doc(db, "users", user.uid, "likes", postId); // Reference to user's likes
     const postRef = doc(db, "posts", postId);
-
+  
     try {
       const likeDoc = await getDoc(likeRef);
       if (likeDoc.exists()) {
         // Unlike: Remove like document and decrement count
         await deleteDoc(likeRef);
+        await deleteDoc(userLikesRef); // Remove from user likes
         await updateDoc(postRef, {
           likesCount: (await getDoc(postRef)).data().likesCount - 1,
         });
       } else {
         // Like: Add like document and increment count
         await setDoc(likeRef, { userId: user.uid });
+        await setDoc(userLikesRef, { userId: user.uid }); // Save to user likes
         await updateDoc(postRef, {
           likesCount: (await getDoc(postRef)).data().likesCount + 1,
         });
@@ -118,6 +121,7 @@ function PostFeed({ title }) {
       console.error("Error liking post:", error);
     }
   };
+  
 
   return (
     <div>
