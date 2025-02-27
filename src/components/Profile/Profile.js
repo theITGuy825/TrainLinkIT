@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../Sidebar/sidebar.js";
 import PostFeed from "../PostFeed/PostFeed.js";
 import '../Sidebar/Sidebar.css';
-import '../Postfeed/Postfeed.css';
+import '../PostFeed/PostFeed.css';
 import './Profile.css';
 
 function Profile() {
