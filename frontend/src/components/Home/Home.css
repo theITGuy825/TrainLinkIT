@@ -1,5 +1,10 @@
 /* Home.css */
-
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #2a3c5d; /* Change this to any color you prefer */
+}
 /* Container for the whole page */
 /* Container that holds both sidebars and the main content */
 .home-container {
