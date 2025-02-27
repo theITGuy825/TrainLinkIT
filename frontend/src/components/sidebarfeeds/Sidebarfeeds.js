@@ -10,7 +10,7 @@ function Sidebarfeeds() {
         <h1>LinkNews</h1>
         <h1>Suggested Friends</h1>
         <h1>Suggested Projects</h1>
-        <h1>Sugested Trainings</h1>
+        <h1>Suggested Trainings</h1>
       </nav>
     </div>
   );
