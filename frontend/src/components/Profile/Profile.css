@@ -1,0 +1,9 @@
+.profile-container {
+  display: flex;
+}
+
+.profile-content {
+  margin-left: 360px; /* Adjust based on sidebar width */
+  flex-grow: 1;
+  padding: 20px;
+}

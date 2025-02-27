@@ -1,22 +1,21 @@
-import React, { useState } from "react";
-import PostFeed from "../PostFeed/PostFeed";
+import React from "react";
 import Sidebar from "../Sidebar/sidebar.js";
+import ProfilePost from "../ProfilePost/ProfilePost.js";
 import '../Sidebar/Sidebar.css';
+import '../ProfilePost/ProfilePost.css';
+import './Profile.css';
 
-function Profile ({ posts = [] }) {
-    const myPosts = posts?.filter((post) => post.author === "Farouk Afolabi"); // Replace with actual user check
-
+function Profile() {
   return (
-    
-    <div>
+    <div className="profile-container">
       <Sidebar />
-
-      <h2>My Profile</h2>
-      <h3>My Posts</h3>
-       {/* Use PostFeed component instead of manually mapping posts */}
-       <PostFeed posts={posts} title="Your Posts" />
+      <div className="profile-content">
+        <h2>My Profile</h2>
+        <ProfilePost />
+      </div>
     </div>
   );
-};
+}
+
 
 export default Profile;

@@ -1,0 +1,68 @@
+/* ProfilePost.css */
+
+/* Post Feed Scrollable Container */
+.post-feed-container {
+    max-height: 640px;  /* You can adjust the max-height as needed */
+    overflow-y: scroll;  /* Allow scrolling */
+    padding-top: 10px;
+    scrollbar-width: thin; /* For Firefox (to make the scrollbar smaller) */
+    scrollbar-color: transparent transparent; /* For Firefox (hide scrollbar) */
+  }
+  
+  /* For Webkit browsers (Chrome, Safari) */
+  .post-feed-container::-webkit-scrollbar {
+    width: 0px;  /* Make the scrollbar width 0 to hide it */
+  }
+  
+  .post-feed-container::-webkit-scrollbar-thumb {
+    background: transparent; /* Make the thumb invisible */
+  }
+  
+  .post-feed-container::-webkit-scrollbar-track {
+    background: transparent; /* Make the track invisible */
+  }
+  
+  /* Individual Post styles */
+  .post {
+    background-color: #2a3c5d;
+    margin: 0px 0;
+    padding: 10px;
+    
+  }
+  
+  /* Align image and author horizontally */
+  .post-header {
+    display: flex;
+    align-items: center; /* Vertically align image and text */
+    margin-bottom: 10px; /* Add space below the header */
+  }
+  
+  .post-header img {
+    margin-right: 10px; /* Space between image and author name */
+  }
+  
+  .post .author {
+    color: #ffffff;
+    font-weight: bold;
+  }
+  
+  .post .content {
+    margin-top: 5px;
+    color: #d1d1d1;
+  }
+  
+  /* Tool buttons styles */
+  .toolie {
+    background-color: #4fa3f7;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .toolie:hover {
+    background-color: #0a7eff;
+  }
+  
+  
