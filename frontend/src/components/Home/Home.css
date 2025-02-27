@@ -1,0 +1,66 @@
+/* Home.css */
+
+/* Container for the whole page */
+/* Container that holds both sidebars and the main content */
+.home-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #2a3c5d;
+}
+
+/* Main content area with posts */
+.main-content {
+  margin: 0 360px; /* Leave space for both left and right sidebars */
+  padding: 20px;
+  width: 100%;
+}
+/* Post Creation Styles */
+.post-creation {
+  width: 80%;
+  margin-bottom: 20px;
+  background-color: #2a3c5d;
+  border: 1px solid #bbbbbb;
+  padding: 10px; /* Added padding to create some space inside the container */
+}
+
+/* Textarea and Button */
+.textarea {
+  width: 100%; /* Full width of the parent container */
+  height: 100px;
+  border: none; /* Remove the default border */
+  font-size: 16px;
+  background-color: #2a3c5d;
+  color: white;
+  resize: none;
+}
+
+.textarea:focus {
+  background-color: #3a4b7d;
+}
+
+.post-button {
+  background-color: #4fa3f7;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.post-button:hover {
+  background-color: #0a7eff;
+}
+
+/* Border around individual posts */
+.post {
+  background-color: #2a3c5d;
+  padding: 15px;
+  margin: 10px 0;
+  /*border-radius: 10px;*/
+  border-bottom: 0.5px solid #bbbbbb;  /* Border around individual post */
+  border-top: 0.5px solid #bbbbbb;  /* Border around individual post */
+}
+

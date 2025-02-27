@@ -1,0 +1,38 @@
+/* Sidebarfeeds.css */
+
+/* Sidebar styles for the right sidebar (duplicate nav) */
+.sidebarfeeds {
+  width: 350px;  /* Fixed width for the sidebar */
+  background-color: #1e2a47;  /* Dark blue background */
+  color: white;
+  padding: 20px;
+  position: fixed;  /* Fixes the sidebar on the right side */
+  top: 0;  /* Sticks it to the top of the screen */
+  right: 0;  /* Aligns the sidebar to the right */
+  border-left: 0.5px solid #ffffff;  /* Border between sidebar and content */
+  height: 100vh;  /* Makes the sidebar full height */
+  overflow-y: auto;  /* Allows scrolling inside the sidebar if content overflows */
+}
+
+.sidebarfeeds h3 {
+  text-align: center;
+  color: #fff;
+}
+
+.sidebarfeeds nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.sidebarfeeds nav a {
+  color: #4fa3f7;
+  text-decoration: none;
+  margin: 10px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sidebarfeeds nav a:hover {
+  color: #0a7eff;
+}
