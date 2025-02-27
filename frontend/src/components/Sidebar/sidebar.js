@@ -8,6 +8,7 @@ function Sidebar() {
       <img src='/image073263.png' alt="description" width="300" height="300" className='logo'/>
 
       <nav>
+        <Link to="/home">Home</Link>
         <Link to="/jobs">Job Board</Link>
         <Link to="/trainings">Trainings</Link>
         <Link to="/blog">Blog</Link>
