@@ -70,3 +70,20 @@
 .toolie:hover {
   background-color: #0a7eff;
 }
+
+.post {
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.post:hover {
+  background-color: #f1f1f1; /* Light gray on hover */
+  transform: scale(1.02); /* Slightly scale up the post */
+}
+
+.toolie {
+  transition: background-color 0.3s;
+}
+
+.toolie:hover {
+  background-color: #f1f1f1; /* Light gray on hover */
+}
