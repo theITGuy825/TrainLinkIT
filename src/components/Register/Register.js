@@ -12,7 +12,10 @@ function Register() {
     lastName: "",
     email: "",
     password: "",
-    userType: "freelancer", // Default user type, could be freelancer or business
+    userType: "freelancer", // Default user type
+    businessName: "", // Business-specific fields
+    businessAddress: "",
+    businessDescription: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -33,6 +36,12 @@ function Register() {
     if (!formData.email.includes("@")) newErrors.email = "Enter a valid email";
     if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters";
 
+    // Business-specific validation
+    if (formData.userType === "business") {
+      if (!formData.businessName) newErrors.businessName = "Business name is required";
+      if (!formData.businessAddress) newErrors.businessAddress = "Business address is required";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -44,19 +53,38 @@ function Register() {
         // Create user with email and password
         const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
         const user = userCredential.user;
-        
-        // Add user data to Firestore (including userId and userType)
-        await setDoc(doc(db, "users", user.uid), {
+
+        // Prepare user data for Firestore
+        const userData = {
           firstName: formData.firstName,
           lastName: formData.lastName,
           email: formData.email,
           userType: formData.userType,
           uid: user.uid, // Store the UID as userId
-          profilePic: ""
-        });
+          profilePic: "",
+        };
+
+        // Add business-specific fields if userType is "business"
+        if (formData.userType === "business") {
+          userData.businessName = formData.businessName;
+          userData.businessAddress = formData.businessAddress;
+          userData.businessDescription = formData.businessDescription;
+        }
+
+        // Add user data to Firestore
+        await setDoc(doc(db, "users", user.uid), userData);
 
         alert("Registration successful!");
-        setFormData({ firstName: "", lastName: "", email: "", password: "", userType: "freelancer" }); // Reset form
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+          userType: "freelancer",
+          businessName: "",
+          businessAddress: "",
+          businessDescription: "",
+        }); // Reset form
         navigate("/login"); // Redirect to login page after successful registration
       } catch (err) {
         setError("Failed to create account, please try again.");
@@ -123,6 +151,42 @@ function Register() {
           <option value="freelancer">Freelancer</option>
           <option value="business">Business</option>
         </select>
+
+        {/* Conditionally render business-specific fields */}
+        {formData.userType === "business" && (
+          <>
+            <label htmlFor="businessName">Business Name:</label>
+            <input
+              id="businessName"
+              type="text"
+              name="businessName"
+              value={formData.businessName}
+              onChange={handleChange}
+              placeholder="Business Name"
+            />
+            <span>{errors.businessName}</span>
+
+            <label htmlFor="businessAddress">Business Address:</label>
+            <input
+              id="businessAddress"
+              type="text"
+              name="businessAddress"
+              value={formData.businessAddress}
+              onChange={handleChange}
+              placeholder="Business Address"
+            />
+            <span>{errors.businessAddress}</span>
+
+            <label htmlFor="businessDescription">Business Description:</label>
+            <textarea
+              id="businessDescription"
+              name="businessDescription"
+              value={formData.businessDescription}
+              onChange={handleChange}
+              placeholder="Business Description"
+            />
+          </>
+        )}
 
         <button type="submit">Register</button>
         {error && <p style={{ color: "red" }}>{error}</p>}
