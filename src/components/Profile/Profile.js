@@ -4,6 +4,7 @@ import { auth, db } from "../../firebase"; // Import Firebase auth and Firestore
 import { doc, getDoc } from "firebase/firestore"; // Firestore functions
 import Sidebar from "../Sidebar/sidebar.js";
 import PostFeed from "../PostFeed/PostFeed.js";
+import LinkUpButton from '../LinkUpButton/LinkUpButton'; // Import the follow functionality
 import '../Sidebar/Sidebar.css';
 import '../PostFeed/PostFeed.css';
 import './Profile.css';
@@ -56,6 +57,13 @@ function Profile() {
             {/* Add more business-specific fields here */}
           </div>
         )}
+
+        {/* Display followers and following counts */}
+        <p>Followers: {userData.followers ? userData.followers.length : 0}</p>
+        <p>Following: {userData.following ? userData.following.length : 0}</p>
+        
+        {/* Add the Link Up button */}
+        <LinkUpButton targetUserId={uid} />
         <PostFeed />
       </div>
     </div>
