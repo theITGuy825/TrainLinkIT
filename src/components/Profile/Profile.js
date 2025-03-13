@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../../firebase"; // Import Firebase auth and Firestore
 import { doc, getDoc } from "firebase/firestore"; // Firestore functions
 import Sidebar from "../Sidebar/sidebar.js";
@@ -9,6 +9,7 @@ import '../PostFeed/PostFeed.css';
 import './Profile.css';
 
 function Profile() {
+  const { uid } = useParams(); // Get the user ID from the URL
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
@@ -16,7 +17,7 @@ function Profile() {
     const fetchUserData = async () => {
       const user = auth.currentUser;
       if (user) {
-        const userDoc = await getDoc(doc(db, "users", user.uid));
+        const userDoc = await getDoc(doc(db, "users", uid)); // Fetch data for the user in the URL
         if (userDoc.exists()) {
           setUserData(userDoc.data());
         } else {
@@ -27,7 +28,7 @@ function Profile() {
       }
     };
     fetchUserData();
-  }, [navigate]);
+  }, [navigate, uid]);
 
   if (!userData) return <p>Loading...</p>;
 
@@ -51,7 +52,6 @@ function Profile() {
             <p>Business Name: {userData.businessName}</p>
             <p>Address: {userData.businessAddress}</p>
             <p>Description: {userData.businessDescription}</p>
-            <p>Email: {userData.email}</p>
             <p>User Type: {userData.userType}</p>
             {/* Add more business-specific fields here */}
           </div>
