@@ -1,120 +1,146 @@
+/*
+Color theme
+#15243b - Dark Blue
+#bae8e5 - Light Blue
+#f0fffc - Lightest Blue
+#ffc750 - Yellow
+#ffc - Light Yellow
+*/
 /* General Layout for Login Page */
 .login-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #2a3c5d; /* Dark background color */
-    color: #ffffff;
-    padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0fffc;
+  color: #15243b; /* Dark text color */
+  padding: 20px;
+}
+
+/* Login Form */
+.login-form {
+  background-color: #bae8e5; /* Slightly lighter background for the form */
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px; /* Max width to control form size */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px); 
   }
-  
-  /* Login Form */
+  100% {
+    opacity: 1;
+    transform: translateY(0); 
+  }
+}
+
+img.logo {
+  margin-bottom: -20px;
+  margin-top: -150px;
+  animation: fadeSlideIn 2s ease-in-out; 
+}
+
+/* Form Input Fields */
+.input {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.input input {
+  padding: 10px;
+  border: 1px solid #4fa3f7;
+  border-radius: 5px;
+  background-color: #ffc;
+  color: #15243b;
+  font-size: 14px;
+  outline: none;
+}
+
+.input input:hover {
+  background-color: #ffc750;
+  transition: all 0.4s ease-in-out;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/* Submit Button */
+button {
+  background-color: #15243b;
+  color: #ffc750;
+  padding: 10px 20px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.4s ease-in-out;
+}
+
+button:hover {
+  background-color: #ffc750;
+  color: #15243b;
+}
+
+/* Navigation Link */
+p {
+  text-align: center;
+  margin-top: 10px;
+}
+
+p span {
+  color: #4fa3f7;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+p span:hover {
+  color: #0a7eff;
+}
+
+/* Logo Image */
+.logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
   .login-form {
-    background-color: #3e5168; /* Slightly lighter background for the form */
-    border-radius: 10px;
-    padding: 20px;
-    width: 100%;
-    max-width: 400px; /* Max width to control form size */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    padding: 15px;
+    width: 90%;
   }
-  
-  h2 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  /* Form Input Fields */
-  .input {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .input label {
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
+
   .input input {
-    padding: 10px;
-    border: 1px solid #4fa3f7;
-    border-radius: 5px;
-    background-color: #2a3c5d;
-    color: #ffffff;
-    font-size: 14px;
-    outline: none;
-  }
-  
-  .input input:focus {
-    border-color: #0a7eff;
-  }
-  
-  /* Error Message */
-  .error-message {
-    color: red;
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 14px;
-  }
-  
-  /* Submit Button */
-  button {
-    background-color: #4fa3f7;
-    color: white;
-    padding: 10px 20px;
-    width: 100%;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
   }
-  
-  button:hover {
-    background-color: #0a7eff;
+
+  button {
+    font-size: 18px;
   }
-  
-  /* Navigation Link */
-  p {
-    text-align: center;
-    margin-top: 10px;
-  }
-  
-  p span {
-    color: #4fa3f7;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  
-  p span:hover {
-    color: #0a7eff;
-  }
-  
-  /* Logo Image */
-  .logo {
-    width: 150px;
-    height: auto;
-    margin-bottom: 30px;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    .login-form {
-      padding: 15px;
-      width: 90%;
-    }
-  
-    .input input {
-      font-size: 16px;
-    }
-  
-    button {
-      font-size: 18px;
-    }
-  }
-  
+}
