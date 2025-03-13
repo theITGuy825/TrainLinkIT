@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Import Link for navigation
 import { db, auth } from "../../firebase";
 import {
   collection,
@@ -142,27 +143,31 @@ function PostFeed({ title, userId }) {
       <div className="post-feed-container">
         {posts.length > 0 ? (
           posts.map((post) => (
-            <div key={post.id} className="post">
-              <div className="post-header">
-                <img
-                  src={post.profilePic}
-                  alt="Profile"
-                  width="50"
-                  height="50"
-                  className="profilepic"
-                />
-                <h4>{post.author}</h4> {/* Display full name */}
-              </div>
-              <p>{post.content}</p>
+            <Link to={`/post/${post.id}`} key={post.id} className="post-link">
+              <div className="post">
+                <div className="post-header">
+                  <img
+                    src={post.profilePic}
+                    alt="Profile"
+                    width="50"
+                    height="50"
+                    className="profilepic"
+                  />
+                  <h4>{post.author}</h4> {/* Display full name */}
+                </div>
+                <p>{post.content}</p>
 
-              {/* Like & Comment Counters */}
-              <div className="post-actions">
-                <button className="toolie" onClick={() => handleLike(post.id)}>
-                  ❤️ {post.likesCount} Likes
-                </button>
-                <button className="toolie">💬 {post.commentsCount} Comments</button>
+                {/* Like & Comment Counters */}
+                <div className="post-actions">
+                  <button className="toolie" onClick={() => handleLike(post.id)}>
+                    ❤️ {post.likesCount} Likes
+                  </button>
+                  <button className="toolie">
+                    💬 {post.commentsCount} Comments
+                  </button>
+                </div>
               </div>
-            </div>
+            </Link>
           ))
         ) : (
           <p>No posts available.</p>

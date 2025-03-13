@@ -4,7 +4,8 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
-import PostFeed from "./components/PostFeed/PostFeed"; // Import PostFeed
+import PostFeed from "./components/PostFeed/PostFeed";
+import PostDetail from "./components/postdetail/postdetail"; // Import the PostDetail component
 
 function App() {
   return (
@@ -13,14 +14,9 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/home"
-          element={<Home />}  // Now no need to pass posts and setPosts
-        />
-        <Route
-          path="/profile"
-          element={<Profile />}  // No need to pass posts to Profile anymore
-        />
+        <Route path="/home" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/post/:postId" element={<PostDetail />} /> {/* Dynamic Route for Individual Post */}
       </Routes>
     </Router>
   );
