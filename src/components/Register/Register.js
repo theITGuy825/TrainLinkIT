@@ -31,9 +31,11 @@ function Register() {
 
   const validateForm = () => {
     let newErrors = {};
-    if (!formData.firstName) newErrors.firstName = "First name is required";
-    if (!formData.lastName) newErrors.lastName = "Last name is required";
-    if (!formData.email.includes("@")) newErrors.email = "Enter a valid email";
+    if (formData.userType === "freelancer") {
+      if (!formData.firstName) newErrors.firstName = "First name is required";
+      if (!formData.lastName) newErrors.lastName = "Last name is required";
+      if (!formData.email.includes("@")) newErrors.email = "Enter a valid email";
+    }
     if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters";
 
     // Business-specific validation
@@ -97,39 +99,45 @@ function Register() {
     <div>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name:</label>
-        <input
-          id="firstName"
-          type="text"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          placeholder="First Name"
-        />
-        <span>{errors.firstName}</span>
+        {/* Conditionally render freelancer-specific fields */}
+        {formData.userType === "freelancer" && (
+          <>
+            <label htmlFor="firstName">First Name:</label>
+            <input
+              id="firstName"
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="First Name"
+            />
+            <span>{errors.firstName}</span>
 
-        <label htmlFor="lastName">Last Name:</label>
-        <input
-          id="lastName"
-          type="text"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          placeholder="Last Name"
-        />
-        <span>{errors.lastName}</span>
+            <label htmlFor="lastName">Last Name:</label>
+            <input
+              id="lastName"
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Last Name"
+            />
+            <span>{errors.lastName}</span>
 
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        <span>{errors.email}</span>
+            <label htmlFor="email">Email:</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
+            />
+            <span>{errors.email}</span>
+          </>
+        )}
 
+        {/* Always render password field */}
         <label htmlFor="password">Password:</label>
         <input
           id="password"
@@ -141,6 +149,7 @@ function Register() {
         />
         <span>{errors.password}</span>
 
+        {/* User type selection */}
         <label htmlFor="userType">User Type:</label>
         <select
           id="userType"
