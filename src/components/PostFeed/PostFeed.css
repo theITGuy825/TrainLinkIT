@@ -1,89 +1,46 @@
-/* Post Feed Scrollable Container */
-.post-feed-container {
-  max-height: 640px;  /* You can adjust the max-height as needed */
-  overflow-y: scroll;  /* Allow scrolling */
-  padding-top: 10px;
-  scrollbar-width: thin; /* For Firefox (to make the scrollbar smaller) */
-  scrollbar-color: transparent transparent; /* For Firefox (hide scrollbar) */
+/* Popup styling */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* For Webkit browsers (Chrome, Safari) */
-.post-feed-container::-webkit-scrollbar {
-  width: 0px;  /* Make the scrollbar width 0 to hide it */
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 500px;
+  max-width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
 }
 
-.post-feed-container::-webkit-scrollbar-thumb {
-  background: transparent; /* Make the thumb invisible */
+.comments-list {
+  margin-bottom: 10px;
 }
 
-.post-feed-container::-webkit-scrollbar-track {
-  background: transparent; /* Make the track invisible */
+.comment {
+  background-color: #f0f0f0;
+  padding: 5px;
+  margin-bottom: 10px;
 }
 
-/* Individual Post styles */
-.post {
-  background-color: #2a3c5d;
-  margin: 0px 0;
+textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
   padding: 10px;
 }
 
-/* Align image and author horizontally */
-.post-header {
-  display: flex;
-  align-items: center; /* Vertically align image and text */
-  margin-bottom: 10px; /* Add space below the header */
-}
-
-.post-creation-header {
-  display: flex;
-  align-items: center; /* Vertically align image and text */
-  margin-bottom: 10px; /* Add space below the header */
-}
-.profilepic-post-creation{
-  margin-top: -50px;
-}
-
-.post-header img {
-  margin-right: 10px; /* Space between image and author name */
-}
-
-.post .author {
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.post .content {
-  margin-top: 5px;
-  color: #d1d1d1;
-}
-
-/* Tool buttons styles */
-.toolie {
-  background-color: #4fa3f7;
-  color: white;
-  padding: 5px 10px;
-  margin: 5px;
-  border: none;
+button {
+  padding: 10px;
   cursor: pointer;
-}
-
-.toolie:hover {
-  background-color: #0a7eff;
-}
-
-.post {
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.post:hover {
-  background-color: #f1f1f1; /* Light gray on hover */
-  transform: scale(1.02); /* Slightly scale up the post */
-}
-
-.toolie {
-  transition: background-color 0.3s;
-}
-
-.toolie:hover {
-  background-color: #f1f1f1; /* Light gray on hover */
+  background-color: #007bff;
+  color: white;
 }

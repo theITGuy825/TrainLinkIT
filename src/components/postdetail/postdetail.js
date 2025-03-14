@@ -28,7 +28,7 @@ function PostDetail() {
         <div className="post-detail">
           <h2>{post.content}</h2>
           <p>Posted by: {post.userId}</p>
-          {/* Display the post's comments and other details here */}
+          
         </div>
       ) : (
         <p>Loading...</p>
