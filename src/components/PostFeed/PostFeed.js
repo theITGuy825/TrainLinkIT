@@ -16,10 +16,9 @@ import {
   getDocs, // Import getDocs here
 } from "firebase/firestore";
 
-// Comment Popup component
 function CommentPopup({ post, closePopup }) {
   const [newComment, setNewComment] = useState("");
-  
+
   const handleCommentSubmit = async () => {
     const user = auth.currentUser;
     if (!user) {
@@ -46,7 +45,19 @@ function CommentPopup({ post, closePopup }) {
     <div className="popup-overlay">
       <div className="popup-content">
         <button onClick={closePopup}>Close</button>
-        <h2>Comments for Post: {post.author}</h2>
+        
+        {/* Display Author Profile Picture */}
+        <div className="post-header">
+          <img
+            src={post.profilePic || "/profilepic.png"} // Ensure profilePic exists
+            alt="Profile"
+            width="50"
+            height="50"
+            className="profilepic"
+          />
+          <h2>{post.author}</h2>
+        </div>
+
         <p>{post.content}</p>
 
         {/* Render Comments */}
@@ -73,6 +84,7 @@ function CommentPopup({ post, closePopup }) {
     </div>
   );
 }
+
 
 function PostFeed({ title, userId }) {
   const [newPost, setNewPost] = useState("");
