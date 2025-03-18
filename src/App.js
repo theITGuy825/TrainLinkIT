@@ -4,8 +4,8 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
-import PostFeed from "./components/PostFeed/PostFeed";
 import PostDetail from "./components/postdetail/postdetail"; // Import the PostDetail component
+
 
 function App() {
   return (
@@ -15,8 +15,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/post/:postId" element={<PostDetail />} /> {/* Dynamic Route for Individual Post */}
+        <Route path="/profile/:userId" element={<Profile />} />
+        <Route path="/post" element={<PostDetail />} /> {/* Dynamic Route for Individual Post */}
+        <Route path="*" element={<p>404 - Page Not Found</p>} />
       </Routes>
     </Router>
   );

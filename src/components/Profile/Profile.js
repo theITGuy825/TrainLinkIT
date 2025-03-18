@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../../firebase"; // Import Firebase auth and Firestore
 import { doc, getDoc, setDoc } from "firebase/firestore"; // Firestore functions
 import Sidebar from "../Sidebar/sidebar.js";
 import PostFeed from "../PostFeed/PostFeed.js";
+import LinkUpButton from "../LinkUpButton/LinkUpButton.js";
 import '../Sidebar/Sidebar.css';
 import '../PostFeed/PostFeed.css';
 import './Profile.css';
 
 function Profile() {
+  const { userId } = useParams(); 
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,11 +18,19 @@ function Profile() {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    if (!userId) {
+      setError("User ID is missing.");
+      setLoading(false);
+      return;
+    }
+
+
     const fetchUserData = async () => {
       const user = auth.currentUser;
       if (user) {
         try {
-          const userDoc = await getDoc(doc(db, "users", user.uid));
+          const userDoc = await getDoc(doc(db, "users", userId));
           if (userDoc.exists()) {
             setUserData(userDoc.data());
           } else {
@@ -37,11 +47,12 @@ function Profile() {
       }
     };
     fetchUserData();
-  }, [navigate]);
+  }, [userId]); 
 
   
   if (loading) return <p>Loading...</p>;
 if (error) return <p style={{ color: "red" }}>{error}</p>;
+if (!userData) return <p>No user data found.</p>;
 
 const handleSaveProfile = async () => {
   const user = auth.currentUser;
@@ -67,15 +78,21 @@ return (
       {/* Profile Picture Here */}
       <div className="profile-picture">
         <img
-          src={userData.profilePic || "https://via.placeholder.com/150"} // Default placeholder if no profile picture
+          src={userData?.profilePic || "https://via.placeholder.com/150"} // Default placeholder if no profile picture
           alt="Profile"
         />
       </div>
 
       {/* Edit Button */}
-      <button onClick={() => setIsEditing(!isEditing)}>
-        {isEditing ? "Cancel" : "Edit Profile"}
-      </button>
+      {auth.currentUser && auth.currentUser.uid === userId && (
+  <button onClick={() => setIsEditing(!isEditing)}>
+    {isEditing ? "Cancel" : "Edit Profile"}
+  </button>
+)}
+
+      {auth.currentUser && auth.currentUser.uid !== userId && (
+  <LinkUpButton targetUserId={userId} />
+)}
 
       {userData.userType === "freelancer" && (
         <div className="freelancer-profile">

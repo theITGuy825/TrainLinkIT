@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import './Sidebar.css';  // Make sure you create a CSS file for Sidebar styles
+import { auth } from "../../firebase";
 
 function Sidebar() {
+  const userId = auth.currentUser?.uid;
   return (
     <div className="sidebar">
       <img src='/image073263.png' alt="description" width="500" height="500" className='logo'/>
@@ -12,7 +14,7 @@ function Sidebar() {
         <Link to="/jobs">Job Board</Link>
         <Link to="/trainings">Trainings</Link>
         <Link to="/blog">Blog</Link>
-        <Link to="/profile">My Profile</Link>
+        <Link to={`/profile/${userId}`}>My Profile</Link>
       </nav>
     </div>
   );
