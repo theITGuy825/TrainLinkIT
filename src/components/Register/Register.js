@@ -20,6 +20,7 @@ function Register() {
 
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(''); // For general errors like sign up failure
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,13 +32,19 @@ function Register() {
 
   const validateForm = () => {
     let newErrors = {};
+    // Email validation for all user types
+    if (!formData.email || !formData.email.includes("@")) {
+      newErrors.email = "Enter a valid email";
+    }
+    // Password validation for all user types
+    if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+    // Freelancer-specific validation
     if (formData.userType === "freelancer") {
       if (!formData.firstName) newErrors.firstName = "First name is required";
       if (!formData.lastName) newErrors.lastName = "Last name is required";
-      if (!formData.email.includes("@")) newErrors.email = "Enter a valid email";
     }
-    if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters";
-
     // Business-specific validation
     if (formData.userType === "business") {
       if (!formData.businessName) newErrors.businessName = "Business name is required";
@@ -51,6 +58,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
+      setLoading(true);
       try {
         // Create user with email and password
         const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
@@ -89,8 +97,18 @@ function Register() {
         }); // Reset form
         navigate("/login"); // Redirect to login page after successful registration
       } catch (err) {
-        setError("Failed to create account, please try again.");
+        let errorMessage = "Failed to create account, please try again.";
+        if (err.code === "auth/email-already-in-use") {
+          errorMessage = "This email is already in use.";
+        } else if (err.code === "auth/weak-password") {
+          errorMessage = "Password should be at least 6 characters.";
+        } else if (err.code === "auth/invalid-email") {
+          errorMessage = "Invalid email address.";
+        }
+        setError(errorMessage);
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -99,43 +117,18 @@ function Register() {
     <div>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
-        {/* Conditionally render freelancer-specific fields */}
-        {formData.userType === "freelancer" && (
-          <>
-            <label htmlFor="firstName">First Name:</label>
-            <input
-              id="firstName"
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              placeholder="First Name"
-            />
-            <span>{errors.firstName}</span>
-
-            <label htmlFor="lastName">Last Name:</label>
-            <input
-              id="lastName"
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              placeholder="Last Name"
-            />
-            <span>{errors.lastName}</span>
-
-            <label htmlFor="email">Email:</label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Email"
-            />
-            <span>{errors.email}</span>
-          </>
-        )}
+        {/* Always render email field */}
+        <label htmlFor="email">Email:</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email"
+          required
+        />
+        <span>{errors.email}</span>
 
         {/* Always render password field */}
         <label htmlFor="password">Password:</label>
@@ -146,6 +139,7 @@ function Register() {
           value={formData.password}
           onChange={handleChange}
           placeholder="Password"
+          required
         />
         <span>{errors.password}</span>
 
@@ -161,6 +155,35 @@ function Register() {
           <option value="business">Business</option>
         </select>
 
+        {/* Conditionally render freelancer-specific fields */}
+        {formData.userType === "freelancer" && (
+          <>
+            <label htmlFor="firstName">First Name:</label>
+            <input
+              id="firstName"
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="First Name"
+              required
+            />
+            <span>{errors.firstName}</span>
+
+            <label htmlFor="lastName">Last Name:</label>
+            <input
+              id="lastName"
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Last Name"
+              required
+            />
+            <span>{errors.lastName}</span>
+          </>
+        )}
+
         {/* Conditionally render business-specific fields */}
         {formData.userType === "business" && (
           <>
@@ -172,6 +195,7 @@ function Register() {
               value={formData.businessName}
               onChange={handleChange}
               placeholder="Business Name"
+              required
             />
             <span>{errors.businessName}</span>
 
@@ -183,6 +207,7 @@ function Register() {
               value={formData.businessAddress}
               onChange={handleChange}
               placeholder="Business Address"
+              required
             />
             <span>{errors.businessAddress}</span>
 
@@ -197,7 +222,9 @@ function Register() {
           </>
         )}
 
-        <button type="submit">Register</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Registering..." : "Register"}
+        </button>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
       <p>
