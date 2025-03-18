@@ -5,15 +5,23 @@ import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firest
 function LinkUpButton({ targetUserId }) {
   const [isFollowing, setIsFollowing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const checkIfFollowing = async () => {
       const currentUser = auth.currentUser;
       if (currentUser) {
-        const currentUserDoc = await getDoc(doc(db, 'users', currentUser.uid));
-        if (currentUserDoc.exists()) {
-          const following = currentUserDoc.data().following || [];
-          setIsFollowing(following.includes(targetUserId));
+        try {
+          const currentUserDoc = await getDoc(doc(db, 'users', currentUser.uid));
+          if (currentUserDoc.exists()) {
+            const following = currentUserDoc.data().following || [];
+            setIsFollowing(following.includes(targetUserId));
+          } else {
+            setError('Current user document not found.');
+          }
+        } catch (error) {
+          console.error('Error checking follow status:', error);
+          setError('Failed to check follow status.');
         }
       }
     };
@@ -22,6 +30,7 @@ function LinkUpButton({ targetUserId }) {
 
   const handleLinkUp = async () => {
     setLoading(true);
+    setError('');
     const currentUser = auth.currentUser;
     if (!currentUser) {
       alert('You must be logged in to follow users.');
@@ -55,15 +64,19 @@ function LinkUpButton({ targetUserId }) {
       }
     } catch (error) {
       console.error('Error updating follow status:', error);
+      setError('Failed to update follow status. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <button onClick={handleLinkUp} disabled={loading}>
-      {isFollowing ? 'Unlink' : 'Link Up'}
-    </button>
+    <div>
+      <button onClick={handleLinkUp} disabled={loading}>
+        {loading ? 'Processing...' : isFollowing ? 'Unlink' : 'Link Up'}
+      </button>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+    </div>
   );
 }
 
