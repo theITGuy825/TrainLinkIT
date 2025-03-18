@@ -13,6 +13,7 @@ import {
   setDoc,
   deleteDoc,
   serverTimestamp,
+  increment,
 } from "firebase/firestore";
 import "./PostDetail.css";
 
@@ -77,19 +78,32 @@ function PostDetail() {
       return;
     }
     if (comment.trim() === "") return;
-
+  
     const commentData = {
       text: comment,
       userId: user.uid,
-      userName: user.displayName || "Anonymous",
+      userName: user.displayName || "Anonymous", // Store username
       userProfilePic: user.photoURL || "/profilepic.png",
-      timestamp: serverTimestamp(), // Use server timestamp
+      timestamp: serverTimestamp(),
     };
-
-    await addDoc(collection(db, "posts", postId, "comments"), commentData);
-    setComment("");
+  
+    try {
+      // Add the comment to the comments subcollection
+      await addDoc(collection(db, "posts", postId, "comments"), commentData);
+  
+      // Update the comments count in the post document
+      const postRef = doc(db, "posts", postId);
+      await updateDoc(postRef, {
+        commentsCount: increment(1), // Increment the comments count
+      });
+  
+      setComment(""); // Clear the input field after posting the comment
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
   };
-
+  
+  
   const handleLike = async () => {
     if (!user) {
       alert("You must be logged in to like a post.");
@@ -150,19 +164,27 @@ function PostDetail() {
           <div className="comments-section">
             <h5>Comments</h5>
             {comments.length > 0 ? (
-              comments.map((cmt) => (
-                <div key={cmt.id} className="comment">
-                  <img src={cmt.userProfilePic} alt="User" className="comment-pic" />
-                  <div>
-                    <strong>{cmt.userName}</strong>
-                    <p>{cmt.text}</p>
-                    <p className="comment-meta">Posted on: {cmt.timestamp ? formatDate(cmt.timestamp) : "Unknown"}</p>
-                  </div>
+            comments.map((cmt) => (
+              <div key={cmt.id} className="comment">
+                <img 
+                  src={cmt.userProfilePic || "/profilepic.png"} 
+                  alt="User" 
+                  className="comment-pic" 
+                  width="40" 
+                  height="40"
+                />
+                <div>
+                  <strong>{cmt.userName || "Unknown User"}</strong> {/* Ensure username appears */}
+                  <p>{cmt.text}</p>
+                  <p className="comment-meta">
+                    Posted on: {cmt.timestamp ? formatDate(cmt.timestamp) : "Unknown"}
+                  </p>
                 </div>
-              ))
-            ) : (
-              <p>No comments yet.</p>
-            )}
+              </div>
+            ))
+          ) : (
+            <p>No comments yet.</p>
+          )}
 
             {user && (
               <div className="comment-input">
