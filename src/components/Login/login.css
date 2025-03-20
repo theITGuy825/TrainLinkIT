@@ -8,6 +8,9 @@ Color theme
 #f0fffc - Lightest Blue
 #ffc750 - Yellow
 #ffc - Light Yellow
+rgb(253, 253, 228) - Lightest Yellow
+#008080; - Teal
+#f3fefa - Light Teal
 */
 /* General Layout for Login Page */
 .login-container {
@@ -69,7 +72,7 @@ img.logo {
 
 .input label {
   margin-bottom: 5px;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: bold;
 }
 
