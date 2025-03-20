@@ -12,6 +12,8 @@ import {
   onSnapshot,
   updateDoc,
   increment,
+  setDoc, 
+  deleteDoc,
 } from "firebase/firestore";
 
 function PostFeed({ title }) {
@@ -80,14 +82,39 @@ function PostFeed({ title }) {
     }
   };
 
-  // Handle like button click
-  const handleLike = async (postId) => {
-    const postRef = doc(db, "posts", postId);
-    await updateDoc(postRef, {
-      likesCount: increment(1), // Increment the like count
-    });
-  };
 
+  const handleLike = async (postId) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert("You must be logged in to like a post.");
+      return;
+    }
+  
+    const likeRef = doc(db, "posts", postId, "likes", user.uid);
+    const postRef = doc(db, "posts", postId);
+  
+    try {
+      const likeDoc = await getDoc(likeRef);
+      const postDoc = await getDoc(postRef);
+  
+      if (!postDoc.exists()) {
+        console.error("Post does not exist");
+        return;
+      }
+  
+      if (likeDoc.exists()) {
+        // User already liked, so remove like
+        await deleteDoc(likeRef);
+        await updateDoc(postRef, { likesCount: increment(-1) });
+      } else {
+        // User has not liked, so add like
+        await setDoc(likeRef, { userId: user.uid });
+        await updateDoc(postRef, { likesCount: increment(1) });
+      }
+    } catch (error) {
+      console.error("Error handling like:", error);
+    }
+  };
   // Handle comment button click (redirects to post comments page)
   const handleComment = (postId) => {
     // Optional: Perform additional actions like scrolling to the comment section, etc.

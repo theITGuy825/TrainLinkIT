@@ -17,13 +17,12 @@ import {
 } from "firebase/firestore";
 import "./PostDetail.css";
 
-function formatDate(timestamp) {
+const formatDate = (timestamp) => {
   if (!timestamp) return "Unknown";
-  const date = timestamp.toDate(); // Convert Firestore Timestamp
-  return date.toLocaleString(); // Formats into readable date & time
-}
+  return timestamp.toDate().toLocaleString();
+};
 
-function PostDetail() {
+const PostDetail = () => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [comment, setComment] = useState("");
@@ -36,95 +35,104 @@ function PostDetail() {
     if (!postId) return;
 
     const postRef = doc(db, "posts", postId);
-    const unsubscribePost = onSnapshot(postRef, (docSnap) => {
+    const unsubscribePost = onSnapshot(postRef, async (docSnap) => {
       if (docSnap.exists()) {
         const postData = docSnap.data();
-        setPost({ id: docSnap.id, ...postData });
-        setLikes(postData.likes || 0);
-      } else {
-        console.log("Post not found");
+
+        const userRef = doc(db, "users", postData.userId);
+        const userSnap = await getDoc(userRef);
+
+        setPost({
+          id: docSnap.id,
+          author: userSnap.exists()
+            ? `${userSnap.data().firstName} ${userSnap.data().lastName}`
+            : "Unknown",
+          profilePic: userSnap.exists() ? userSnap.data().profilePic : "/profilepic.png",
+          ...postData,
+        });
       }
     });
+
+    return () => unsubscribePost();
+  }, [postId]);
+
+  useEffect(() => {
+    if (!postId) return;
 
     const commentsRef = collection(db, "posts", postId, "comments");
     const q = query(commentsRef, orderBy("timestamp", "desc"));
     const unsubscribeComments = onSnapshot(q, (snapshot) => {
-      setComments(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-      );
+      setComments(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
 
-    return () => {
-      unsubscribePost();
-      unsubscribeComments();
-    };
+    return () => unsubscribeComments();
   }, [postId]);
 
   useEffect(() => {
-    if (!user || !postId) return;
-
-    const likeRef = doc(db, "posts", postId, "likes", user.uid);
-    getDoc(likeRef).then((docSnap) => {
-      setIsLiked(docSnap.exists());
+    if (!postId) return;
+  
+    const likesRef = collection(db, "posts", postId, "likes");
+    const unsubscribeLikes = onSnapshot(likesRef, (snapshot) => {
+      setLikes(snapshot.size); // Set likes count dynamically
+      setIsLiked(snapshot.docs.some(doc => doc.id === user?.uid)); // Check if user liked it
     });
-  }, [user, postId]);
+  
+    return () => unsubscribeLikes();
+  }, [postId, user]);
+  
 
   const handleAddComment = async () => {
-    if (!user) {
-      alert("You must be logged in to comment.");
-      return;
-    }
-    if (comment.trim() === "") return;
-  
-    const commentData = {
-      text: comment,
-      userId: user.uid,
-      userName: user.displayName || "Anonymous", // Store username
-      userProfilePic: user.photoURL || "/profilepic.png",
-      timestamp: serverTimestamp(),
-    };
+    if (!user || comment.trim() === "") return;
   
     try {
-      // Add the comment to the comments subcollection
-      await addDoc(collection(db, "posts", postId, "comments"), commentData);
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
   
-      // Update the comments count in the post document
-      const postRef = doc(db, "posts", postId);
-      await updateDoc(postRef, {
-        commentsCount: increment(1), // Increment the comments count
+      if (!userSnap.exists()) {
+        console.error("User document not found");
+        return;
+      }
+  
+      const userData = userSnap.data();
+      const userName = `${userData.firstName} ${userData.lastName}`;
+      const userProfilePic = userData.profilePic || "/profilepic.png";
+  
+      await addDoc(collection(db, "posts", postId, "comments"), {
+        text: comment,
+        userId: user.uid,
+        userName,
+        userProfilePic,
+        timestamp: serverTimestamp(),
       });
   
-      setComment(""); // Clear the input field after posting the comment
+      await updateDoc(doc(db, "posts", postId), { commentsCount: increment(1) });
+  
+      setComment(""); // Clear input after posting
     } catch (error) {
       console.error("Error adding comment:", error);
     }
   };
   
-  
+
   const handleLike = async () => {
     if (!user) {
       alert("You must be logged in to like a post.");
       return;
     }
-
+  
     const likeRef = doc(db, "posts", postId, "likes", user.uid);
-    const postRef = doc(db, "posts", postId);
-
-    if (isLiked) {
-      await deleteDoc(likeRef);
-      await updateDoc(postRef, { likes: likes - 1 });
-      setIsLiked(false);
-      setLikes(likes - 1);
-    } else {
-      await setDoc(likeRef, { userId: user.uid });
-      await updateDoc(postRef, { likes: likes + 1 });
-      setIsLiked(true);
-      setLikes(likes + 1);
+  
+    try {
+      if (isLiked) {
+        await deleteDoc(likeRef);
+      } else {
+        await setDoc(likeRef, { userId: user.uid });
+      }
+    } catch (error) {
+      console.error("Error updating like:", error);
     }
   };
+  
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -137,63 +145,37 @@ function PostDetail() {
         <div className="post-detail">
           <div className="post-header">
             <Link to={`/profile/${post.userId}`} className="author-info">
-              <img
-                src={post.profilePic || "/profilepic.png"}
-                alt="Profile"
-                width="50"
-                height="50"
-                className="profilepic"
-              />
+              <img src={post.profilePic} alt="Profile" className="profilepic" width="50" height="50" />
               <div>
-                <h2>{post.author || "Unknown"}</h2>
-                <p className="post-meta">Posted on: {post.timestamp ? formatDate(post.timestamp) : "Unknown"}</p>
+                <h2>{post.author}</h2>
+                <p className="post-meta">Posted on: {formatDate(post.timestamp)}</p>
               </div>
             </Link>
           </div>
           <p className="post-content">{post.content}</p>
-
-          {/* Like and Share Buttons */}
           <div className="post-actions">
-            <button className={isLiked ? "liked" : ""} onClick={handleLike}>
-              ❤️ {likes}
-            </button>
+            <button className={isLiked ? "liked" : ""} onClick={handleLike}>❤️ {likes}</button>
             <button onClick={handleShare}>🔗 Share</button>
           </div>
-
-          {/* Comment Section */}
           <div className="comments-section">
             <h5>Comments</h5>
             {comments.length > 0 ? (
-            comments.map((cmt) => (
-              <div key={cmt.id} className="comment">
-                <img 
-                  src={cmt.userProfilePic || "/profilepic.png"} 
-                  alt="User" 
-                  className="comment-pic" 
-                  width="40" 
-                  height="40"
-                />
-                <div>
-                  <strong>{cmt.userName || "Unknown User"}</strong> {/* Ensure username appears */}
-                  <p>{cmt.text}</p>
-                  <p className="comment-meta">
-                    Posted on: {cmt.timestamp ? formatDate(cmt.timestamp) : "Unknown"}
-                  </p>
+              comments.map((cmt) => (
+                <div key={cmt.id} className="comment">
+                  <img src={cmt.userProfilePic} alt="User" className="comment-pic" width="40" height="40" />
+                  <div>
+                    <strong>{cmt.userName}</strong>
+                    <p classname="post-content">{cmt.text}</p>
+                    <p className="comment-meta">Posted on: {formatDate(cmt.timestamp)}</p>
+                  </div>
                 </div>
-              </div>
-            ))
-          ) : (
-            <p>No comments yet.</p>
-          )}
-
+              ))
+            ) : (
+              <p>No comments yet.</p>
+            )}
             {user && (
               <div className="comment-input">
-                <input
-                  type="text"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  placeholder="Add a comment..."
-                />
+                <input type="text" value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Add a comment..." />
                 <button onClick={handleAddComment}>Post</button>
               </div>
             )}
@@ -204,6 +186,6 @@ function PostDetail() {
       )}
     </div>
   );
-}
+};
 
 export default PostDetail;
