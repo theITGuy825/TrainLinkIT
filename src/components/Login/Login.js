@@ -41,8 +41,8 @@ function Login() {
       <img src='/image073263.png' alt="description"  className='logo'/>
 
       <div className="login-form">
-        <h2>Login</h2>
-        <form>
+        <h2>LOGIN</h2>
+        <form className='form'>
           <div className="input">
             <label htmlFor="email">Email</label>
             <input
@@ -68,7 +68,7 @@ function Login() {
           {/* Show error message if there is one */}
           {error && <p className="error-message">{error}</p>}
 
-          <button type="submit" onClick={handleLogin}>Login</button>
+          <button type="submit" onClick={handleLogin}>LOGIN</button>
         </form>
 
         <p>
