@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+
+.messenger {
+  font-family: "Inconsolata", monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding-left: 220px; /* Leaves space for the sidebar */
+  background-color: #e3f6f5;
+  color: #15243b;
+}
+
+.chat-box {
+  width: 100%;
+  max-width: 600px;
+  height: 500px;
+  overflow-y: auto;
+  border: 2px solid #15243b;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.message.sent {
+  background-color: #bae8e5;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.message.received {
+  background-color: #d4eef9;
+  align-self: flex-start;
+  text-align: left;
+}
+
+.profile-pic {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid #15243b;
+}
+
+.message div {
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.message strong {
+  display: block;
+  font-size: 14px;
+  color: #15243b;
+}
+
+.message p {
+  font-size: 16px;
+  margin: 5px 0 0;
+}
+
+.message-input {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 15px;
+}
+
+.message-input input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #15243b;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.message-input button {
+  padding: 10px 15px;
+  background-color: #008080;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-left: 10px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.message-input button:hover {
+  background-color: #006666;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 1000px) {
+  .messenger {
+    padding-left: 50px;
+  }
+
+  .chat-box {
+    max-width: 90%;
+    height: 400px;
+  }
+
+  .message-input {
+    max-width: 90%;
+  }
+
+  .profile-pic {
+    width: 30px;
+    height: 30px;
+  }
+
+  .message strong {
+    font-size: 12px;
+  }
+
+  .message p {
+    font-size: 14px;
+  }
+}

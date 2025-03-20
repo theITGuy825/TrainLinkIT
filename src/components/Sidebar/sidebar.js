@@ -23,7 +23,7 @@ function Sidebar() {
     { title: "Home", icon: <FaHome />, link: "/home" },
     { title: "Job Board", icon: <FaBriefcase />, link: "/jobs" },
     { title: "Trainings", icon: <FaChalkboardTeacher />, link: "/trainings" },
-    { title: "Blog", icon: <FaBlog />, link: "/blog" },
+    { title: "Messenger", icon: <FaBlog />, link: "/Messenger" },
     {
       title: "My Profile",
       icon: <FaUser />,
