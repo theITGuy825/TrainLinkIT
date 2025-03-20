@@ -5,7 +5,7 @@
 .sidebarfeeds {
   max-width: 350px;
   width: 100%;  /* Fixed width for the sidebar */
-  background-color: #bae8e5;  /* Dark blue background */
+  background-color: #ffc;  /* Dark blue background */
   color: #15243b;
   padding: 20px;
   position: fixed;  /* Fixes the sidebar on the right side */
@@ -43,6 +43,8 @@
 
 .my-app{
   font-family: "Playwrite HU", cursive;
+  border-bottom: #15243b 2px solid;
+  padding-bottom: 20px;
 }
 
 .menu-item {
