@@ -1,68 +1,108 @@
-/* ProfilePost.css */
-
 /* Post Feed Scrollable Container */
 .post-feed-container {
-    max-height: 640px;  /* You can adjust the max-height as needed */
-    overflow-y: scroll;  /* Allow scrolling */
-    padding-top: 10px;
-    scrollbar-width: thin; /* For Firefox (to make the scrollbar smaller) */
-    scrollbar-color: transparent transparent; /* For Firefox (hide scrollbar) */
-  }
-  
-  /* For Webkit browsers (Chrome, Safari) */
-  .post-feed-container::-webkit-scrollbar {
-    width: 0px;  /* Make the scrollbar width 0 to hide it */
-  }
-  
-  .post-feed-container::-webkit-scrollbar-thumb {
-    background: transparent; /* Make the thumb invisible */
-  }
-  
-  .post-feed-container::-webkit-scrollbar-track {
-    background: transparent; /* Make the track invisible */
-  }
-  
-  /* Individual Post styles */
+  max-height: 640px; /* Set max height */
+  overflow-y: auto; /* Enable scrolling */
+  padding-top: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+/* Hide scrollbar for Webkit browsers */
+.post-feed-container::-webkit-scrollbar {
+  width: 0px;
+}
+
+.post-feed-container::-webkit-scrollbar-thumb,
+.post-feed-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Individual Post styles */
+.post {
+  background-color: #ffc; /* Match profile card background */
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Inconsolata', monospace;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.post:hover {
+  transform: scale(1.01);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Post Header */
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Profile Picture */
+.post-header img {
+  margin-right: 10px;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+/* Author Name */
+.post .author {
+  color: #15243b; /* Match sidebar text color */
+  font-weight: bold;
+}
+
+/* Post Content */
+.post .content {
+  margin-top: 5px;
+  color: #333;
+  font-size: 1.1em;
+}
+
+/* Post Action Buttons */
+.post-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Edit and Delete Buttons */
+.edit-button,
+.delete-button {
+  padding: 5px 10px;
+  font-family: 'Inconsolata', monospace;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.edit-button {
+  background-color: #15243b;
+  color: #ffc750;
+}
+
+.edit-button:hover {
+  background-color: #ffc750;
+  color: #15243b;
+}
+
+.delete-button {
+  background-color: #c0392b;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #e74c3c;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1000px) {
   .post {
-    background-color: #2a3c5d;
-    margin: 0px 0;
-    padding: 10px;
-    
+    margin-left: 10px;
+    margin-right: 10px;
   }
-  
-  /* Align image and author horizontally */
-  .post-header {
-    display: flex;
-    align-items: center; /* Vertically align image and text */
-    margin-bottom: 10px; /* Add space below the header */
-  }
-  
-  .post-header img {
-    margin-right: 10px; /* Space between image and author name */
-  }
-  
-  .post .author {
-    color: #ffffff;
-    font-weight: bold;
-  }
-  
-  .post .content {
-    margin-top: 5px;
-    color: #d1d1d1;
-  }
-  
-  /* Tool buttons styles */
-  .toolie {
-    background-color: #4fa3f7;
-    color: white;
-    padding: 5px 10px;
-    margin: 5px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .toolie:hover {
-    background-color: #0a7eff;
-  }
-  
-  
+}
