@@ -41,6 +41,13 @@ function Sidebar() {
         className="logoSidebar"
       />
 
+      <img
+        src="/image173264.png"
+        alt="description"
+        
+        className="smallLogo"
+      />
+
       <nav className="title-nav">
         {menuItems.map((item, index) => (
           <Link

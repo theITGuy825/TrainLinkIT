@@ -29,6 +29,21 @@ body, html {
   width: 100%;
   
 }
+
+.post-creation-header-second{
+  display: flex;
+  justify-content:start;
+  align-items: center;
+}
+
+.post-creation-header-second h2{
+  margin-left: 15px;
+  font-family: "Inconsolata", monospace;
+  font-size: 20px;
+  color: #15243b;
+  font-style: normal;
+}
+
 /* Post Creation Styles */
 .post-creation {
   width: 100%;
@@ -89,16 +104,6 @@ body, html {
 }
 
 /* Border around individual posts */
-.post {
-  background-color: #bae8e5;
-  padding: 15px;
-  margin: 10px 0;
-  border: 2px solid #15243b;
-  border-radius: 20px;
-  font-family: "Inconsolata", monospace;
-
-  /*border-radius: 10px;*/
-  }
 
 @media (min-width: 1000px) and (max-width: 1400px) {
   .main-content {

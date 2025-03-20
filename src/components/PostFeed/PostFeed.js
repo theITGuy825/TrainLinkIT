@@ -137,8 +137,10 @@ function PostFeed({ title }) {
       {/* Create a Post */}
       <div className="post-creation">
         <div className="post-creation-header">
-          <img src={userProfilePic} alt="Your Profile" width="50" height="50" className="profilepic-post-creation" />
-          <h2>{userFullName}</h2>
+          <div className="post-creation-header-second">
+            <img src={userProfilePic} alt="Your Profile" width="50" height="50" className="profilepic-post-creation" />
+            <h2>{userFullName}</h2>
+          </div>
           <textarea className="textarea" placeholder="What's on your mind?" value={newPost} onChange={(e) => setNewPost(e.target.value)} />
         </div>
         <button className="post-button" onClick={handlePostSubmit}>Post</button>

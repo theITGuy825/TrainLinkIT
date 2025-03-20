@@ -1,4 +1,7 @@
 /* Popup styling */
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap');
+
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -82,16 +85,9 @@ button:hover {
   background-color: #0056b3;
 }
 
-h4, p  {
-  color: white;
-  text-decoration: none;
-  text-align: left;  /* Aligns text to the left */
-  direction: ltr;    /* Ensures left-to-right reading direction */
-}
+
 .toolie{
-  color: white;
   text-decoration: none;
-  
 }
 
 .toolie:hover {
@@ -102,7 +98,75 @@ h4, p  {
   color:#4fa3f7;
 }
 
-.post-header h4 {
-  color: #4fa3f7;
+/* Other Posts styling  */
+a:Link {
+  text-decoration: none;
 }
 
+.post {
+  background-color: #66b2b2;
+  padding: 15px;
+  margin: 10px 0;
+  border: 2px solid #15243b;
+  border-radius: 20px;
+  font-family: "Inconsolata", monospace;
+  /*border-radius: 10px;*/
+}
+.post-header h4 {
+  color:#15243b;
+  font-size: 20px;
+}
+
+.post p {
+  color:#15243b;
+  font-size: 16px;
+  font-family: 'Inconsolata', monospace;
+  border: 1px solid #15243b;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #bae8e5;
+  text-align: left;  /* Aligns text to the left */
+  direction: ltr;
+}
+
+.post-actions{
+  display: flex;
+}
+
+.post-actions .like-button {
+  background-color: #15243b;
+  width: 27.5%;
+  margin-left: 35%;
+  color: #66b2b2;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.post-actions .like-button:hover {
+  background-color: #FFF0F0;
+  color: #15243b;
+}
+
+.post-actions .toolie {
+  border: 1px solid #15243b;
+  text-align: center;
+  width: 40%;
+  font-style: bold;
+  background-color: #15243b;
+  color: #66b2b2;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.post-actions .toolie:hover {
+  background-color: #FFF0F0;
+  color: #15243b;
+}
