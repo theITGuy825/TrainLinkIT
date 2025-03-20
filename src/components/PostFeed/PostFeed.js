@@ -12,7 +12,7 @@ import {
   onSnapshot,
   updateDoc,
   increment,
-  setDoc, 
+  setDoc,
   deleteDoc,
 } from "firebase/firestore";
 
@@ -20,6 +20,7 @@ function PostFeed({ title }) {
   const [newPost, setNewPost] = useState("");
   const [posts, setPosts] = useState([]);
   const [userProfilePic, setUserProfilePic] = useState("/profilepic.png");
+  const [userFullName, setUserFullName] = useState("Anonymous");
 
   // Fetch user data (including profile picture)
   const getUserData = async (userId) => {
@@ -41,6 +42,15 @@ function PostFeed({ title }) {
 
   // Fetch posts from Firestore in real-time
   useEffect(() => {
+    const fetchUserData = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const { fullName, profilePic } = await getUserData(user.uid);
+        setUserFullName(fullName);
+        setUserProfilePic(profilePic);
+      }
+    };
+
     const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
     const unsubscribe = onSnapshot(q, async (snapshot) => {
       const postsArray = await Promise.all(
@@ -53,6 +63,7 @@ function PostFeed({ title }) {
       setPosts(postsArray);
     });
 
+    fetchUserData();
     return () => unsubscribe();
   }, []);
 
@@ -82,26 +93,25 @@ function PostFeed({ title }) {
     }
   };
 
-
   const handleLike = async (postId) => {
     const user = auth.currentUser;
     if (!user) {
       alert("You must be logged in to like a post.");
       return;
     }
-  
+
     const likeRef = doc(db, "posts", postId, "likes", user.uid);
     const postRef = doc(db, "posts", postId);
-  
+
     try {
       const likeDoc = await getDoc(likeRef);
       const postDoc = await getDoc(postRef);
-  
+
       if (!postDoc.exists()) {
         console.error("Post does not exist");
         return;
       }
-  
+
       if (likeDoc.exists()) {
         // User already liked, so remove like
         await deleteDoc(likeRef);
@@ -115,6 +125,7 @@ function PostFeed({ title }) {
       console.error("Error handling like:", error);
     }
   };
+
   // Handle comment button click (redirects to post comments page)
   const handleComment = (postId) => {
     // Optional: Perform additional actions like scrolling to the comment section, etc.
@@ -126,7 +137,10 @@ function PostFeed({ title }) {
       {/* Create a Post */}
       <div className="post-creation">
         <div className="post-creation-header">
-          <img src={userProfilePic} alt="Your Profile" width="50" height="50" className="profilepic-post-creation" />
+          <div className="post-creation-header-second">
+            <img src={userProfilePic} alt="Your Profile" width="50" height="50" className="profilepic-post-creation" />
+            <h2>{userFullName}</h2>
+          </div>
           <textarea className="textarea" placeholder="What's on your mind?" value={newPost} onChange={(e) => setNewPost(e.target.value)} />
         </div>
         <button className="post-button" onClick={handlePostSubmit}>Post</button>

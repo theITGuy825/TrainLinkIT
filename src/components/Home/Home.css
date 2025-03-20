@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap');
+
 /* Home.css */
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #2a3c5d; /* Change this to any color you prefer */
+  background-color: #f0fffc;/* Change this to any color you prefer */
 }
 /* Container for the whole page */
 /* Container that holds both sidebars and the main content */
@@ -14,58 +17,103 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: #2a3c5d;
+  background-color: #f0fffc;
 }
+
 
 /* Main content area with posts */
 .main-content {
-  margin: 0 360px; /* Leave space for both left and right sidebars */
-  padding: 20px;
+  margin-left: 260px;
+  margin-right: 410px;
+  justify-content: space-evenly;
   width: 100%;
+  
 }
+
+.post-creation-header-second{
+  display: flex;
+  justify-content:start;
+  align-items: center;
+}
+
+.post-creation-header-second h2{
+  margin-left: 15px;
+  font-family: "Inconsolata", monospace;
+  font-size: 20px;
+  color: #15243b;
+  font-style: normal;
+}
+
 /* Post Creation Styles */
 .post-creation {
-  width: 80%;
+  width: 100%;
   margin-bottom: 20px;
-  background-color: #2a3c5d;
-  border: 1px solid #bbbbbb;
-  padding: 10px; /* Added padding to create some space inside the container */
+  background-color: #bae8e5;
+  border: 2px solid #15243b;
+  border-radius: 20px;
+  padding: 15px; /* Added padding to create some space inside the container */
+  box-sizing: border-box; /* Ensures padding and border are included in the width */
 }
 
 /* Textarea and Button */
 .textarea {
-  width: 100%; /* Full width of the parent container */
+  width: 100%;
   height: 100px;
-  border: none; /* Remove the default border */
+  border: 1px solid black; /* Remove the default border */
   font-size: 16px;
-  background-color: #2a3c5d;
+  background-color: #f3fefa;
   color: white;
   resize: none;
+  border-radius: 10px;
+  font-family: "Playwrite HU", cursive;
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box; /* Ensures padding and border are included in the width */
 }
 
 .textarea:focus {
-  background-color: #3a4b7d;
+  background-color: white;
+  color: black;
+  font-family: "Inconsolata", monospace;
+  font: bold;
 }
 
+
 .post-button {
-  background-color: #4fa3f7;
-  color: white;
+  background-color: #15243b;
+  color: #66b2b2;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
+  width: 35%;
+  margin-left: 65%;
+  align-content: center;
+  transition: all 0.4s ease-in-out;
+  font-style: italic;
+  font-family: "Inconsolata", monospace;
+  font-size: 20px;
+  font-size: bold;
+  align-self: flex-end;
+  border: #15243b solid 1px;
+  
 }
 
 .post-button:hover {
-  background-color: #0a7eff;
+  background-color: #66b2b2;
+  color: #15243b;
+  border: #15243b solid 1px;
 }
 
 /* Border around individual posts */
-.post {
-  background-color: #2a3c5d;
-  padding: 15px;
-  margin: 10px 0;
-  /*border-radius: 10px;*/
-  border-bottom: 0.5px solid #bbbbbb;  /* Border around individual post */
-  border-top: 0.5px solid #bbbbbb;  /* Border around individual post */
+
+@media (min-width: 1000px) and (max-width: 1400px) {
+  .main-content {
+    margin-right: 285px;
+  }
 }
 
+@media (max-width:1000px) {
+  .main-content {
+    margin-right: 90px;
+    margin-left: 90px;
+  }
+}

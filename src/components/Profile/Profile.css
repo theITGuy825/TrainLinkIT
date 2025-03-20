@@ -1,9 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap');
+
 .profile-container {
   display: flex;
 }
 
 .profile-content {
-  margin-left: 360px; /* Adjust based on sidebar width */
+  margin-left: 250px; /* Adjust based on sidebar width */
   flex-grow: 1;
   padding: 20px;
 }
+.freelancer-profile {
+  display: flex;
+  justify-content: left;
+  align-items: start;
+  flex-direction: column; /* Stack the elements vertically */
+  text-align: left; /* Aligns text to the left */
+  font-family: 'Inconsolata', monospace;
+  align-items: flex-start; /* Align all items to the left */
+  background-color: #ffc;
+  padding: 20px; /* Adds space inside the container */
+  border-radius: 12px; /* Rounds the corners */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow around the profile */
+  margin: 20px auto; /* Centers the profile with margin */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow effects */
+}
+
+
+/* Hover effect */
+.freelancer-profile:hover {
+  transform: scale(1.01); /* Slightly enlarge the profile on hover */
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* Add a stronger shadow on hover */
+}
+
+
+.profile-content .myProfile{
+  font-family: "Playwrite HU", cursive;
+  padding: 10px;
+  background-color: #ffc;
+  border: 3px solid #15243b;
+  font-style: italic;
+}
+
+.freelancer-profile-details {
+  display: flex;
+  flex-direction: column; /* Stack the elements vertically */
+  align-items: flex-start; /* Align everything to the left */
+  gap: 10px; /* Adds space between the <p> elements */
+}
+
+.freelancer-profile-details p {
+  font-size: 1.2em;
+  color: #333;
+  margin: 0; /* Removes any default margin for consistent spacing */
+}
+
+.editProfileDetails {
+  width: 25%;
+  margin-left: calc(75%/2);
+  font-family: 'Inconsolata', monospace;
+  font-weight: bold;
+  color: #ffc750;
+  background-color: #15243b;
+  transition: all 0.4s ease-in-out;
+}
+
+.editProfileDetails:hover {
+  background-color: #ffc750;
+  color: #15243b;
+}
+
+@media (max-width: 1000px) {
+  .profile-container {
+    margin-left: -180px;
+  }
+}
+

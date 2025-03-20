@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap');
+
 /*
 Color theme
 #15243b - Dark Blue
@@ -5,6 +8,12 @@ Color theme
 #f0fffc - Lightest Blue
 #ffc750 - Yellow
 #ffc - Light Yellow
+rgb(253, 253, 228) - Lightest Yellow
+#66b2b2 - Dark teal
+#008080; - Teal
+#bae8e5 - Lighter Teal
+#f3fefa - Light Teal
+#FFF0F0 - light rose
 */
 /* General Layout for Login Page */
 .login-container {
@@ -16,6 +25,7 @@ Color theme
   background-color: #f0fffc;
   color: #15243b; /* Dark text color */
   padding: 20px;
+  font-family: "Inconsolata", monospace;
 }
 
 /* Login Form */
@@ -50,18 +60,22 @@ img.logo {
   margin-bottom: -20px;
   margin-top: -150px;
   animation: fadeSlideIn 2s ease-in-out; 
+  width: 300px;
+  height: auto;
+
 }
 
 /* Form Input Fields */
 .input {
   margin-bottom: 20px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
 }
 
 .input label {
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -73,6 +87,8 @@ img.logo {
   color: #15243b;
   font-size: 14px;
   outline: none;
+  margin-top: 5px;
+  font-style: italic;
 }
 
 .input input:hover {
@@ -89,7 +105,7 @@ img.logo {
 }
 
 /* Submit Button */
-button {
+.form button {
   background-color: #15243b;
   color: #ffc750;
   padding: 10px 20px;
@@ -99,9 +115,10 @@ button {
   cursor: pointer;
   font-size: 20px;
   transition: all 0.4s ease-in-out;
+  font-style: italic;
 }
 
-button:hover {
+.form button:hover {
   background-color: #ffc750;
   color: #15243b;
 }
@@ -113,13 +130,18 @@ p {
 }
 
 p span {
-  color: #4fa3f7;
+  color: #15243b;
   cursor: pointer;
   text-decoration: underline;
+  font-weight: bold;
+  font-style: italic;
+  transition: transform 0.3s ease, color 0.3s ease;
+  
 }
 
 p span:hover {
-  color: #0a7eff;
+  transform: scale(1.5);
+  color: #ffc750;
 }
 
 /* Logo Image */
@@ -143,4 +165,9 @@ p span:hover {
   button {
     font-size: 18px;
   }
+}
+
+.login-form h2 {
+  font-size: 30px;
+  font-family: "Playwrite HU", cursive;
 }
