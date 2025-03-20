@@ -47,7 +47,8 @@ const PostDetail = () => {
           author: userSnap.exists()
             ? `${userSnap.data().firstName} ${userSnap.data().lastName}`
             : "Unknown",
-          profilePic: userSnap.exists() ? userSnap.data().profilePic : "/profilepic.png",
+            userProfilePic: userSnap.exists() ? userSnap.data().userProfilePic : "/profilepic.png",
+
           ...postData,
         });
       }
@@ -95,7 +96,7 @@ const PostDetail = () => {
   
       const userData = userSnap.data();
       const userName = `${userData.firstName} ${userData.lastName}`;
-      const userProfilePic = userData.profilePic || "/profilepic.png";
+      const userProfilePic = userData.userProfilePic || "/profilepic.png";
   
       await addDoc(collection(db, "posts", postId, "comments"), {
         text: comment,
@@ -145,7 +146,8 @@ const PostDetail = () => {
         <div className="post-detail">
           <div className="post-header">
             <Link to={`/profile/${post.userId}`} className="author-info">
-              <img src={post.profilePic} alt="Profile" className="profilepic" width="50" height="50" />
+            <img src={post.userProfilePic} alt="Profile" className="profilepic" width="50" height="50" onError={(e) => (e.target.src = "/profilepic.png")} />
+
               <div>
                 <h2>{post.author}</h2>
                 <p className="post-meta">Posted on: {formatDate(post.timestamp)}</p>
@@ -165,7 +167,7 @@ const PostDetail = () => {
                   <img src={cmt.userProfilePic} alt="User" className="comment-pic" width="40" height="40" />
                   <div>
                     <strong>{cmt.userName}</strong>
-                    <p classname="post-content">{cmt.text}</p>
+                    <p className="post-content">{cmt.text}</p>
                     <p className="comment-meta">Posted on: {formatDate(cmt.timestamp)}</p>
                   </div>
                 </div>
