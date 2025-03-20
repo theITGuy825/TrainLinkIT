@@ -101,3 +101,8 @@ h4, p  {
 .post:hover{
   color:#4fa3f7;
 }
+
+.post-header h4 {
+  color: #4fa3f7;
+}
+
