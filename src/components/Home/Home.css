@@ -1,12 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap");
 
 /* Home.css */
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #f0fffc;/* Change this to any color you prefer */
+  background-color: #f0fffc; /* Change this to any color you prefer */
 }
 /* Container for the whole page */
 /* Container that holds both sidebars and the main content */
@@ -20,28 +21,32 @@ body, html {
   background-color: #f0fffc;
 }
 
-
 /* Main content area with posts */
 .main-content {
   margin-left: 260px;
   margin-right: 410px;
   justify-content: space-evenly;
   width: 100%;
-  
 }
 
-.post-creation-header-second{
+.post-creation-header-second {
   display: flex;
-  justify-content:start;
+  justify-content: start;
   align-items: center;
 }
 
-.post-creation-header-second h2{
+.post-creation-header-second h2 {
   margin-left: 15px;
   font-family: "Inconsolata", monospace;
   font-size: 20px;
-  color: #15243b;
-  font-style: normal;
+  background-color: #15243b;
+  color: white;
+  border: white 2px solid;
+  border-radius: 50px;
+  padding: 5px 10px 5px 10px;
+  font-style: italic;
+  filter: drop-shadow(5px 5px rgb(237, 169, 169))
+    drop-shadow(-2.5px -2.5px rgb(241, 241, 165));
 }
 
 /* Post Creation Styles */
@@ -50,7 +55,12 @@ body, html {
   position: sticky;
   border-radius: 50px 50px 0px 0px;
   box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.5);
-  background-color: #bae8e5;
+  background: conic-gradient(
+    from -0.5turn at bottom right,
+    deeppink,
+    cyan,
+    rebeccapurple
+  );
   border: 2px solid #15243b;
   padding: 15px; /* Added padding to create some space inside the container */
   box-sizing: border-box; /* Ensures padding and border are included in the width */
@@ -60,24 +70,29 @@ body, html {
 .textarea {
   width: 100%;
   height: 100px;
-  border: 1px solid black; /* Remove the default border */
+  border: 2px solid black; /* Remove the default border */
   font-size: 16px;
   background-color: #f3fefa;
   color: white;
   resize: none;
+  font-weight: bold;
   border-radius: 10px;
   font-family: "Playwrite HU", cursive;
   transition: all 0.3s ease-in-out;
   box-sizing: border-box; /* Ensures padding and border are included in the width */
 }
 
+.textarea:hover{
+  border-radius: 30px;
+}
+
 .textarea:focus {
   background-color: white;
+  border-radius: 0px;
   color: black;
   font-family: "Inconsolata", monospace;
   font: bold;
 }
-
 
 .post-button {
   background-color: #15243b;
@@ -85,8 +100,8 @@ body, html {
   padding: 10px 20px;
   border: none;
   cursor: pointer;
-  width: 35%;
-  margin-left: 65%;
+  width: 30%;
+  margin-left: 70%;
   align-content: center;
   transition: all 0.4s ease-in-out;
   font-style: italic;
@@ -95,7 +110,6 @@ body, html {
   font-size: bold;
   align-self: flex-end;
   border: #15243b solid 1px;
-  
 }
 
 .post-button:hover {
@@ -112,7 +126,7 @@ body, html {
   }
 }
 
-@media (max-width:1000px) {
+@media (max-width: 1000px) {
   .main-content {
     margin-right: 90px;
     margin-left: 90px;

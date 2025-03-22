@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap");
 
 .profile-container {
   display: flex;
@@ -10,13 +10,14 @@
   flex-grow: 1;
   padding: 20px;
 }
+
 .freelancer-profile {
   display: flex;
   justify-content: left;
   align-items: start;
   flex-direction: column; /* Stack the elements vertically */
   text-align: left; /* Aligns text to the left */
-  font-family: 'Inconsolata', monospace;
+  font-family: "Inconsolata", monospace;
   align-items: flex-start; /* Align all items to the left */
   background-color: #ffc;
   padding: 20px; /* Adds space inside the container */
@@ -26,15 +27,13 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow effects */
 }
 
-
 /* Hover effect */
 .freelancer-profile:hover {
   transform: scale(1.01); /* Slightly enlarge the profile on hover */
   box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* Add a stronger shadow on hover */
 }
 
-
-.profile-content .myProfile{
+.profile-content .myProfile {
   font-family: "Playwrite HU", cursive;
   padding: 10px;
   background-color: #ffc;
@@ -57,8 +56,8 @@
 
 .editProfileDetails {
   width: 25%;
-  margin-left: calc(75%/2);
-  font-family: 'Inconsolata', monospace;
+  margin-left: calc(75% / 2);
+  font-family: "Inconsolata", monospace;
   font-weight: bold;
   color: #ffc750;
   background-color: #15243b;
@@ -75,4 +74,3 @@
     margin-left: -180px;
   }
 }
-
