@@ -4,6 +4,7 @@
   overflow-y: auto; /* Enable scrolling */
   padding-top: 10px;
   scrollbar-width: thin;
+  margin-right: -10px;
   scrollbar-color: transparent transparent;
 }
 
@@ -30,7 +31,7 @@
 
 /* Hover effect */
 .post:hover {
-  transform: scale(1.01);
+  transform: scale(1.0);
   box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
 }
 
@@ -100,9 +101,3 @@
 }
 
 /* Responsive Adjustments */
-@media (max-width: 1000px) {
-  .post {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-}

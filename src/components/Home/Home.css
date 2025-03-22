@@ -47,10 +47,11 @@ body, html {
 /* Post Creation Styles */
 .post-creation {
   width: 100%;
-  margin-bottom: 20px;
+  position: sticky;
+  border-radius: 50px 50px 0px 0px;
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.5);
   background-color: #bae8e5;
   border: 2px solid #15243b;
-  border-radius: 20px;
   padding: 15px; /* Added padding to create some space inside the container */
   box-sizing: border-box; /* Ensures padding and border are included in the width */
 }

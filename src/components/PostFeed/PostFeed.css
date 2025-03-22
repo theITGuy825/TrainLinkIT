@@ -161,6 +161,7 @@ a:Link {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
+  margin-top: 5px;
   cursor: pointer;
   font-size: 16px;
   transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
@@ -169,4 +170,10 @@ a:Link {
 .post-actions .toolie:hover {
   background-color: #FFF0F0;
   color: #15243b;
+}
+
+@media (max-width: 600px) {
+  .post-actions .like-button{
+    margin-left: 20%;
+  }
 }
