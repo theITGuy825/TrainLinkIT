@@ -6,7 +6,10 @@ import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
 import PostDetail from "./components/postdetail/postdetail"; // Import PostDetail component
-import Messenger from "./components/messenger/messenger"; // Import PostDetail component
+import Messenger from "./components/messenger/messenger"; // Import Messenger component
+import Chats from "./components/messenger/Chats"; // Import Chats component
+import { ChatContextProvider } from "./components/context/ChatContext"; // Import the ChatContextProvider
+
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -33,12 +36,20 @@ function App() {
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/messenger" element={<Messenger />} />
+        
         {/* Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/home" element={<Home />} />
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/post/:postId" element={<PostDetail />} />
+          
+          {/* Messenger and Chats inside ChatContextProvider */}
+          <Route path="/messenger" element={
+            <ChatContextProvider>
+              <Messenger />
+              <Chats />
+            </ChatContextProvider>
+          } />
         </Route>
 
         {/* Redirect Root to Login if not Authenticated */}
