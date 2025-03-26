@@ -13,7 +13,7 @@
   height: 100vh; /* Makes the sidebar full height */
   overflow-y: auto; /* Allows scrolling inside the sidebar if content overflows */
   justify-content: center;
-  font-family: "Inconsolata", monospace, sans-serif;
+  font-family: "Inconsolata", monospace;
 }
 
 .sidebar nav {
