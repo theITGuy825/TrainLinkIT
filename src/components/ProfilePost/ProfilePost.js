@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import './ProfilePost.css';
 
-function ProfilePost() {
+function ProfilePost({ profileUserId }) {
   const [posts, setPosts] = useState([]);
   const [userId, setUserId] = useState(null);
   const [editingPostId, setEditingPostId] = useState(null);
@@ -38,26 +38,37 @@ function ProfilePost() {
     }
   };
 
-  // Fetch only the logged-in user's posts
+  // Fetch posts by the profile user ID
   useEffect(() => {
-    if (!userId) return;
-
+    if (!profileUserId) return;
+  
     const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
     const unsubscribe = onSnapshot(q, async (snapshot) => {
+      console.log("Fetched snapshot docs:", snapshot.docs); // Check if there are posts in the snapshot
+  
       const postsArray = await Promise.all(
         snapshot.docs.map(async (doc) => {
           const postData = doc.data();
-          if (postData.userId !== userId) return null;
+          console.log("Post data:", postData); // Log post data to check if userId matches profileUserId
+          
+          if (postData.userId !== profileUserId) {
+            console.log(`Skipping post from userId: ${postData.userId}`);
+            return null; // Skip posts that don't match profileUserId
+          }
+  
           const fullName = await getUserName(postData.userId);
           return { id: doc.id, author: fullName, ...postData };
         })
       );
-
-      setPosts(postsArray.filter(Boolean));
+  
+      const filteredPosts = postsArray.filter(Boolean);
+      console.log("Filtered Posts:", filteredPosts); // Check filtered posts before setting state
+      setPosts(filteredPosts);
     });
-
+  
     return () => unsubscribe();
-  }, [userId]);
+  }, [profileUserId]);
+  
 
   // Handle post deletion
   const handleDeletePost = async (postId) => {
@@ -96,7 +107,7 @@ function ProfilePost() {
 
   return (
     <div>
-      <h2>Your Posts</h2>
+      <h2>{profileUserId === userId ? "Your Posts" : "User's Posts"}</h2>
       <div className="post-feed-container">
         {posts.length > 0 ? (
           posts.map((post) => (
@@ -119,12 +130,16 @@ function ProfilePost() {
                 <div>
                   <p>{post.content}</p>
                   <div className="post-actions">
-                    <button className="edit-button" onClick={() => handleEditPost(post)}>
-                      ✏️ Edit
-                    </button>
-                    <button className="delete-button" onClick={() => handleDeletePost(post.id)}>
-                      🗑 Delete
-                    </button>
+                    {profileUserId === userId && (
+                      <>
+                        <button className="edit-button" onClick={() => handleEditPost(post)}>
+                          ✏️ Edit
+                        </button>
+                        <button className="delete-button" onClick={() => handleDeletePost(post.id)}>
+                          🗑 Delete
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               )}
