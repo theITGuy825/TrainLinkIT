@@ -3,10 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../../firebase"; // Import Firebase auth and Firestore
 import { doc, getDoc, setDoc } from "firebase/firestore"; // Firestore functions
 import Sidebar from "../Sidebar/sidebar.js";
-import PostFeed from "../PostFeed/PostFeed.js";
+import ProfilePost from "../ProfilePost/ProfilePost.js";
 import LinkUpButton from "../LinkUpButton/LinkUpButton.js";
 import "../Sidebar/Sidebar.css";
-import "../PostFeed/PostFeed.css";
+import "../ProfilePost/ProfilePost.css";
 import "./Profile.css";
 
 function Profile() {
@@ -198,7 +198,7 @@ function Profile() {
           </div>
         )}
 
-        <PostFeed />
+        <ProfilePost />
       </div>
     </div>
   );

@@ -4,6 +4,8 @@ import { auth, db } from '../../firebase'; // Import Firebase auth and Firestore
 import { createUserWithEmailAndPassword } from 'firebase/auth'; // Firebase auth function
 import { doc, setDoc } from "firebase/firestore"; // Firestore functions
 
+import './register.css'
+
 function Register() {
   const navigate = useNavigate();
 
@@ -114,8 +116,11 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
+    
+    <div id='register-container'>
+    <img src='/image073263.png' alt="description"  className='logo'/>
+    <div className='register-form'>
+      <h2>REGISTER</h2>
       <form onSubmit={handleSubmit}>
         {/* Always render email field */}
         <label htmlFor="email">Email:</label>
@@ -129,6 +134,7 @@ function Register() {
           required
         />
         <span>{errors.email}</span>
+        <br/>
 
         {/* Always render password field */}
         <label htmlFor="password">Password:</label>
@@ -142,6 +148,7 @@ function Register() {
           required
         />
         <span>{errors.password}</span>
+        <br/>
 
         {/* User type selection */}
         <label htmlFor="userType">User Type:</label>
@@ -154,6 +161,7 @@ function Register() {
           <option value="freelancer">Freelancer</option>
           <option value="business">Business</option>
         </select>
+        <br/><br/>
 
         {/* Conditionally render freelancer-specific fields */}
         {formData.userType === "freelancer" && (
@@ -219,6 +227,7 @@ function Register() {
               onChange={handleChange}
               placeholder="Business Description"
             />
+            
           </>
         )}
 
@@ -230,6 +239,7 @@ function Register() {
       <p>
         Already have an account? <span onClick={() => navigate("/login")}>Sign In</span>
       </p>
+    </div>
     </div>
   );
 }

@@ -16,6 +16,8 @@ import {
   increment,
 } from "firebase/firestore";
 import "./PostDetail.css";
+import Sidebar from "../Sidebar/sidebar.js";
+import Sidebarfeeds from "../sidebarfeeds/Sidebarfeeds.js";
 
 const formatDate = (timestamp) => {
   if (!timestamp) return "Unknown";
@@ -141,7 +143,9 @@ const PostDetail = () => {
   };
 
   return (
+    
     <div className="post-detail-container">
+      <Sidebar />
       {post ? (
         <div className="post-detail">
           <div className="post-header">
@@ -186,6 +190,7 @@ const PostDetail = () => {
       ) : (
         <p>Loading...</p>
       )}
+       <Sidebarfeeds  className="sidebar-right"/>
     </div>
   );
 };

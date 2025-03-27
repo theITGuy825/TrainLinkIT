@@ -81,34 +81,20 @@ button {
   text-decoration: none;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
 
-
-.toolie{
-  text-decoration: none;
-}
-
-.toolie:hover {
-  color: #333;
-}
-
-.post:hover{
-  color:#4fa3f7;
-}
-
-/* Other Posts styling  */
+/* All Other Posts styling  */
 a:Link {
   text-decoration: none;
 }
 
 .post {
   background-color: #66b2b2;
-  padding: 15px;
-  margin: 10px 0;
-  border: 2px solid #15243b;
-  border-radius: 20px;
+  padding: 0px 10px;
+  border-bottom: solid 2px #15243b;
+  border-left:solid 2px #15243b;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 20px 20px 20px 0px;
   font-family: "Inconsolata", monospace;
   /*border-radius: 10px;*/
 }
@@ -124,7 +110,8 @@ a:Link {
   border: 1px solid #15243b;
   padding: 10px;
   border-radius: 10px;
-  background-color: #bae8e5;
+  font-weight: bold;
+  background-color: white;
   text-align: left;  /* Aligns text to the left */
   direction: ltr;
 }
@@ -161,6 +148,7 @@ a:Link {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
+  margin-top: 5px;
   cursor: pointer;
   font-size: 16px;
   transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
@@ -169,4 +157,10 @@ a:Link {
 .post-actions .toolie:hover {
   background-color: #FFF0F0;
   color: #15243b;
+}
+
+@media (max-width: 600px) {
+  .post-actions .like-button{
+    margin-left: 20%;
+  }
 }
