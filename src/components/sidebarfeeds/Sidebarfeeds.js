@@ -1,17 +1,19 @@
 import React, { useState } from "react"; // Import useState from React
 import { Link } from "react-router-dom"; // Import Link from react-router-dom for navigation
 import "./Sidebarfeeds.css"; // Import the CSS file for Sidebar styles
+import Following from "./Following";
+import Followers from "./Followers";
 // Importing icons from React Icons
 import {
   FaLink,
   FaUserFriends,
-  FaBriefcase,
   FaChalkboardTeacher,
   FaRegHandshake,
   FaUserCheck,
 } from "react-icons/fa";
 
 function Sidebarfeeds() {
+  const [selectedSection, setSelectedSection] = useState("following");
   const [activeItem, setActiveItem] = useState(null); // Track active item in the sidebar
 
   const handleItemClick = (index) => {
@@ -23,8 +25,6 @@ function Sidebarfeeds() {
     { title: "LinkNews", icon: <FaLink /> },
     { title: "Suggested Friends", icon: <FaUserFriends /> },
     { title: "Trainings", icon: <FaChalkboardTeacher /> },
-    { title: "Following", icon: <FaUserCheck /> },
-    { title: "Followers", icon: <FaRegHandshake /> },
   ];
 
   return (
@@ -39,11 +39,31 @@ function Sidebarfeeds() {
             onClick={() => handleItemClick(index)} // Toggle active item on click
             className={activeItem === index ? "active" : ""} // Add active class if the item is active
           >
-            <span>{item.icon}</span> {/* Render the icon */}
-            {item.title} {/* Render the title */}
+            <span className="iconRender">{item.icon}</span> {/* Render the icon */}
+            <span className="textRender">{item.title}</span> {/* Render the title */}
           </Link>
         ))}
       </nav>
+
+      <div className="friends">
+        <button
+          className={selectedSection === "followers" ? "active-btn" : ""}
+          onClick={() => setSelectedSection("followers")}
+        >
+          <FaUserCheck />Followers
+        </button>
+        <button
+          className={selectedSection === "following" ? "active-btn" : ""}
+          onClick={() => setSelectedSection("following")}
+        >
+          <FaRegHandshake />Following
+        </button>
+      </div>
+
+      {/* Conditionally render Following or Followers */}
+      <div className="follow-section">
+        {selectedSection === "following" ? <Following /> : <Followers />}
+      </div>
     </div>
   );
 }
