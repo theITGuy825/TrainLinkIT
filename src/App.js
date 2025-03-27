@@ -9,6 +9,8 @@ import PostDetail from "./components/postdetail/postdetail"; // Import PostDetai
 import Messenger from "./components/Messenger/messenger"; // Import Messenger component
 import Chats from "./components/Messenger/Chats"; // Import Chats component
 import { ChatContextProvider } from "./components/context/ChatContext"; // Import the ChatContextProvider
+import JobBoard from "./components/JobBoard/JobBoard";
+import Training from "./components/Training/Training";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -30,7 +32,7 @@ function App() {
     return user ? <Outlet /> : <Navigate to="/login" />;
   };
 
-  return (
+return (
     <Router>
       <Routes>
         {/* Public Routes */}
@@ -42,7 +44,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/post/:postId" element={<PostDetail />} />
-          
+          <Route path="/jobs" element={<JobBoard/>} />
+          <Route path="/trainings" element={<Training/>} />
           {/* Messenger and Chats inside ChatContextProvider */}
           <Route path="/messenger" element={
             <ChatContextProvider>
