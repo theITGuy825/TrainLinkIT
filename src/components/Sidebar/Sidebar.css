@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
 /* Sidebar styles for the left sidebar */
 .sidebar {
   width: 100%;
@@ -36,8 +36,8 @@
 }
 
 .sidebar nav a:hover {
-  color: #008080;  
-  transform: scale(1.2);  
+  color: #008080;
+  transform: scale(1.2);
 }
 
 .logoSidebar {
@@ -46,7 +46,6 @@
   height: auto;
   margin-top: -40px;
   border-bottom: #15243b 2px solid;
-  
 }
 
 .menu-item {
@@ -68,6 +67,48 @@
   display: none;
 }
 
+/**Search Styling based on status**/
+.search-box{
+  color: #15243b;
+  background-color: #ffc;
+  padding: 10px;
+  border: 1px solid #4fa3f7;
+  border-radius: 0px;
+  width: 100%;
+  max-width: 180px;
+  min-width: 100px;
+  margin-bottom: -20px;
+  margin-top: 10px;
+  margin-left: 0px;
+}
+
+.search-results {
+  display: none;
+  margin-top:20px;
+  margin-bottom:-20px;
+}
+
+.search-results:hover {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-box:focus + .search-results {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-results a {
+  color: #15243b;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.search-results a:hover {
+  scale: 1.1;
+  transition: scale 0.3s ease-in-out;
+}
+
 @media (max-width: 1000px) {
   .sidebar {
     max-width: 30px;
@@ -78,17 +119,13 @@
     display: block;
   }
 
-
   .title-nav a {
     display: none;
   }
 
- 
-
   .icon-nav .icon {
     font-size: 28px;
     margin-top: 20px;
-
   }
 
   .icon:hover {
