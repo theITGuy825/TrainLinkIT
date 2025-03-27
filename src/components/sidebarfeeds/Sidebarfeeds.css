@@ -15,44 +15,44 @@
   height: 100vh;  /* Makes the sidebar full height */
   font-family: 'Inconsolata', monospace;
   overflow-y: auto;  /* Allows scrolling inside the sidebar if content overflows */
+
+  .my-app {
+    text-align: center;
+    font-family: 'Playwrite HU', sans-serif;
+    padding-bottom: 20px;
+    border-bottom: #15243b 2px solid;
+    margin-bottom: 20px;
+  }
+
+  .title-nav {
+    display: flex;
+    flex-direction: column;
+
+    a {
+      margin: 10px 0;
+      border-bottom: #15243b 1px solid;
+      padding: 5px;
+    }
+  }
+
+  .friends {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    
+
+    button {
+      border: none;
+      background-color: white;
+      border-radius: 0;
+      color: black;
+      border: 1px solid black;
+    }
+  }
 }
 
-.sidebarfeeds h3 {
-  text-align: center;
-  color: #15243b;
-}
 
-.sidebarfeeds nav {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
 
-.sidebarfeeds nav a {
-  color: #4fa3f7;
-  text-decoration: none;
-  margin: 10px 0;
-  font-weight: bold;
-  text-align: center;
-  font-family: 'Inconsolata', monospace;
-}
-
-.sidebarfeeds nav a:hover {
-  color: #0a7eff;
-}
-
-.my-app{
-  font-family: "Playwrite HU", cursive;
-  border-bottom: #15243b 2px solid;
-  padding-bottom: 20px;
-}
-
-.menu-item {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 0;
-}
 @media (min-width: 1000px) and (max-width: 1400px) {
   .sidebarfeeds {
     max-width: 225px;
@@ -66,15 +66,9 @@
   .menu-item {
     display:block;
   }
-  .title-nav h1 {
+  .my-app {
     display: none; 
   }
 
-  .icon {
-    font-size: 28px;
-  }
-
-  .my-app {
-    display: none;
-  }
+  
 }
