@@ -69,11 +69,7 @@ function Sidebar() {
     { title: "Job Board", icon: <FaBriefcase />, link: "/jobs" },
     { title: "Trainings", icon: <FaChalkboardTeacher />, link: "/trainings" },
     { title: "Messenger", icon: <FaBlog />, link: "/Messenger" },
-    {
-      title: "My Profile",
-      icon: <FaUser />,
-      link: userId ? `/profile/${userId}` : "/login",
-    },
+    { title: "My Profile", icon: <FaUser />, link: userId ? `/profile/${userId}` : "/login"},
   ];
 
   return (

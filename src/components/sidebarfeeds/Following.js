@@ -5,7 +5,7 @@ import { getAuth } from "firebase/auth"; // Importing Firebase Auth to get the c
 import { FaStore, FaUser } from "react-icons/fa";
 import "./Following.css"; // Importing the css file for styling
 
-const Followers = () => {
+const Following = () => {
   const [following, setFollowing] = useState([]); // List of following users updating every time
   const [errorMessage, setErrorMessage] = useState(""); // To hold error message
   const [followersDetails, setFollowersDetails] = useState([]); // To store followers with full name
@@ -56,12 +56,14 @@ const Followers = () => {
             userData.firstName && userData.lastName ? (
               <span>
                 <img src={profileImage} alt={`${userData.firstName || 'User'}'s profile`} />
-                {userData.firstName} {userData.lastName} <FaUser />
+                <div className="fullName">{userData.firstName} {userData.lastName}</div> 
+                <FaUser />
               </span>
             ) : (
               <span>
                 <img src={profileImage} alt={`${userData.businessName || 'Business'}'s profile`} />
-                {userData.businessName || "Unknown"} <FaStore />
+                <div className="businessName">{userData.businessName || "Unknown"}</div> 
+                <FaStore />
               </span>
             ); // Fallback to businessName or 'Unknown'
       
@@ -77,7 +79,7 @@ const Followers = () => {
 
   return (
     <div>
-      <h2>Following</h2>
+      
       {errorMessage && <p>{errorMessage}</p>}{" "}
       {/* Display error message if it exists */}
       <ul>
@@ -93,4 +95,4 @@ const Followers = () => {
   );
 };
 
-export default Followers;
+export default Following;
