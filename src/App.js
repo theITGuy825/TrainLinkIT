@@ -8,6 +8,7 @@ import Profile from "./components/Profile/Profile";
 import PostDetail from "./components/postdetail/postdetail"; // Import PostDetail component
 import Messenger from "./components/messenger/messenger"; // Import PostDetail component
 import JobBoard from "./components/JobBoard/JobBoard";
+import Training from "./components/Training/Training";
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,6 +37,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/messenger" element={<Messenger />} />
         <Route path="/jobs" element={<JobBoard/>} />
+        <Route path="/trainings" element={<Training/>} />
         {/* Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/home" element={<Home />} />
