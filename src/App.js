@@ -7,6 +7,7 @@ import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
 import PostDetail from "./components/postdetail/postdetail"; // Import PostDetail component
 import Messenger from "./components/messenger/messenger"; // Import PostDetail component
+import JobBoard from "./components/JobBoard/JobBoard";
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -34,6 +35,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/messenger" element={<Messenger />} />
+        <Route path="/jobs" element={<JobBoard/>} />
         {/* Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/home" element={<Home />} />
