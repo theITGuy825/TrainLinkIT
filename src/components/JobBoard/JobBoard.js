@@ -16,6 +16,8 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import Sidebar from "../Sidebar/sidebar";
+import "../Sidebar/Sidebar.css";
+import "./JobBoard.css";
 
 
 function JobBoard({ title }) {
@@ -157,13 +159,16 @@ function JobBoard({ title }) {
   };
 
   return (
+    
     <div className="jobboard-container">
       {/* Sidebar */}
-      
+     
+        <Sidebar />
+
 
       {/* JobBoard Content */}
       <div className="jobboard-content">
-        <h1 className="jobboard-header">JOB POSTING</h1>
+        <h1 className="jobboard-header" >JOB POSTING</h1>
         <h2>{title}</h2>
 
         {/* Create a Post */}
@@ -258,17 +263,6 @@ function JobBoard({ title }) {
                 <a href={post.link} target="_blank" rel="noopener noreferrer">
                   View Job
                 </a>
-                <div className="post-actions">
-                  <button
-                    className="like-button"
-                    onClick={() => handleLike(post.id)}
-                  >
-                    👍 Like ({post.likesCount})
-                  </button>
-                  <span className="toolie">
-                    💬 View Comments ({post.commentsCount})
-                  </span>
-                </div>
               </div>
             ))
           ) : (
