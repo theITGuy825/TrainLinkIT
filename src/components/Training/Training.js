@@ -8,7 +8,8 @@ const trainingData = [
     description: "Learn the basics of JavaScript, including ES6 features and DOM manipulation.",
     resources: [
       { name: "JavaScript for Beginners", link: "https://www.freecodecamp.org/learn" },
-      { name: "MDN JavaScript Guide", link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide" },
+      { name: "MDN JavaScript Guide", link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide"},
+      {name: " Take the quiz", link: "https://docs.google.com/forms/d/e/1FAIpQLSdObtC_LnCTRYCAqjO2Ll6qg8cLdmK3JdWeYnf4O2fsCxsFMA/viewform?usp=header"},
     ],
     video: "https://www.youtube.com/embed/W6NZfCO5SIk", // Example YouTube video
   },
@@ -18,6 +19,7 @@ const trainingData = [
     resources: [
       { name: "Python Official Documentation", link: "https://docs.python.org/3/" },
       { name: "Real Python", link: "https://realpython.com/" },
+      {name: " Take the quiz", link: "https://docs.google.com/forms/d/e/1FAIpQLSdObtC_LnCTRYCAqjO2Ll6qg8cLdmK3JdWeYnf4O2fsCxsFMA/viewform?usp=header"},
     ],
     video: "https://www.youtube.com/embed/rfscVS0vtbw", // Example YouTube video
   },
@@ -27,6 +29,7 @@ const trainingData = [
     resources: [
       { name: "Java Tutorials by Oracle", link: "https://docs.oracle.com/javase/tutorial/" },
       { name: "GeeksforGeeks Java", link: "https://www.geeksforgeeks.org/java/" },
+      {name: " Take the quiz", link: "https://docs.google.com/forms/d/e/1FAIpQLSdObtC_LnCTRYCAqjO2Ll6qg8cLdmK3JdWeYnf4O2fsCxsFMA/viewform?usp=header"},
     ],
     video: "https://www.youtube.com/embed/grEKMHGYyns", // Example YouTube video
   },
@@ -36,6 +39,7 @@ const trainingData = [
     resources: [
       { name: "C++ TutorialsPoint", link: "https://www.tutorialspoint.com/cplusplus/index.htm" },
       { name: "Learn C++", link: "https://www.learncpp.com/" },
+      {name: " Take the quiz", link: "https://docs.google.com/forms/d/e/1FAIpQLSdObtC_LnCTRYCAqjO2Ll6qg8cLdmK3JdWeYnf4O2fsCxsFMA/viewform?usp=header"},
     ],
     video: "https://www.youtube.com/embed/vLnPwxZdW4Y", // Example YouTube video
   },
@@ -45,6 +49,7 @@ const trainingData = [
     resources: [
       { name: "Ruby Official Documentation", link: "https://www.ruby-lang.org/en/documentation/" },
       { name: "Learn Ruby the Hard Way", link: "https://learnrubythehardway.org/" },
+      {name: " Take the quiz", link: "https://docs.google.com/forms/d/e/1FAIpQLSdObtC_LnCTRYCAqjO2Ll6qg8cLdmK3JdWeYnf4O2fsCxsFMA/viewform?usp=header"},
     ],
     video: "https://www.youtube.com/embed/t_ispmWmdjY", // Example YouTube video
   },
