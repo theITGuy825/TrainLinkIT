@@ -10,6 +10,7 @@ import {
   FaChalkboardTeacher,
   FaBlog,
   FaUser,
+  FaSchool,
 } from "react-icons/fa";
 import { auth } from "../../firebase";
 
@@ -70,6 +71,7 @@ function Sidebar() {
     { title: "Trainings", icon: <FaChalkboardTeacher />, link: "/trainings" },
     { title: "Messenger", icon: <FaBlog />, link: "/Messenger" },
     { title: "My Profile", icon: <FaUser />, link: userId ? `/profile/${userId}` : "/login"},
+    { title: "Code Help", icon: <FaSchool/>, link: "https://discord.com/invite/code"}
   ];
 
   return (
