@@ -1,68 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
-import { auth } from "./firebase"; // Import Firebase authentication
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
-import PostDetail from "./components/postdetail/postdetail"; // Import PostDetail component
-import Messenger from "./components/messenger/messenger"; // Import Messenger component
-import Chats from "./components/messenger/Chats"; // Import Chats component
-import { ChatContextProvider } from "./components/context/ChatContext"; // Import the ChatContextProvider
+import PostDetail from "./components/postdetail/postdetail";
+import Messenger from "./components/Messenger/Messenger";
+import { AuthProvider, useAuth } from './context/AuthContext';
 import JobBoard from "./components/JobBoard/JobBoard";
 import Training from "./components/Training/Training";
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  return (
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          
+          {/* Private Routes */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/profile/:userId" element={<Profile />} />
+            <Route path="/post/:postId" element={<PostDetail />} />
+            <Route path="/jobs" element={<JobBoard/>} />
+            <Route path="/trainings" element={<Training/>} />
+            <Route path="/messenger" element={<Messenger />} />
+          </Route>
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-      setLoading(false);
-    });
+          {/* Redirect Root */}
+          <Route path="/" element={<RootRedirect />} />
 
-    return () => unsubscribe();
-  }, []);
-
-  if (loading) return <p>Loading...</p>; // Prevent flickering on load
-
-  // PrivateRoute function to restrict access
-  const PrivateRoute = () => {
-    return user ? <Outlet /> : <Navigate to="/login" />;
-  };
-
-return (
-    <Router>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        
-        {/* Private Routes */}
-        <Route element={<PrivateRoute />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/profile/:userId" element={<Profile />} />
-          <Route path="/post/:postId" element={<PostDetail />} />
-          <Route path="/jobs" element={<JobBoard/>} />
-          <Route path="/trainings" element={<Training/>} />
-          {/* Messenger and Chats inside ChatContextProvider */}
-          <Route path="/messenger" element={
-            <ChatContextProvider>
-              <Messenger />
-              <Chats />
-            </ChatContextProvider>
-          } />
-        </Route>
-
-        {/* Redirect Root to Login if not Authenticated */}
-        <Route path="/" element={user ? <Navigate to="/home" /> : <Navigate to="/login" />} />
-
-        {/* 404 Page */}
-        <Route path="*" element={<p>404 - Page Not Found</p>} />
-      </Routes>
-    </Router>
+          {/* 404 Page */}
+          <Route path="*" element={<p>404 - Page Not Found</p>} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
+
+// PrivateRoute component using AuthContext
+const PrivateRoute = () => {
+  const { currentUser, loading } = useAuth();
+  
+  if (loading) return <p>Loading...</p>;
+  return currentUser ? <Outlet /> : <Navigate to="/login" />;
+};
+
+// RootRedirect component using AuthContext
+const RootRedirect = () => {
+  const { currentUser } = useAuth();
+  return currentUser ? <Navigate to="/home" /> : <Navigate to="/login" />;
+};
 
 export default App;
