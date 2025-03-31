@@ -3,7 +3,7 @@ import { Box, TextField, IconButton, InputAdornment } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 const MessageInput = ({ onSend }) => {
-  console.log('[MessageInput] received onSend:', typeof onSend);
+  
   const [message, setMessage] = useState('');
 
   const handleSubmit = (e) => {

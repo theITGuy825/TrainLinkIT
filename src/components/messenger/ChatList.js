@@ -73,7 +73,7 @@ const ChatList = ({ chats, currentUser, onSelectChat, loading, activeChat }) => 
                     color="text.primary"
                     noWrap
                   >
-                    {chat.lastMessageSender === currentUser.uid ? 'You: ' : ''}
+                    {chat.lastMessageSender === currentUser.firstName ? 'You: ' : ''}
                     {chat.lastMessage}
                   </Typography>
                 </>
