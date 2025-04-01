@@ -1,0 +1,72 @@
+/* Main Sidebar Container */
+.training-sidebar {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  /* List of Training Items */
+  .training-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  /* Individual Training Item Wrapper */
+  .training-item-wrapper {
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 12%, rgba(251,251,251,1) 100%);
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .training-item-wrapper:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Training Item */
+  .training-item {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* Training Title */
+  .training-title {
+    font-size: 16px;
+    font-weight: bolder;
+    color: white;
+    margin-bottom: 4px;
+  }
+  
+  /* Training Description */
+  .training-description {
+    font-size: 14px;
+    font-weight: bolder;
+    color: white;
+    line-height: 1.4;
+  }
+  
+  /* Link Styling */
+  .training-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  
+  /* No Available Trainings Message */
+  .training-sidebar p {
+    font-size: 14px;
+    color: white;
+    margin-top: 10px;
+    text-align: start;
+  }
+  

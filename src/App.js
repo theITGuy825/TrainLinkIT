@@ -5,7 +5,7 @@ import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
 import PostDetail from "./components/postdetail/postdetail";
-import Messenger from "./components/Messenger/Messenger";
+import Messenger from "./components/messenger/messenger";
 import { AuthProvider, useAuth } from './context/AuthContext';
 import JobBoard from "./components/JobBoard/JobBoard";
 import Training from "./components/Training/Training";

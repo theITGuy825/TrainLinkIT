@@ -1,4 +1,66 @@
-img {
-    height: 20px;
-    width:auto;
-  }
+/* CSS for followers list */
+.followers-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto; 
+}
+
+/* Styling for each follower item */
+.follower-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc; 
+}
+
+.follower-item:hover {
+  background-color: #e0e0e0;
+}
+
+/* Flex container for profile image and full name */
+.follower-info {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Space between image and name */
+}
+
+.icon-text {
+  margin-left: auto;
+}
+/* Profile image styling */
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Styling for the full name */
+.name-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Styling for the icon (user or business) */
+.follower-info svg {
+  color: #555;
+}
+
+/* Styling for the link to the profile */
+.follower-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Error message styling */
+.noFollowers {
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+}

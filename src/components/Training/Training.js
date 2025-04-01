@@ -2,7 +2,7 @@ import React from "react";
 import "./Training.css";
 import Sidebar from "../Sidebar/sidebar";
 
-const trainingData = [
+export const trainingData = [
   {
     language: "JavaScript",
     description: "Learn the basics of JavaScript, including ES6 features and DOM manipulation.",

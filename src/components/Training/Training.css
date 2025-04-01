@@ -1,73 +1,73 @@
 .training-container {
-    padding: 20px;
-    background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
-  }
-  
-  .training-header {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .training-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .training-card {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    width: 300px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .training-card h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #007bff;
-  }
-  
-  .training-card p {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    color: #555;
-  }
-  
-  .training-card ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .training-card li {
-    margin-bottom: 5px;
-  }
-  
-  .training-card a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .training-card a:hover {
-    text-decoration: underline;
-  }
-  
-  .video-container {
-    margin-top: 10px;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  iframe {
-    border: none;
-    border-radius: 8px;
-  }
+  padding: 20px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
 
-  .training-content{
-    margin-left: 250px;
-  }
+.training-header {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.training-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.training-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.training-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.training-card p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.training-card ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.training-card li {
+  margin-bottom: 5px;
+}
+
+.training-card a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.training-card a:hover {
+  text-decoration: underline;
+}
+
+.video-container {
+  margin-top: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+iframe {
+  border: none;
+  border-radius: 8px;
+}
+
+.training-content {
+  margin-left: 250px;
+}

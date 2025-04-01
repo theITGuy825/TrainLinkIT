@@ -11,7 +11,8 @@ import {
   Avatar, 
   ListItemText,
   CircularProgress
-} from '@mui/material';
+} from '@mui/material'
+
 
 const NewChatModal = ({ open, onClose, currentUserId, onCreateChat }) => {
   const [users, setUsers] = useState([]);

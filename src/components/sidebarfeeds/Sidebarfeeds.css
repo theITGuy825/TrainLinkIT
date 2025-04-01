@@ -1,27 +1,27 @@
 /* Sidebarfeeds.css */
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap");
 /* Sidebar styles for the right sidebar (duplicate nav) */
 .sidebarfeeds {
   max-width: 350px;
-  width: 100%;  /* Fixed width for the sidebar */
-  background-color: #ffc;  /* Dark blue background */
-  color: #15243b;
+  width: 100%; /* Fixed width for the sidebar */
+  background-color: white; /* Dark blue background */
+  color: black;
   padding: 20px;
-  position: fixed;  /* Fixes the sidebar on the right side */
-  top: 0;  /* Sticks it to the top of the screen */
-  right: 0;  /* Aligns the sidebar to the right */
-  border-left: 2px solid #15243b;  /* Border between sidebar and content */
-  height: 100vh;  /* Makes the sidebar full height */
-  font-family: 'Inconsolata', monospace;
-  overflow-y: auto;  /* Allows scrolling inside the sidebar if content overflows */
+  transition: max-width 0.3s ease;
+  position: fixed; /* Fixes the sidebar on the right side */
+  top: 0; /* Sticks it to the top of the screen */
+  right: 0; /* Aligns the sidebar to the right */
+  border-left: 2px solid #ddd; /* Border between sidebar and content */
+  height: 100vh; /* Makes the sidebar full height */
+  font-family: "Inconsolata", monospace;
+  overflow-y: auto; /* Allows scrolling inside the sidebar if content overflows */
 
   .my-app {
     text-align: center;
-    font-family: 'Playwrite HU', sans-serif;
+    font-family: "Playwrite HU", sans-serif;
     padding-bottom: 20px;
     border-bottom: #15243b 2px solid;
-    margin-bottom: 20px;
   }
 
   .title-nav {
@@ -29,9 +29,7 @@
     flex-direction: column;
 
     a {
-      margin: 10px 0;
-      border-bottom: #15243b 1px solid;
-      padding: 5px;
+      text-decoration: none;
     }
   }
 
@@ -39,7 +37,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    
 
     button {
       border: none;
@@ -50,8 +47,16 @@
     }
   }
 }
+.arrow-icon {
+  display: none;
+  background-color: transparent;
+  border: none;
+}
 
-
+.arrow-icon:hover {
+  background-color: transparent;
+  border-radius: 0%;
+}
 
 @media (min-width: 1000px) and (max-width: 1400px) {
   .sidebarfeeds {
@@ -61,14 +66,22 @@
 
 @media (max-width: 1000px) {
   .sidebarfeeds {
-    max-width: 30px;
-  }
-  .menu-item {
-    display:block;
-  }
-  .my-app {
-    display: none; 
+    width: 30px; /* Increase width to fit icon */
   }
 
-  
+  .arrow-icon {
+    display: block; /* Show the arrow icon */
+    position: absolute;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 24px; /* Adjust size as needed */
+    color: black; /* Change color as needed */
+  }
+  .sidebarfeeds-title {
+    display: none; /* Hide the title on smaller screens */
+  }
+
+  .arrow-icon:focus{
+    left: 100px;
+  }
 }

@@ -3,7 +3,8 @@ import { db } from "../../firebase"; // Importing database and authentication fr
 import { doc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth"; // Importing Firebase Auth to get the current user's UID
 import { FaStore, FaUser } from "react-icons/fa";
-import "./Following.css"; // Importing the css file for styling
+import { Link } from "react-router-dom"; // Importing Link from react-router-dom
+import "./Followers.css"; // Importing the css file for styling
 
 const Following = () => {
   const [following, setFollowing] = useState([]); // List of following users updating every time
@@ -44,29 +45,37 @@ const Following = () => {
       for (const userId of followingList) {
         const userRef = doc(db, "users", userId); // Get each follower document reference
         const userSnap = await getDoc(userRef);
-      
+
         if (userSnap.exists()) {
           const userData = userSnap.data();
-          
-          const profileImage = userData.profilePic && userData.profilePic !== "" 
-            ? userData.profilePic 
-            : "profilePic.png"; // Use fallback image if profilePic is empty or undefined
-          
-          const fullName =
-            userData.firstName && userData.lastName ? (
-              <span>
-                <img src={profileImage} alt={`${userData.firstName || 'User'}'s profile`} />
-                <div className="fullName">{userData.firstName} {userData.lastName}</div> 
-                <FaUser />
-              </span>
-            ) : (
-              <span>
-                <img src={profileImage} alt={`${userData.businessName || 'Business'}'s profile`} />
-                <div className="businessName">{userData.businessName || "Unknown"}</div> 
-                <FaStore />
-              </span>
-            ); // Fallback to businessName or 'Unknown'
-      
+
+          const profileImage =
+            userData.profilePic && userData.profilePic !== ""
+              ? userData.profilePic
+              : "profilePic.png"; // Use fallback image if profilePic is empty or undefined
+
+          const fullName = (
+            <div className="follower-info">
+              <img
+                src={profileImage}
+                alt={`${userData.firstName || "User"}'s profile`}
+                className="profile-img"
+              />
+              <div className="name-text">
+                {userData.firstName && userData.lastName
+                  ? `${userData.firstName} ${userData.lastName}`
+                  : userData.businessName || "Unknown"}
+              </div>
+              <div className="icon-text">
+                {userData.firstName && userData.lastName ? (
+                  <FaUser  />
+                ) : (
+                  <FaStore />
+                )}
+              </div>
+            </div>
+          ); // Fallback to businessName or 'Unknown'
+
           followersData.push({ userId, fullName });
         }
       }
@@ -79,18 +88,21 @@ const Following = () => {
 
   return (
     <div>
-      
       {errorMessage && <p>{errorMessage}</p>}{" "}
       {/* Display error message if it exists */}
-      <ul>
+      <div className="followers-list">
         {followersDetails.length > 0 ? (
           followersDetails.map((follower) => (
-            <li key={follower.userId}>{follower.fullName}</li> // Display full name or business name
+            <div key={follower.userId} className="follower-item">
+              <Link to={`/profile/${follower.userId}`}>
+                {follower.fullName}
+              </Link>
+            </div> // Link to their profile page
           ))
         ) : (
-          <p>No following to display</p> // If no following found
+          <p className="noFollowers">No following to display</p> // If no following found
         )}
-      </ul>
+      </div>
     </div>
   );
 };

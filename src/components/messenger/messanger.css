@@ -1,0 +1,16 @@
+.chatContainer {
+    margin-left: 260px;
+}
+
+@media (min-width: 1000px) and (max-width: 1400px) {
+    .chatContainer {
+      margin-right: 285px;
+    }
+  }
+  
+  @media (max-width: 1000px) {
+    .chatContainer {
+      margin-left: 90px;
+    }
+  }
+  
