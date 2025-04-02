@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap");
 /* Sidebar styles for the right sidebar (duplicate nav) */
 .sidebarfeeds {
-  max-width: 350px;
+  width: 350px;
   width: 100%; /* Fixed width for the sidebar */
   background-color: white; /* Dark blue background */
   color: black;
@@ -17,7 +17,7 @@
   font-family: "Inconsolata", monospace;
   overflow-y: auto; /* Allows scrolling inside the sidebar if content overflows */
 
-  .my-app {
+  .my-app-updates {
     text-align: center;
     font-family: "Playwrite HU", sans-serif;
     padding-bottom: 20px;
@@ -48,7 +48,6 @@
   }
 }
 .arrow-icon {
-  display: none;
   background-color: transparent;
   border: none;
 }
@@ -57,31 +56,30 @@
   background-color: transparent;
   border-radius: 0%;
 }
+.sidebarfeeds {
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
 
+.sidebarfeeds.collapsed {
+  width: 30px;
+}
+
+.sidebarfeeds.collapsed .sidebarfeeds-title {
+  display: none;
+}
+
+.arrow-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  color: #333;
+}
 @media (min-width: 1000px) and (max-width: 1400px) {
   .sidebarfeeds {
     max-width: 225px;
   }
 }
 
-@media (max-width: 1000px) {
-  .sidebarfeeds {
-    width: 30px; /* Increase width to fit icon */
-  }
-
-  .arrow-icon {
-    display: block; /* Show the arrow icon */
-    position: absolute;
-    left: 0;
-    transform: translateY(-50%);
-    font-size: 24px; /* Adjust size as needed */
-    color: black; /* Change color as needed */
-  }
-  .sidebarfeeds-title {
-    display: none; /* Hide the title on smaller screens */
-  }
-
-  .arrow-icon:focus{
-    left: 100px;
-  }
-}

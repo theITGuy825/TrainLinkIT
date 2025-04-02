@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db } from "../../firebase"; // Ensure you import the db instance
-import { collection, getDocs } from "firebase/firestore"; // Firestore query imports
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
 import "./Sidebar.css";
 import {
   FaStore,
@@ -11,49 +11,54 @@ import {
   FaBlog,
   FaUser,
   FaSchool,
+  FaBars,
+  FaTimes
 } from "react-icons/fa";
 import { auth } from "../../firebase";
 
 function Sidebar() {
   const userId = auth.currentUser?.uid;
-  const [activeItem, setActiveItem] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(""); // State for search input
-  const [users, setUsers] = useState([]); // State for storing users
-  const [filteredUsers, setFilteredUsers] = useState([]); // State for filtered users based on search
-
-  const handleItemClick = (index) => {
-    setActiveItem(activeItem === index ? null : index);
-  };
+  const [searchQuery, setSearchQuery] = useState("");
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    // Fetch all users when component mounts
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      if (window.innerWidth > 1000) {
+        setIsCollapsed(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const usersRef = collection(db, "users"); // Reference to the "users" collection
-        const querySnapshot = await getDocs(usersRef); // Get all users
-
+        const usersRef = collection(db, "users");
+        const querySnapshot = await getDocs(usersRef);
         const userList = querySnapshot.docs.map((doc) => ({
-          id: doc.id, // Assuming each user document has an ID
+          id: doc.id,
           ...doc.data(),
         }));
         setUsers(userList);
-        setFilteredUsers(userList); // Initially show all users
       } catch (error) {
         console.error("Error fetching users: ", error);
       }
     };
-
     fetchUsers();
   }, []);
 
   useEffect(() => {
-    // Filter users based on the search query
     if (searchQuery === "") {
-      setFilteredUsers(users); // If no search query, show all users
+      setFilteredUsers([]);
     } else {
       setFilteredUsers(
         users.filter((user) => {
-          // Combine first and last name for matching
           const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
           const businessName = user.businessName?.toLowerCase() || "";
           return (
@@ -65,6 +70,10 @@ function Sidebar() {
     }
   }, [searchQuery, users]);
 
+  const toggleSidebar = () => setIsCollapsed(!isCollapsed);
+  const handleSearchFocus = () => setShowSearchResults(true);
+  const handleSearchBlur = () => setTimeout(() => setShowSearchResults(false), 200);
+
   const menuItems = [
     { title: "Home", icon: <FaHome />, link: "/home" },
     { title: "Job Board", icon: <FaBriefcase />, link: "/jobs" },
@@ -74,78 +83,69 @@ function Sidebar() {
     { title: "Code Help", icon: <FaSchool/>, link: "https://discord.com/invite/code"}
   ];
 
+  const showHamburger = windowWidth <= 1000;
+
   return (
-    <div className="sidebar">
-      <img
-        src="/image073263.png"
-        alt="description"
-        width="200"
-        height="200"
-        className="logoSidebar"
-      />
+    <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+      {showHamburger && (
+        <button 
+          className="hamburger-btn"
+          onClick={toggleSidebar}
+          aria-label={isCollapsed ? "Expand menu" : "Collapse menu"}
+        >
+          {isCollapsed ? <FaBars size={20} /> : <FaTimes size={20} />}
+        </button>
+      )}
 
-      <img src="/image173264.png" alt="description" className="smallLogo" />
-
-      {/* Search box for users */}
-      <input
-        type="text"
-        placeholder="Search users & businesses..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="search-box"
-      />
-
-      <div className="search-results">
-        {filteredUsers.length > 0 ? (
-          filteredUsers.map((user) => (
-            <Link
-              key={user.id}
-              to={`/profile/${user.id}`}
-              className="search-result"
-            >
-              {user.businessName ? (
-                <>
-                  <FaStore /> {user.businessName}
-                </>
-              ) : (
-                <>
-                  <FaUser /> {user.firstName} {user.lastName}
-                </>
-              )}
-            </Link>
-          ))
-        ) : (
-          <p>err No users found</p>
-        )}
-      </div>
-      
-      <nav className="title-nav">
-        {menuItems.map((item, index) => (
-          <Link
-            key={index}
-            to={item.link}
-            onClick={() => handleItemClick(index)}
-          >
-            {item.title}
-          </Link>
-        ))}
-      </nav>
-
-      
-
-      <nav className="icon-nav">
-        {menuItems.map((item, index) => (
-          <div
-            key={index}
-            className={`menu-item ${activeItem === index ? "active" : ""}`}
-            onClick={() => handleItemClick(index)}
-          >
-            <Link to={item.link}>
-              <div className="icon">{item.icon}</div>
-            </Link>
+      {(!isCollapsed || windowWidth > 1000) && (
+        <div className="sidebar-content">
+          <div className="logo-container">
+            <img src="/image073263.png" alt="logo" className="logoSidebar" />
           </div>
-        ))}
-      </nav>
+
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Search users..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={handleSearchFocus}
+              onBlur={handleSearchBlur}
+              className="search-box"
+            />
+            {showSearchResults && filteredUsers.length > 0 && (
+              <div className="search-results">
+                {filteredUsers.map((user) => (
+                  <Link
+                    key={user.id}
+                    to={`/profile/${user.id}`}
+                    className="search-result"
+                  >
+                    {user.businessName ? (
+                      <><FaStore /> {user.businessName}</>
+                    ) : (
+                      <><FaUser /> {user.firstName} {user.lastName}</>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+          
+          <nav className="title-nav">
+            {menuItems.map((item, index) => (
+              <Link
+                key={index}
+                to={item.link}
+                className="nav-link"
+              >
+                <span className="nav-icon">{item.icon}</span>
+                <span className="nav-text">{item.title}</span>
+              </Link>
+            ))}
+          </nav>
+        </div>
+      )}
     </div>
   );
 }
