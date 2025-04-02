@@ -80,7 +80,7 @@ function Sidebar() {
     { title: "Trainings", icon: <FaChalkboardTeacher />, link: "/trainings" },
     { title: "Messenger", icon: <FaBlog />, link: "/Messenger" },
     { title: "My Profile", icon: <FaUser />, link: userId ? `/profile/${userId}` : "/login"},
-    { title: "Code Help", icon: <FaSchool/>, link: "https://discord.com/invite/code"}
+    { title: "Code Help", icon: <FaSchool/>, link: "https://discord.com/invite/code", target: "_blank" },
   ];
 
   const showHamburger = windowWidth <= 1000;
@@ -138,6 +138,7 @@ function Sidebar() {
                 key={index}
                 to={item.link}
                 className="nav-link"
+                target={item.target}
               >
                 <span className="nav-icon">{item.icon}</span>
                 <span className="nav-text">{item.title}</span>

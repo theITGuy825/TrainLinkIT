@@ -1,7 +1,7 @@
-/* Sidebarfeeds.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap");
-/* Sidebar styles for the right sidebar (duplicate nav) */
+
 .sidebarfeeds {
   width: 350px;
   width: 100%; /* Fixed width for the sidebar */
@@ -15,21 +15,57 @@
   border-left: 2px solid #ddd; /* Border between sidebar and content */
   height: 100vh; /* Makes the sidebar full height */
   font-family: "Inconsolata", monospace;
+  font-size: 14px; /* Font size for the sidebar text */
   overflow-y: auto; /* Allows scrolling inside the sidebar if content overflows */
 
   .my-app-updates {
     text-align: center;
-    font-family: "Playwrite HU", sans-serif;
-    padding-bottom: 20px;
-    border-bottom: #15243b 2px solid;
+    padding: 5px;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 30px;
+    border: #15243b 2px solid;
   }
 
-  .title-nav {
+  .title-navigation {
     display: flex;
     flex-direction: column;
 
     a {
-      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: 5px;
+      padding-bottom: 2.5px;
+      width: 100%;
+
+      .textRender {
+        text-decoration: none;
+        color: black;
+        margin-left: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px;
+      }
+      .iconRender {
+        color: black;
+        font-size: 20px;
+      }
+      .textRender:hover + .iconRender {
+        color: #ccc;
+      }
+    }
+
+    a:hover {
+      transition: border-bottom 0.6s ease-in-out;
+      border-bottom: 2px solid black;
+      .iconRender {
+        color: #008080;
+      }
+      .textRender {
+        color: #008080;
+      }
     }
   }
 
@@ -43,7 +79,23 @@
       background-color: white;
       border-radius: 0;
       color: black;
-      border: 1px solid black;
+      border: 2px solid black;
+      font-weight: bold;
+
+      .handShake{
+        padding-right:5px;
+        font-size: 16px;
+      }
+
+      .userCheck {
+        padding-right: 5px;
+        font-size:16px;
+      }
+    }
+
+    .active-btn {
+      background-color: #008080;
+      color: white;
     }
   }
 }
@@ -55,6 +107,7 @@
 .arrow-icon:hover {
   background-color: transparent;
   border-radius: 0%;
+  color: #008080;
 }
 .sidebarfeeds {
   transition: width 0.3s ease;
@@ -82,4 +135,3 @@
     max-width: 225px;
   }
 }
-

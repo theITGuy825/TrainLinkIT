@@ -19,6 +19,7 @@ function Sidebarfeeds() {
   const [activeItem, setActiveItem] = useState(null);
   const [showAllSuggested, setShowAllSuggested] = useState(false);
   const [showAllTrainings, setShowAllTrainings] = useState(false);
+  
   const [previewData, setPreviewData] = useState({
     suggested: null,
     trainings: null
@@ -50,6 +51,9 @@ function Sidebarfeeds() {
 
   // Fetch preview data on component mount
   useEffect(() => {
+    console.log("Selected Section:", selectedSection);
+  }, [selectedSection]);
+  useEffect(() => {
     const fetchPreviewData = async () => {
       try {
         // Simulate fetching preview data (first 3 items)
@@ -74,6 +78,7 @@ function Sidebarfeeds() {
     }
   };
 
+  
   const handleItemClick = async (index) => {
     if (index === 0) {
       if (!fullData.suggested && !loading.suggested) {
@@ -204,16 +209,16 @@ function Sidebarfeeds() {
           <div className="friends">
             <button
               className={selectedSection === "followers" ? "active-btn" : ""}
-              onClick={() => setSelectedSection("followers")}
+              onClick={() => setSelectedSection("followers")} 
             >
-              <FaUserCheck />
+              <FaUserCheck className="userCheck"/>
               Followers
             </button>
             <button
               className={selectedSection === "following" ? "active-btn" : ""}
               onClick={() => setSelectedSection("following")}
             >
-              <FaRegHandshake />
+              <FaRegHandshake className="handShake"/>
               Following
             </button>
           </div>
