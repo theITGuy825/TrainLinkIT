@@ -21,16 +21,15 @@
 /* Individual Post styles */
 .post {
   background-color: white;
-  padding: 15px;
-; /* Rounded corners */
+  padding: 15px; /* Rounded corners */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: 'Inconsolata', monospace;
+  font-family: "Inconsolata", monospace;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Hover effect */
 .post:hover {
-  transform: scale(1.0);
+  transform: scale(1);
   box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
 }
 
@@ -63,40 +62,81 @@
 }
 
 /* Post Action Buttons */
-.post-actions {
+.post-actions-profile {
   margin-top: 10px;
   display: flex;
   gap: 10px;
+  margin-left: 70%;
 }
 
 /* Edit and Delete Buttons */
+.postSaveCancelbtn {
+  display: flex;
+  .savePostEdit {
+    width: 25%;
+    margin-left: 50%;
+    margin-right: 20px;
+    background-color: rgba(185,232,228,1);
+    color: black;
+  }
+  .cancelPostEdit{
+    width: 25%;
+    background-color: rgba(185,232,228,1);
+    color: black;
+  }
+
+  .cancelPostEdit:hover{
+    background-color: rgba(105,167,161,1);
+    color:white;
+  }
+
+  .savePostEdit:hover{
+    background-color: rgba(105,167,161,1);
+    color: white;
+  }
+}
 .edit-button,
 .delete-button {
-  padding: 5px 10px;
-  font-family: 'Inconsolata', monospace;
+  padding: 10px 10px;
+  font-family: "Inconsolata", monospace;
   font-weight: bold;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-}
-
-.edit-button {
-  background-color: #15243b;
-  color: #ffc750;
+  background-color: transparent;
+  background-color: rgba(185, 232, 228, 1);
+  color: black;
+  border-radius: 0px;
 }
 
 .edit-button:hover {
-  background-color: #ffc750;
-  color: #15243b;
-}
-
-.delete-button {
-  background-color: #c0392b;
+  background-color: rgba(105, 167, 161, 1);
   color: white;
 }
 
 .delete-button:hover {
-  background-color: #e74c3c;
+  background-color: rgb(236, 144, 144);
+  color: white;
+}
+.textArea-editing {
+  textarea {
+    justify-self: center;
+    width: 95%;
+  }
+}
+/* Responsive Adjustments */
+
+@media (max-width: 1000px) {
+  .editing-btn {
+    display: none;
+  }
+  .deleting-btn {
+    display: none;
+  }
+  .savePostEdit {
+    
+    margin-left: 30%;
+    
+  }
 }
 
-/* Responsive Adjustments */

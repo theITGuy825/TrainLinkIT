@@ -15,7 +15,7 @@ import {
   setDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { FaHeart, FaComment } from "react-icons/fa"; 
+import { FaHeart, FaComment } from "react-icons/fa";
 
 function PostFeed({ title }) {
   const [newPost, setNewPost] = useState("");
@@ -23,14 +23,19 @@ function PostFeed({ title }) {
   const [userProfilePic, setUserProfilePic] = useState("/profilepic.png");
   const [userFullName, setUserFullName] = useState("Anonymous");
 
-  // Fetch user data (including profile picture)
+  // Fetch user data (including profile picture and business name)
   const getUserData = async (userId) => {
     try {
       const userDoc = await getDoc(doc(db, "users", userId));
       if (userDoc.exists()) {
         const userData = userDoc.data();
+        const fullName =
+          userData.firstName && userData.lastName
+            ? `${userData.firstName} ${userData.lastName}`
+            : userData.businessName || "Anonymous";
+
         return {
-          fullName: `${userData.firstName} ${userData.lastName}`,
+          fullName,
           profilePic: userData.profilePic || "/profilepic.png",
         };
       }
@@ -57,24 +62,22 @@ function PostFeed({ title }) {
       const postsArray = await Promise.all(
         snapshot.docs.map(async (doc) => {
           const postData = doc.data();
-          // Only include posts that have content
-          if (!postData.content) return null;
-          
+          if (!postData.content) return null; // Only include posts that have content
+
           const { fullName, profilePic } = await getUserData(postData.userId);
-          return { 
-            id: doc.id, 
-            author: fullName, 
-            profilePic, 
+          return {
+            id: doc.id,
+            author: fullName,
+            profilePic,
             content: postData.content,
             likesCount: postData.likesCount || 0,
             commentsCount: postData.commentsCount || 0,
             timestamp: postData.timestamp,
-            userId: postData.userId
+            userId: postData.userId,
           };
         })
       );
-      // Filter out any null posts (posts without content)
-      setPosts(postsArray.filter(post => post !== null));
+      setPosts(postsArray.filter((post) => post !== null));
     });
 
     fetchUserData();
@@ -147,12 +150,25 @@ function PostFeed({ title }) {
       <div className="post-creation">
         <div className="post-creation-header">
           <div className="post-creation-header-second">
-            <img src={userProfilePic} alt="Your Profile" width="50" height="50" className="profilepic-post-creation" />
+            <img
+              src={userProfilePic}
+              alt="Your Profile"
+              width="50"
+              height="50"
+              className="profilepic-post-creation"
+            />
             <h2 className="user-full-name">{userFullName}</h2>
           </div>
-          <textarea className="textarea" placeholder="What's on your mind?" value={newPost} onChange={(e) => setNewPost(e.target.value)} />
+          <textarea
+            className="textarea"
+            placeholder="What's on your mind?"
+            value={newPost}
+            onChange={(e) => setNewPost(e.target.value)}
+          />
         </div>
-        <button className="post-button" onClick={handlePostSubmit}>Post</button>
+        <button className="post-button" onClick={handlePostSubmit}>
+          Post
+        </button>
       </div>
       {/* Display Posts */}
       <div className="post-feed-container">
@@ -161,7 +177,13 @@ function PostFeed({ title }) {
             <div key={post.id} className="post">
               <Link to={`/profile/${post.userId}`} className="post-link">
                 <div className="post-header">
-                  <img src={post.profilePic} alt="Profile" width="50" height="50" className="profilepic" />
+                  <img
+                    src={post.profilePic}
+                    alt="Profile"
+                    width="50"
+                    height="50"
+                    className="profilepic"
+                  />
                   <h4>{post.author}</h4>
                 </div>
               </Link>
@@ -170,8 +192,18 @@ function PostFeed({ title }) {
               </Link>
 
               <div className="post-actions">
-                <button className="like-button" onClick={() => handleLike(post.id)}><FaHeart /> <span className="like-edit"> Like </span>({post.likesCount})</button>
-                <Link to={`/post/${post.id}`} className="toolie"><FaComment /> <span className="comment-edit">View Comments</span> ({post.commentsCount})</Link>
+                <button
+                  className="like-button"
+                  onClick={() => handleLike(post.id)}
+                >
+                  <FaHeart /> <span className="like-edit"> Like </span>(
+                  {post.likesCount})
+                </button>
+                <Link to={`/post/${post.id}`} className="toolie">
+                  <FaComment />{" "}
+                  <span className="comment-edit">View Comments</span> (
+                  {post.commentsCount})
+                </Link>
               </div>
             </div>
           ))

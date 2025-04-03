@@ -1,76 +1,203 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap");
+
+/* Base container styles */
 
 .profile-container {
   display: flex;
-}
-
-.profile-content {
-  margin-left: 250px; /* Adjust based on sidebar width */
-  flex-grow: 1;
+  flex-direction: row;
+  gap: 20px;
   padding: 20px;
-}
-
-.freelancer-profile {
-  display: flex;
-  justify-content: left;
-  align-items: start;
-  flex-direction: column; /* Stack the elements vertically */
-  text-align: left; /* Aligns text to the left */
-  font-family: "Inconsolata", monospace;
-  align-items: flex-start; /* Align all items to the left */
-  background-color: #ffc;
-  padding: 20px; /* Adds space inside the container */
-  border-radius: 12px; /* Rounds the corners */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow around the profile */
-  margin: 20px auto; /* Centers the profile with margin */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow effects */
-}
-
-/* Hover effect */
-.freelancer-profile:hover {
-  transform: scale(1.01); /* Slightly enlarge the profile on hover */
-  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* Add a stronger shadow on hover */
-}
-
-.profile-content .myProfile {
-  font-family: "Playwrite HU", cursive;
-  padding: 10px;
-  background-color: #ffc;
-  border: 3px solid #15243b;
-  font-style: italic;
-}
-
-.freelancer-profile-details {
-  display: flex;
-  flex-direction: column; /* Stack the elements vertically */
-  align-items: flex-start; /* Align everything to the left */
-  gap: 10px; /* Adds space between the <p> elements */
-}
-
-.freelancer-profile-details p {
-  font-size: 1.2em;
-  color: #333;
-  margin: 0; /* Removes any default margin for consistent spacing */
-}
-
-.editProfileDetails {
-  width: 25%;
-  margin-left: calc(75% / 2);
   font-family: "Inconsolata", monospace;
   font-weight: bold;
-  color: #ffc750;
-  background-color: #15243b;
-  transition: all 0.4s ease-in-out;
+  font-size: 16px;
+  text-align: left;
+}
+
+/* Content area */
+.profile-content {
+  margin-left: 250px;
+  flex-grow: 1;
+  padding: 20px;
+  text-align: left;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Profile header */
+.myProfile {
+  font-size: 24px; /* Kept larger for heading */
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: "Inconsolata", monospace;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  width: 100%;
+  --gradient-angle: 0deg;
+  background: linear-gradient(
+    var(--gradient-angle),
+    rgba(105, 167, 161, 1) 0%,
+    rgba(185, 232, 228, 1) 15%,
+    rgba(251, 251, 251, 1) 30%
+  );
+  animation: rotateGradient 20s linear infinite;
+  border: 1px solid #ccc;
+  justify-content: center;
+}
+
+/* Profile picture */
+.profile-picture {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.profile-picture img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #333;
+  background-color: rgb(235, 244, 243);
+}
+
+/* Edit button */
+.editProfileDetails {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Inconsolata", monospace;
+  background-color: rgba(105, 167, 161, 1);
+  color: white;
+  border: 1px solid black;
+  border-radius: 0px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+  width: 50%;
+  margin-left: 25%;
 }
 
 .editProfileDetails:hover {
-  background-color: #ffc750;
-  color: #15243b;
+  background-color: rgb(89, 120, 117);
+  color: white;
 }
 
+/* Profile sections */
+.freelancer-profile,
+.business-profile {
+  background: rgb(238, 248, 247);
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  border: 2px solid #333;
+  text-align: left;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.freelancer-profile h3,
+.business-profile h3 {
+  font-size: 20px; /* Slightly larger for subheadings */
+  font-weight: bold;
+  color: #333;
+  border-bottom: 2px solid #008080;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-family: "Inconsolata", monospace;
+}
+
+/* Profile details */
+.freelancer-profile-details p,
+.business-profile p {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #222;
+  text-align: left;
+  font-family: "Inconsolata", monospace;
+}
+
+/* Form elements */
+.freelancer-profile label,
+.business-profile label {
+  display: block;
+  text-align: left;
+  margin-top: 10px;
+  font-weight: bold;
+  font-family: "Inconsolata", monospace;
+  font-size: 16px;
+}
+
+.freelancer-profile input,
+.business-profile input,
+.business-profile textarea {
+  all: unset;
+  border-radius: none;
+  width: 98%;
+  padding: 8px;
+  background-color: rgb(198, 212, 214);
+  margin-right: -10px;
+  justify-self: left;
+  border-bottom: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+}
+
+.business-profile textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Save buttons */
+.business-profile button,
+.freelancer-profile button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Inconsolata", monospace;
+  background-color: rgba(185, 232, 228, 1);
+  color: black;
+  border: 1px solid black;
+  border-radius: 0px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+  width: 50%;
+  justify-self: center;
+  margin-left: 25%;
+}
+
+.business-profile button:hover,
+.freelancer-profile button:hover {
+  background-color: rgba(105, 167, 161, 1);
+  color: white;
+}
+
+/* Responsive adjustments */
 @media (max-width: 1000px) {
   .profile-container {
     margin-left: -180px;
   }
+}
+
+@keyframes rotateGradient {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
 }

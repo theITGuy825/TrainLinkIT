@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import "./ProfilePost.css";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 function ProfilePost() {
   const [posts, setPosts] = useState([]);
@@ -29,11 +30,21 @@ function ProfilePost() {
     return () => unsubscribeAuth();
   }, []);
 
-  // Fetch user full name
-  const getUserName = async (userId) => {
+  // Fetch user display name (checks for businessName if no firstName/lastName)
+  const getUserDisplayName = async (userId) => {
     try {
       const userDoc = await getDoc(doc(db, "users", userId));
-      return userDoc.exists() ? `${userDoc.data().firstName} ${userDoc.data().lastName}` : "Anonymous";
+      if (!userDoc.exists()) return "Anonymous";
+
+      const userData = userDoc.data();
+
+      // Check for business name if personal name doesn't exist
+      if (userData.firstName && userData.lastName) {
+        return `${userData.firstName} ${userData.lastName}`;
+      } else if (userData.businessName) {
+        return userData.businessName;
+      }
+      return "Anonymous";
     } catch (error) {
       console.error("Error fetching user:", error);
       return "Anonymous";
@@ -46,36 +57,37 @@ function ProfilePost() {
     if (!profileUserId) return;
 
     setLoading(true);
-    setPosts([]); // Clear previous posts when switching users
+    setPosts([]);
 
     const q = query(
       collection(db, "posts"),
       where("userId", "==", profileUserId),
       orderBy("timestamp", "desc")
     );
-    
+
     const unsubscribe = onSnapshot(q, async (snapshot) => {
       if (!isMounted) return;
 
       try {
-        const postsArray = (await Promise.all(
-          snapshot.docs.map(async (doc) => {
-            const postData = doc.data();
-            // Only include posts that have content
-            if (!postData.content) return null;
-            
-            const fullName = await getUserName(postData.userId);
-            return { 
-              id: doc.id, 
-              author: fullName, 
-              content: postData.content,
-              likesCount: postData.likesCount || 0,
-              commentsCount: postData.commentsCount || 0,
-              timestamp: postData.timestamp,
-              userId: postData.userId
-            };
-          })
-        )).filter(Boolean); // Remove any null entries
+        const postsArray = (
+          await Promise.all(
+            snapshot.docs.map(async (doc) => {
+              const postData = doc.data();
+              if (!postData.content) return null;
+
+              const displayName = await getUserDisplayName(postData.userId);
+              return {
+                id: doc.id,
+                author: displayName,
+                content: postData.content,
+                likesCount: postData.likesCount || 0,
+                commentsCount: postData.commentsCount || 0,
+                timestamp: postData.timestamp,
+                userId: postData.userId,
+              };
+            })
+          )
+        ).filter(Boolean);
 
         if (isMounted) {
           setPosts(postsArray);
@@ -83,9 +95,7 @@ function ProfilePost() {
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
-        if (isMounted) {
-          setLoading(false);
-        }
+        if (isMounted) setLoading(false);
       }
     });
 
@@ -115,14 +125,15 @@ function ProfilePost() {
   // Update post
   const handleUpdatePost = async () => {
     if (!editingPost?.content.trim()) return;
-
     try {
       await updateDoc(doc(db, "posts", editingPost.id), {
         content: editingPost.content,
       });
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
-          post.id === editingPost.id ? { ...post, content: editingPost.content } : post
+          post.id === editingPost.id
+            ? { ...post, content: editingPost.content }
+            : post
         )
       );
       setEditingPost(null);
@@ -149,29 +160,61 @@ function ProfilePost() {
           posts.map((post) => (
             <div key={post.id} className="post">
               <div className="post-header">
-                <img src="/profilepic.png" alt="Profile" width="50" height="50" className="profilepic" />
+                <img
+                  src="/profilepic.png"
+                  alt="Profile"
+                  width="50"
+                  height="50"
+                  className="profilepic"
+                />
                 <h4>{post.author}</h4>
               </div>
 
               {editingPost?.id === post.id ? (
-                <div>
+                <div className="textArea-editing">
                   <textarea
                     value={editingPost.content}
-                    onChange={(e) => setEditingPost({ ...editingPost, content: e.target.value })}
+                    onChange={(e) =>
+                      setEditingPost({
+                        ...editingPost,
+                        content: e.target.value,
+                      })
+                    }
                   />
-                  <button onClick={handleUpdatePost}>Save</button>
-                  <button onClick={() => setEditingPost(null)}>Cancel</button>
+                  <div className="postSaveCancelbtn">
+                    <button className="savePostEdit" onClick={handleUpdatePost}>
+                      Save
+                    </button>
+                    <button
+                      className="cancelPostEdit"
+                      onClick={() => setEditingPost(null)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <div>
                   <p>{post.content}</p>
                   {isViewingOwnProfile && (
-                    <div className="post-actions">
-                      <button className="edit-button" onClick={() => handleEditPost(post)}>
-                        ✏️ Edit
+                    <div className="post-actions-profile">
+                      <button
+                        className="edit-button"
+                        onClick={() => handleEditPost(post)}
+                      >
+                        <div className="edit-combined">
+                          <FaEdit className="editing-icon" />{" "}
+                          <span className="editing-btn">Edit</span>
+                        </div>
                       </button>
-                      <button className="delete-button" onClick={() => handleDeletePost(post.id)}>
-                        🗑 Delete
+                      <button
+                        className="delete-button"
+                        onClick={() => handleDeletePost(post.id)}
+                      >
+                        <div className="delete-combined">
+                          <FaTrash className="deleting-icon" />{" "}
+                          <span className="deleting-btn">Delete</span>
+                        </div>
                       </button>
                     </div>
                   )}

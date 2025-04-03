@@ -96,7 +96,7 @@ a:link {
   
 }
 .post-header h4 {
-  color: #15243b;
+  color: black;
   font-size: 16px;
   font-family: "Inconsolata", monospace;
   font-weight: bold;
@@ -104,7 +104,7 @@ a:link {
 }
 
 .post p {
-  color: #15243b;
+  color: black;
   font-size: 14px;
   font-family: "Inconsolata", monospace;
   border-bottom: black 1px solid;
@@ -113,6 +113,7 @@ a:link {
   background-color: white;
   text-align: left; /* Aligns text to the left */
   direction: ltr;
+  margin-bottom: -5px;
 }
 
 .post-actions {
@@ -187,3 +188,13 @@ a:link {
     display:none;
   }
 }
+
+/*
+
+@media (max-width: 1000px) {
+  .profile-container {
+    margin-left: -180px;
+  }
+}
+
+*/
