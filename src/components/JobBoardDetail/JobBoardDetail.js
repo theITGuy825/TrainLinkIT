@@ -17,7 +17,7 @@ import {
 } from "firebase/firestore";
 import "./JobBoardDetail.css";
 import Sidebar from "../Sidebar/sidebar.js";
-import Sidebarfeeds from "../sidebarfeeds/Sidebarfeeds.js";
+
 
 const formatDate = (timestamp) => {
   if (!timestamp) return "Unknown";
@@ -155,47 +155,46 @@ const JobBoardDetail = () => {
   };
 
   return (
-    <div className="post-detail-container">
+    <div className="post-detail-container-jobDetails">
       <Sidebar />
       {post ? (
-        <div className="post-detail">
-          <div className="post-header">
-            <Link to={`/profile/${post.userId}`} className="author-info">
+        <div className="post-detail-jobDetails">
+          <div className="post-header-jobDetails">
+            <Link to={`/profile/${post.userId}`} className="author-info-jobDetails">
               <img
                 src={post.userProfilePic}
                 alt="Profile"
-                className="profilepic"
+                className="profilepic-jobDetails"
                 width="50"
                 height="50"
                 onError={(e) => (e.target.src = "/profilepic.png")}
               />
               <div>
                 <h2>{post.author}</h2>
-                <p className="post-meta">Posted on: {formatDate(post.timestamp)}</p>
+                <p className="post-meta-jobDetails">Posted on: {formatDate(post.timestamp)}</p>
               </div>
             </Link>
           </div>
-          <p className="post-content">{post.content}</p>
-          <div className="post-actions">
-          
+          <p className="post-content-jobDetails">{post.content}</p>
+          <div className="post-actions-jobDetails">
             <button onClick={handleShare}>🔗 Share</button>
           </div>
-          <div className="comments-section">
+          <div className="comments-section-jobDetails">
             <h5>Comments</h5>
             {comments.length > 0 ? (
               comments.map((cmt) => (
-                <div key={cmt.id} className="comment">
+                <div key={cmt.id} className="comment-jobDetails">
                   <img
                     src={cmt.userProfilePic}
                     alt="User"
-                    className="comment-pic"
+                    className="comment-pic-jobDetails"
                     width="40"
                     height="40"
                   />
                   <div>
                     <strong>{cmt.userName}</strong>
-                    <p className="post-content">{cmt.text}</p>
-                    <p className="comment-meta">Posted on: {formatDate(cmt.timestamp)}</p>
+                    <p className="post-content-jobDetails">{cmt.text}</p>
+                    <p className="comment-meta-jobDetails">Posted on: {formatDate(cmt.timestamp)}</p>
                   </div>
                 </div>
               ))
@@ -203,7 +202,7 @@ const JobBoardDetail = () => {
               <p>No comments yet.</p>
             )}
             {user && (
-              <div className="comment-input">
+              <div className="comment-input-jobDetails">
                 <input
                   type="text"
                   value={comment}
@@ -215,18 +214,17 @@ const JobBoardDetail = () => {
             )}
           </div>
           {!isAccepted && (
-            <div className="accept-job-container">
-              <button className="accept-job-button-large" onClick={handleAcceptJob}>
+            <div className="accept-job-container-jobDetails">
+              <button className="accept-job-button-large-jobDetails" onClick={handleAcceptJob}>
                 Accept Job
               </button>
             </div>
           )}
-          {isAccepted && <p className="accepted-message">You have accepted this job!</p>}
+          {isAccepted && <p className="accepted-message-jobDetails">You have accepted this job!</p>}
         </div>
       ) : (
         <p>Loading...</p>
       )}
-      <Sidebarfeeds className="sidebar-right" />
     </div>
   );
 };

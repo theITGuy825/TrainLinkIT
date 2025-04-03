@@ -1,89 +1,150 @@
-.post-detail-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: white;
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+
+
+.post-detail-container-jobDetails {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: "Inconsolata", monospace;
+
+}
+
+.post-detail-jobDetails {
+  flex: 1;
+  margin: 0 20px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-header-jobDetails {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.author-info-jobDetails {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.profilepic-jobDetails {
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.post-meta-jobDetails {
+  color: #666;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.post-content-jobDetails {
+  margin: 20px 0;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.post-actions-jobDetails {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.post-actions-jobDetails button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.comments-section-jobDetails {
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.comment-jobDetails {
+  display: flex;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.comment-pic-jobDetails {
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.comment-meta-jobDetails {
+  color: #666;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+.comment-input-jobDetails {
+  display: flex;
+  margin-top: 20px;
+}
+
+.comment-input-jobDetails input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.comment-input-jobDetails button {
+  padding: 10px 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.accept-job-container-jobDetails {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.accept-job-button-large-jobDetails {
+  padding: 12px 25px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.accept-job-button-large-jobDetails:hover {
+  background: #218838;
+}
+
+.accepted-message-jobDetails {
+  color: #28a745;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.sidebar-right-jobDetails {
+  width: 300px;
+}
+
+@media (max-width: 1000px) {
+  .post-detail-container-jobDetails {
+    margin-left: 70px;
   }
-  
-  .post-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .post-content {
-    text-align: left; /* More natural for reading */
-    color: #333; /* Off-black for readability */
-  }
-  
-  .post-meta {
-    font-size: 12px;
-    color: #666; /* Off-grey */
-    margin-top: 5px;
-  }
-  
-  .profilepic {
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  .post-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .post-actions button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    color: #333; /* Default text color */
-  }
-  
-  .liked {
-    color: red;
-  }
-  
-  .comments-section {
-    margin-top: 20px;
-  }
-  
-  .comment {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 5px 0;
-    color: #333;
-  }
-  
-  .comment-meta {
-    font-size: 12px;
-    color: #666;
-  }
-  
-  .comment-pic {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-  }
-  
-  .comment-input {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .comment-input input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    color: #333;
-  }
-  
-  p {
-    color: #333; /* Off-black for consistency */
-  }
+}
