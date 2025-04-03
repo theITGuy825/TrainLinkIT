@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+
+.linkup-btn {
+    width: 50%;
+    margin-left: 25%;
+    font-family: "Inconsolata", monospace;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0px;
+    background-color: white;
+    color: black;
+    filter: drop-shadow(5px 5px rgb(79, 123, 120))
+            drop-shadow(-2.5px -2.5px rgba(105,167,161,1));
+    transition: all 0.3s ease-in-out; /* Smooth transition for all properties */
+    transform: scale(1); /* Initial scale */
+    cursor: pointer; /* Change cursor to pointer */
+    padding: 10px 0; /* Add some padding for better clickability */
+    border: none; /* Remove default button border */
+    outline: none; /* Remove outline */
+}
+
+.linkup-btn:hover {
+    transform: scale(1.05); /* Slightly scale up on hover */
+    filter: drop-shadow(7px 7px rgb(79, 123, 120))
+            drop-shadow(-3.5px -3.5px rgba(105,167,161,1)); /* Enhance shadows on hover */
+}

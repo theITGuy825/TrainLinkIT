@@ -8,6 +8,7 @@ import LinkUpButton from "../LinkUpButton/LinkUpButton.js";
 import "../Sidebar/Sidebar.css";
 import "../ProfilePost/ProfilePost.css";
 import "./Profile.css";
+import "../LinkUpButton/LinkUpButton.css";
 
 function Profile() {
   const { userId } = useParams();

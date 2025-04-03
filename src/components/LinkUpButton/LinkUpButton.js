@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../../firebase';
 import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import "./LinkUpButton.css"
 
 function LinkUpButton({ targetUserId }) {
   const [isFollowing, setIsFollowing] = useState(false);
@@ -71,8 +72,8 @@ function LinkUpButton({ targetUserId }) {
   };
 
   return (
-    <div>
-      <button onClick={handleLinkUp} disabled={loading}>
+    <div >
+      <button onClick={handleLinkUp} disabled={loading} className='linkup-btn'>
         {loading ? 'Processing...' : isFollowing ? 'Unlink' : 'Link Up'}
       </button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
