@@ -1,6 +1,6 @@
 /* Popup styling */
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap");
 
 .popup-overlay {
   position: fixed;
@@ -81,73 +81,78 @@ button {
   text-decoration: none;
 }
 
-
 /* All Other Posts styling  */
-a:Link {
+a:link {
   text-decoration: none;
 }
 
 .post {
-  background-color: #66b2b2;
+  background-color: black;
   padding: 0px 10px;
-  border-bottom: solid 2px #15243b;
-  border-left:solid 2px #15243b;
+  border: 1px solid #ccc; 
   margin-bottom: 20px;
   margin-top: 20px;
-  border-radius: 20px 20px 20px 0px;
   font-family: "Inconsolata", monospace;
-  /*border-radius: 10px;*/
+  
 }
 .post-header h4 {
-  color:#15243b;
-  font-size: 20px;
+  color: #15243b;
+  font-size: 16px;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+
 }
 
 .post p {
-  color:#15243b;
-  font-size: 16px;
-  font-family: 'Inconsolata', monospace;
-  border: 1px solid #15243b;
+  color: #15243b;
+  font-size: 14px;
+  font-family: "Inconsolata", monospace;
+  border-bottom: black 1px solid;
   padding: 10px;
-  border-radius: 10px;
   font-weight: bold;
   background-color: white;
-  text-align: left;  /* Aligns text to the left */
+  text-align: left; /* Aligns text to the left */
   direction: ltr;
 }
 
-.post-actions{
+.post-actions {
   display: flex;
+  font-style: normal;
 }
 
 .post-actions .like-button {
-  background-color: #15243b;
+  
+  background-color: rgba(185,232,228,1);
+  border-radius: 0px;
   width: 27.5%;
   margin-left: 35%;
-  color: #66b2b2;
+  color: black;
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  font-family: "Inconsolata", monospace;
   cursor: pointer;
+  font-weight: bold;
   font-size: 16px;
   transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 .post-actions .like-button:hover {
-  background-color: #FFF0F0;
+  background-color: rgba(105,167,161,1);
   color: #15243b;
 }
 
 .post-actions .toolie {
+  border-radius: 0px;
   border: 1px solid #15243b;
+  font-family: "Inconsolata", monospace;
   text-align: center;
   width: 40%;
-  font-style: bold;
-  background-color: #15243b;
-  color: #66b2b2;
+  font-style: italic;
+  font-weight: bold;
+  background-color: rgba(185,232,228,1);
+  color: black;
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
   margin-top: 5px;
   cursor: pointer;
   font-size: 16px;
@@ -155,13 +160,30 @@ a:Link {
 }
 
 .post-actions .toolie:hover {
-  background-color: #FFF0F0;
+  background-color: rgba(105,167,161,1);
   color: #15243b;
 }
 
 @media (max-width: 600px) {
-  .post-actions .like-button{
+  .post-actions .like-button {
     margin-left: 20%;
   }
 }
 
+@media(max-width:1150px) {
+  .comment-edit{
+    display: none;
+  } 
+
+  .post-actions .toolie{
+    width: 25%;
+  }
+
+  .post-actions .like-button{
+    width: 40%;
+  }
+
+  .like-edit{
+    display:none;
+  }
+}

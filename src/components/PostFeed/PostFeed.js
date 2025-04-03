@@ -15,6 +15,7 @@ import {
   setDoc,
   deleteDoc,
 } from "firebase/firestore";
+import { FaHeart, FaComment } from "react-icons/fa"; 
 
 function PostFeed({ title }) {
   const [newPost, setNewPost] = useState("");
@@ -169,8 +170,8 @@ function PostFeed({ title }) {
               </Link>
 
               <div className="post-actions">
-                <button className="like-button" onClick={() => handleLike(post.id)}>👍 Like ({post.likesCount})</button>
-                <Link to={`/post/${post.id}`} className="toolie">💬 View Comments ({post.commentsCount})</Link>
+                <button className="like-button" onClick={() => handleLike(post.id)}><FaHeart /> <span className="like-edit"> Like </span>({post.likesCount})</button>
+                <Link to={`/post/${post.id}`} className="toolie"><FaComment /> <span className="comment-edit">View Comments</span> ({post.commentsCount})</Link>
               </div>
             </div>
           ))
