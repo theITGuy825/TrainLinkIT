@@ -11,17 +11,20 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
+import { useParams } from "react-router-dom";
 import "./ProfilePost.css";
 
 function ProfilePost() {
   const [posts, setPosts] = useState([]);
-  const [userId, setUserId] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
   const [editingPost, setEditingPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { userId: profileUserId } = useParams();
 
   // Get current user ID
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged((user) => {
-      setUserId(user ? user.uid : null);
+      setCurrentUserId(user ? user.uid : null);
     });
     return () => unsubscribeAuth();
   }, []);
@@ -37,31 +40,60 @@ function ProfilePost() {
     }
   };
 
-  // Fetch only the logged-in user's posts
+  // Fetch posts for the profile user
   useEffect(() => {
     let isMounted = true;
-    if (!userId) return;
+    if (!profileUserId) return;
 
-    const q = query(collection(db, "posts"), where("userId", "==", userId), orderBy("timestamp", "desc"));
+    setLoading(true);
+    setPosts([]); // Clear previous posts when switching users
+
+    const q = query(
+      collection(db, "posts"),
+      where("userId", "==", profileUserId),
+      orderBy("timestamp", "desc")
+    );
+    
     const unsubscribe = onSnapshot(q, async (snapshot) => {
       if (!isMounted) return;
 
-      const postsArray = await Promise.all(
-        snapshot.docs.map(async (doc) => {
-          const postData = doc.data();
-          const fullName = await getUserName(postData.userId);
-          return { id: doc.id, author: fullName, ...postData };
-        })
-      );
+      try {
+        const postsArray = (await Promise.all(
+          snapshot.docs.map(async (doc) => {
+            const postData = doc.data();
+            // Only include posts that have content
+            if (!postData.content) return null;
+            
+            const fullName = await getUserName(postData.userId);
+            return { 
+              id: doc.id, 
+              author: fullName, 
+              content: postData.content,
+              likesCount: postData.likesCount || 0,
+              commentsCount: postData.commentsCount || 0,
+              timestamp: postData.timestamp,
+              userId: postData.userId
+            };
+          })
+        )).filter(Boolean); // Remove any null entries
 
-      setPosts(postsArray);
+        if (isMounted) {
+          setPosts(postsArray);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
     });
 
     return () => {
       isMounted = false;
       unsubscribe();
     };
-  }, [userId]);
+  }, [profileUserId]);
 
   // Handle post deletion
   const handleDeletePost = async (postId) => {
@@ -99,9 +131,19 @@ function ProfilePost() {
     }
   };
 
+  const isViewingOwnProfile = currentUserId === profileUserId;
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <p>Loading posts...</p>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h2>Your Posts</h2>
+      <h2>{isViewingOwnProfile ? "Your Posts" : "User's Posts"}</h2>
       <div className="post-feed-container">
         {posts.length > 0 ? (
           posts.map((post) => (
@@ -123,14 +165,16 @@ function ProfilePost() {
               ) : (
                 <div>
                   <p>{post.content}</p>
-                  <div className="post-actions">
-                    <button className="edit-button" onClick={() => handleEditPost(post)}>
-                      ✏️ Edit
-                    </button>
-                    <button className="delete-button" onClick={() => handleDeletePost(post.id)}>
-                      🗑 Delete
-                    </button>
-                  </div>
+                  {isViewingOwnProfile && (
+                    <div className="post-actions">
+                      <button className="edit-button" onClick={() => handleEditPost(post)}>
+                        ✏️ Edit
+                      </button>
+                      <button className="delete-button" onClick={() => handleDeletePost(post.id)}>
+                        🗑 Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

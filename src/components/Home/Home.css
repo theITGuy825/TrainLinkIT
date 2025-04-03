@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50,200..900&family=Playwrite+HU:wght@100..400&family=Rubik+Mono+One&display=swap");
 
 /* Home.css */
 body,
@@ -7,7 +6,7 @@ html {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #f0fffc; /* Change this to any color you prefer */
+  background-color: #ffffff; /* Change this to any color you prefer */
 }
 /* Container for the whole page */
 /* Container that holds both sidebars and the main content */
@@ -18,7 +17,7 @@ html {
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: #f0fffc;
+  background-color: #ffffff;
 }
 
 /* Main content area with posts */
@@ -38,52 +37,55 @@ html {
 .post-creation-header-second h2 {
   margin-left: 15px;
   font-family: "Inconsolata", monospace;
-  font-size: 20px;
-  background-color: #15243b;
-  color: white;
-  border: white 2px solid;
-  border-radius: 50px;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: white;
+  color: black;
+  border: black 1px solid;
+  border-radius: 0px;
   padding: 5px 10px 5px 10px;
-  font-style: italic;
-  filter: drop-shadow(5px 5px rgb(237, 169, 169))
-    drop-shadow(-2.5px -2.5px rgb(241, 241, 165));
+  
+  filter: drop-shadow(5px 5px rgb(79, 123, 120))
+    drop-shadow(-2.5px -2.5px rgba(105,167,161,1));
 }
 
 /* Post Creation Styles */
 .post-creation {
   width: 100%;
   position: sticky;
-  border-radius: 50px 50px 0px 0px;
   box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.5);
-  background: conic-gradient(
-    from -0.5turn at bottom right,
-    deeppink,
-    cyan,
-    rebeccapurple
+  border: 1px solid black;
+  padding: 15px;
+  box-sizing: border-box;
+  
+  /* Gradient animation with custom property */
+  --gradient-angle: 0deg;
+  background: linear-gradient(
+    var(--gradient-angle),
+    rgba(105,167,161,1) 0%,
+    rgba(185,232,228,1) 5%,
+    rgba(251,251,251,1) 10%,
+    rgba(251,251,251,1) 90%,
+    rgba(185,232,228,1) 95%,
+    rgba(105,167,161,1) 100%
   );
-  border: 2px solid #15243b;
-  padding: 15px; /* Added padding to create some space inside the container */
-  box-sizing: border-box; /* Ensures padding and border are included in the width */
+  animation: rotateGradient 35s linear infinite;
 }
 
 /* Textarea and Button */
 .textarea {
   width: 100%;
   height: 100px;
-  border: 2px solid black; /* Remove the default border */
+  border: 2px solid #ccc; /* Remove the default border */
   font-size: 16px;
-  background-color: #f3fefa;
+  background-color: white;
   color: white;
   resize: none;
   font-weight: bold;
-  border-radius: 10px;
-  font-family: "Playwrite HU", cursive;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
   transition: all 0.3s ease-in-out;
   box-sizing: border-box; /* Ensures padding and border are included in the width */
-}
-
-.textarea:hover{
-  border-radius: 30px;
 }
 
 .textarea:focus {
@@ -95,26 +97,29 @@ html {
 }
 
 .post-button {
-  background-color: #15243b;
-  color: #66b2b2;
-  padding: 10px 20px;
+  background-color: transparent;
+  border-radius: 0px;
+  color: black;
+  padding: 5px 5px;
   border: none;
   cursor: pointer;
   width: 30%;
+  font-style: oblique;
   margin-left: 70%;
+  margin-bottom: -2.5px;
   align-content: center;
   transition: all 0.4s ease-in-out;
-  font-style: italic;
+  font-weight: bold;
   font-family: "Inconsolata", monospace;
-  font-size: 20px;
+  font-size: 18px;
   font-size: bold;
   align-self: flex-end;
   border: #15243b solid 1px;
 }
 
 .post-button:hover {
-  background-color: #66b2b2;
-  color: #15243b;
+  background-color: #008080;
+  color: white;
   border: #15243b solid 1px;
 }
 
@@ -131,4 +136,15 @@ html {
     margin-right: 90px;
     margin-left: 90px;
   }
+}
+
+@keyframes rotateGradient {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+@property --gradient-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
 }

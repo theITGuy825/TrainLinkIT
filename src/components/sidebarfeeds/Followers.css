@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
 /* CSS for followers list */
 .followers-list {
   display: flex;
@@ -43,6 +44,7 @@
 .name-text {
   font-size: 16px;
   font-weight: bold;
+  font-family: "Inconsolata", monospace;
   color: #333;
 }
 
@@ -59,7 +61,7 @@
 
 /* Error message styling */
 .noFollowers {
-  color: #e74c3c;
+  color: black;
   font-weight: bold;
   font-size: 14px;
   text-align: center;

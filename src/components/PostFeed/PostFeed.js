@@ -56,11 +56,24 @@ function PostFeed({ title }) {
       const postsArray = await Promise.all(
         snapshot.docs.map(async (doc) => {
           const postData = doc.data();
+          // Only include posts that have content
+          if (!postData.content) return null;
+          
           const { fullName, profilePic } = await getUserData(postData.userId);
-          return { id: doc.id, author: fullName, profilePic, ...postData };
+          return { 
+            id: doc.id, 
+            author: fullName, 
+            profilePic, 
+            content: postData.content,
+            likesCount: postData.likesCount || 0,
+            commentsCount: postData.commentsCount || 0,
+            timestamp: postData.timestamp,
+            userId: postData.userId
+          };
         })
       );
-      setPosts(postsArray);
+      // Filter out any null posts (posts without content)
+      setPosts(postsArray.filter(post => post !== null));
     });
 
     fetchUserData();
@@ -124,11 +137,6 @@ function PostFeed({ title }) {
     } catch (error) {
       console.error("Error handling like:", error);
     }
-  };
-
-  // Handle comment button click (redirects to post comments page)
-  const handleComment = (postId) => {
-    // Optional: Perform additional actions like scrolling to the comment section, etc.
   };
 
   return (
