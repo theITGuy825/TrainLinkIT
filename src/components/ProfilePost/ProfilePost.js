@@ -147,7 +147,7 @@ function ProfilePost() {
   if (loading) {
     return (
       <div className="loading-container">
-        <p>Loading posts...</p>
+        <p>No Posts Found...</p>
       </div>
     );
   }

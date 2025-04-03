@@ -71,3 +71,9 @@ iframe {
 .training-content {
   margin-left: 250px;
 }
+
+@media (max-width: 1000px) {
+  .training-content{
+    margin-left: 90px;
+  }
+}
