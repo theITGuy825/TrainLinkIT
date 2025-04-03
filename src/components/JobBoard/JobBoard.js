@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Import Link for navigation
 import { db, auth } from "../../firebase";
 import {
   collection,
@@ -14,7 +15,6 @@ import Sidebar from "../Sidebar/sidebar";
 import "../Sidebar/Sidebar.css";
 import "./JobBoard.css";
 
-
 function JobBoard({ title }) {
   const [newPost, setNewPost] = useState("");
   const [description, setDescription] = useState("");
@@ -24,8 +24,9 @@ function JobBoard({ title }) {
   const [posts, setPosts] = useState([]);
   const [userProfilePic, setUserProfilePic] = useState("/profilepic.png");
   const [userFullName, setUserFullName] = useState("Anonymous");
+  const [userType, setUserType] = useState(""); // Track user type
 
-  // Fetch user data (including profile picture)
+  // Fetch user data (including profile picture and userType)
   const getUserData = async (userId) => {
     try {
       const userDoc = await getDoc(doc(db, "users", userId));
@@ -34,12 +35,13 @@ function JobBoard({ title }) {
         return {
           fullName: `${userData.firstName} ${userData.lastName}`,
           profilePic: userData.profilePic || "/profilepic.png",
+          userType: userData.userType || "freelancer", // Default to "freelancer" if not set
         };
       }
-      return { fullName: "Anonymous", profilePic: "/profilepic.png" };
+      return { fullName: "Anonymous", profilePic: "/profilepic.png", userType: "freelancer" };
     } catch (error) {
       console.error("Error fetching user:", error);
-      return { fullName: "Anonymous", profilePic: "/profilepic.png" };
+      return { fullName: "Anonymous", profilePic: "/profilepic.png", userType: "freelancer" };
     }
   };
 
@@ -48,9 +50,10 @@ function JobBoard({ title }) {
     const fetchUserData = async () => {
       const user = auth.currentUser;
       if (user) {
-        const { fullName, profilePic } = await getUserData(user.uid);
+        const { fullName, profilePic, userType } = await getUserData(user.uid);
         setUserFullName(fullName);
         setUserProfilePic(profilePic);
+        setUserType(userType); // Set the userType
       }
     };
 
@@ -120,86 +123,85 @@ function JobBoard({ title }) {
     }
   };
 
-  
-
   return (
-    
     <div className="jobboard-container">
       {/* Sidebar */}
-     
-        <Sidebar />
-
+      <Sidebar />
 
       {/* JobBoard Content */}
       <div className="jobboard-content">
-        <h1 className="jobboard-header" >JOB POSTING</h1>
+        <h1 className="jobboard-header">JOB POSTING</h1>
         <h2>{title}</h2>
 
         {/* Create a Post */}
-        <div className="post-creation">
-          <div className="post-creation-header">
-            <img
-              src={userProfilePic}
-              alt="Your Profile"
-              width="50"
-              height="50"
-              className="profilepic-post-creation"
+        {userType === "business" ? (
+          <div className="post-creation">
+            <div className="post-creation-header">
+              <img
+                src={userProfilePic}
+                alt="Your Profile"
+                width="50"
+                height="50"
+                className="profilepic-post-creation"
+              />
+              <h2 className="user-full-name">{userFullName}</h2>
+            </div>
+            <textarea
+              className="textarea"
+              placeholder="Job Title"
+              value={newPost}
+              onChange={(e) => setNewPost(e.target.value)}
             />
-            <h2 className="user-full-name">{userFullName}</h2>
+            <br />
+            <textarea
+              className="textarea"
+              placeholder="Job Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <br />
+            <select
+              className="select"
+              value={difficulty}
+              onChange={(e) => setDifficulty(e.target.value)}
+            >
+              <option value="" disabled>
+                Select Difficulty
+              </option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+            <br />
+            <select
+              className="select"
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+            >
+              <option value="" disabled>
+                Select Language
+              </option>
+              <option value="JavaScript">JavaScript</option>
+              <option value="Python">Python</option>
+              <option value="Java">Java</option>
+              <option value="C++">C++</option>
+              <option value="Ruby">Ruby</option>
+            </select>
+            <br />
+            <input
+              className="input"
+              placeholder="Job Link"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+            />
+            <br />
+            <button className="post-button" onClick={handlePostSubmit}>
+              Post Job
+            </button>
           </div>
-          <textarea
-            className="textarea"
-            placeholder="Job Title"
-            value={newPost}
-            onChange={(e) => setNewPost(e.target.value)}
-          />
-          <br />
-          <textarea
-            className="textarea"
-            placeholder="Job Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <br />
-          <select
-            className="select"
-            value={difficulty}
-            onChange={(e) => setDifficulty(e.target.value)}
-          >
-            <option value="" disabled>
-              Select Difficulty
-            </option>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-          </select>
-          <br />
-          <select
-            className="select"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-          >
-            <option value="" disabled>
-              Select Language
-            </option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="Python">Python</option>
-            <option value="Java">Java</option>
-            <option value="C++">C++</option>
-            <option value="Ruby">Ruby</option>
-          </select>
-          <br />
-          <input
-            className="input"
-            placeholder="Job Link"
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-          />
-          <br />
-          <button className="post-button" onClick={handlePostSubmit}>
-            Post Job
-          </button>
-        </div>
+        ) : (
+          <p>You must be logged in as a business to post jobs.</p>
+        )}
 
         {/* Display Posts */}
         <div className="post-feed-container">
@@ -227,6 +229,10 @@ function JobBoard({ title }) {
                 <a href={post.link} target="_blank" rel="noopener noreferrer">
                   View Job
                 </a>
+                {/* Add View Job Details Button */}
+                <Link to={`/jobboarddetail/${post.id}`} className="view-job-details-button">
+                  View Job Details
+                </Link>
               </div>
             ))
           ) : (
