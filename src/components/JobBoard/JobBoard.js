@@ -38,10 +38,18 @@ function JobBoard({ title }) {
           userType: userData.userType || "freelancer", // Default to "freelancer" if not set
         };
       }
-      return { fullName: "Anonymous", profilePic: "/profilepic.png", userType: "freelancer" };
+      return {
+        fullName: "Anonymous",
+        profilePic: "/profilepic.png",
+        userType: "freelancer",
+      };
     } catch (error) {
       console.error("Error fetching user:", error);
-      return { fullName: "Anonymous", profilePic: "/profilepic.png", userType: "freelancer" };
+      return {
+        fullName: "Anonymous",
+        profilePic: "/profilepic.png",
+        userType: "freelancer",
+      };
     }
   };
 
@@ -89,7 +97,13 @@ function JobBoard({ title }) {
 
   // Handle new post submission
   const handlePostSubmit = async () => {
-    if (newPost.trim() !== "" && description.trim() !== "" && difficulty.trim() !== "" && language.trim() !== "" && link.trim() !== "") {
+    if (
+      newPost.trim() !== "" &&
+      description.trim() !== "" &&
+      difficulty.trim() !== "" &&
+      language.trim() !== "" &&
+      link.trim() !== ""
+    ) {
       const user = auth.currentUser;
       if (!user) {
         alert("You must be logged in to post.");
@@ -124,44 +138,44 @@ function JobBoard({ title }) {
   };
 
   return (
-    <div className="jobboard-container">
+    <div className="jobboard-container-jobBoard">
       {/* Sidebar */}
       <Sidebar />
 
       {/* JobBoard Content */}
-      <div className="jobboard-content">
-        <h1 className="jobboard-header">JOB POSTING</h1>
+      <div className="jobboard-content-jobBoard">
+        <h1 className="jobboard-header-jobBoard">JOB POSTING</h1>
         <h2>{title}</h2>
 
         {/* Create a Post */}
         {userType === "business" ? (
-          <div className="post-creation">
-            <div className="post-creation-header">
+          <div className="post-creation-jobBoard">
+            <div className="post-creation-header-jobBoard">
               <img
                 src={userProfilePic}
                 alt="Your Profile"
                 width="50"
                 height="50"
-                className="profilepic-post-creation"
+                className="profilepic-post-creation-jobBoard"
               />
-              <h2 className="user-full-name">{userFullName}</h2>
+              <h2 className="user-full-name-jobBoard">{userFullName}</h2>
             </div>
             <textarea
-              className="textarea"
+              className="textarea-jobBoard"
               placeholder="Job Title"
               value={newPost}
               onChange={(e) => setNewPost(e.target.value)}
             />
             <br />
             <textarea
-              className="textarea"
+              className="textarea-jobBoard"
               placeholder="Job Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
             <br />
             <select
-              className="select"
+              className="select-jobBoard"
               value={difficulty}
               onChange={(e) => setDifficulty(e.target.value)}
             >
@@ -174,7 +188,7 @@ function JobBoard({ title }) {
             </select>
             <br />
             <select
-              className="select"
+              className="select-jobBoard"
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
             >
@@ -189,13 +203,13 @@ function JobBoard({ title }) {
             </select>
             <br />
             <input
-              className="input"
+              className="input-jobBoard"
               placeholder="Job Link"
               value={link}
               onChange={(e) => setLink(e.target.value)}
             />
             <br />
-            <button className="post-button" onClick={handlePostSubmit}>
+            <button className="post-button-jobBoard" onClick={handlePostSubmit}>
               Post Job
             </button>
           </div>
@@ -204,35 +218,48 @@ function JobBoard({ title }) {
         )}
 
         {/* Display Posts */}
-        <div className="post-feed-container">
+        <div className="post-feed-container-jobBoard">
           {posts.length > 0 ? (
             posts.map((post) => (
-              <div key={post.id} className="post">
-                <div className="post-header">
+              <div key={post.id} className="post-jobBoard">
+                <div className="post-header-jobBoard">
                   <img
                     src={post.profilePic}
                     alt="Profile"
                     width="50"
                     height="50"
-                    className="profilepic"
+                    className="profilepic-jobBoard"
                   />
                   <h4>{post.author}</h4>
                 </div>
-                <h3>{post.title}</h3>
-                <p>{post.description}</p>
-                <p>
-                  <strong>Difficulty:</strong> {post.difficulty}
-                </p>
-                <p>
-                  <strong>Language:</strong> {post.language}
-                </p>
-                <a className="view-job-link-button" href={post.link} target="_blank" rel="noopener noreferrer">
-                  View Job Link
-                </a>
-                {/* Add View Job Details Button */}
-                <Link to={`/jobboarddetail/${post.id}`} className="view-job-details-button">
-                  View Job Details
-                </Link>
+                <div className="post-content-jobBoard">
+                  {" "}
+                  {/* New wrapper div */}
+                  <h3>{post.title}</h3>
+                  <p>{post.description}</p>
+                  <p>
+                    <strong>Difficulty:</strong> {post.difficulty}
+                  </p>
+                  <p className="endLine-jobBoard">
+                    <strong>Language:</strong> {post.language}
+                  </p>
+                </div>
+                <div className="post-actions-container-jobBoard">
+                  <a
+                    className="view-job-link-button-jobBoard"
+                    href={post.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                   Job Link
+                  </a>
+                  <Link
+                    to={`/jobboarddetail/${post.id}`}
+                    className="view-job-details-button-jobBoard"
+                  >
+                    Job Details
+                  </Link>
+                </div>
               </div>
             ))
           ) : (

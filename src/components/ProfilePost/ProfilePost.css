@@ -66,7 +66,7 @@
   margin-top: 10px;
   display: flex;
   gap: 10px;
-  margin-left: 70%;
+  margin-left: 80%;
 }
 
 /* Edit and Delete Buttons */
@@ -78,6 +78,7 @@
     margin-right: 20px;
     background-color: rgba(185,232,228,1);
     color: black;
+    box-sizing:border-box;
   }
   .cancelPostEdit{
     width: 25%;
@@ -107,6 +108,7 @@
   background-color: rgba(185, 232, 228, 1);
   color: black;
   border-radius: 0px;
+  width: 100%;
 }
 
 .edit-button:hover {
@@ -137,6 +139,9 @@
     
     margin-left: 30%;
     
+  }
+  .post-actions-profile{
+    margin-left: 30%;
   }
 }
 

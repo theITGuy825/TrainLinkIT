@@ -117,14 +117,15 @@ function Register() {
 
   return (
     
-    <div id='register-container'>
-    <img src='/image073263.png' alt="description"  className='logo'/>
-    <div className='register-form'>
-      <h2>REGISTER</h2>
-      <form onSubmit={handleSubmit}>
+    <div id='register-container' className='register-container-register'>
+    <img src='/image073263.png' alt="description" className='logo-register'/>
+    <div className='register-form-register'>
+      <h2 className='register-header-register'>REGISTER</h2>
+      <form className='form-register' onSubmit={handleSubmit}>
         {/* Always render email field */}
-        <label htmlFor="email">Email:</label>
+        <label className='label-register' htmlFor="email">Email:</label>
         <input
+          className='input-register'
           id="email"
           type="email"
           name="email"
@@ -133,12 +134,13 @@ function Register() {
           placeholder="Email"
           required
         />
-        <span>{errors.email}</span>
+        <span className='error-register'>{errors.email}</span>
         <br/>
 
         {/* Always render password field */}
-        <label htmlFor="password">Password:</label>
+        <label className='label-register' htmlFor="password">Password:</label>
         <input
+          className='input-register'
           id="password"
           type="password"
           name="password"
@@ -147,12 +149,13 @@ function Register() {
           placeholder="Password"
           required
         />
-        <span>{errors.password}</span>
+        <span className='error-register'>{errors.password}</span>
         <br/>
 
         {/* User type selection */}
-        <label htmlFor="userType">User Type:</label>
+        <label className='label-register' htmlFor="userType">User Type:</label>
         <select
+          className='select-register'
           id="userType"
           name="userType"
           value={formData.userType}
@@ -165,9 +168,10 @@ function Register() {
 
         {/* Conditionally render freelancer-specific fields */}
         {formData.userType === "freelancer" && (
-          <>
-            <label htmlFor="firstName">First Name:</label>
+          <div className='freelancer-fields-register'>
+            <label className='label-register' htmlFor="firstName">First Name:</label>
             <input
+              className='input-register'
               id="firstName"
               type="text"
               name="firstName"
@@ -176,10 +180,11 @@ function Register() {
               placeholder="First Name"
               required
             />
-            <span>{errors.firstName}</span>
+            <span className='error-register'>{errors.firstName}</span>
 
-            <label htmlFor="lastName">Last Name:</label>
+            <label className='label-register' htmlFor="lastName">Last Name:</label>
             <input
+              className='input-register'
               id="lastName"
               type="text"
               name="lastName"
@@ -188,15 +193,16 @@ function Register() {
               placeholder="Last Name"
               required
             />
-            <span>{errors.lastName}</span>
-          </>
+            <span className='error-register'>{errors.lastName}</span>
+          </div>
         )}
 
         {/* Conditionally render business-specific fields */}
         {formData.userType === "business" && (
-          <>
-            <label htmlFor="businessName">Business Name:</label>
+          <div className='business-fields-register'>
+            <label className='label-register' htmlFor="businessName">Business Name:</label>
             <input
+              className='input-register'
               id="businessName"
               type="text"
               name="businessName"
@@ -205,10 +211,11 @@ function Register() {
               placeholder="Business Name"
               required
             />
-            <span>{errors.businessName}</span>
+            <span className='error-register'>{errors.businessName}</span>
 
-            <label htmlFor="businessAddress">Business Address:</label>
+            <label className='label-register' htmlFor="businessAddress">Business Address:</label>
             <input
+              className='input-register'
               id="businessAddress"
               type="text"
               name="businessAddress"
@@ -217,30 +224,34 @@ function Register() {
               placeholder="Business Address"
               required
             />
-            <span>{errors.businessAddress}</span>
+            <span className='error-register'>{errors.businessAddress}</span>
 
-            <label htmlFor="businessDescription">Business Description:</label>
+            <label className='label-register' htmlFor="businessDescription">Business Description:</label>
             <textarea
+              className='textarea-register'
               id="businessDescription"
               name="businessDescription"
               value={formData.businessDescription}
               onChange={handleChange}
               placeholder="Business Description"
             />
-            
-          </>
+          </div>
         )}
 
-        <button type="submit" disabled={loading}>
+        <button 
+          className='submit-button-register'
+          type="submit" 
+          disabled={loading}
+        >
           {loading ? "Registering..." : "Register"}
         </button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className='error-message-register' style={{ color: "red" }}>{error}</p>}
       </form>
-      <p>
-        Already have an account? <span onClick={() => navigate("/login")}>Sign In</span>
+      <p className='login-redirect-register'>
+        Already have an account? <span className='login-link-register' onClick={() => navigate("/login")}>Sign In</span>
       </p>
     </div>
-    </div>
+</div>
   );
 }
 

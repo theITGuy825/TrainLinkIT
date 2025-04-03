@@ -122,7 +122,7 @@ a:link {
 }
 
 .post-actions .like-button {
-  
+  margin-top: 5px;
   background-color: rgba(185,232,228,1);
   border-radius: 0px;
   width: 27.5%;
