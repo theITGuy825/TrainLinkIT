@@ -6,7 +6,17 @@
   top: 0;
   height: 100vh;
   width: 240px;
-  background: linear-gradient(0deg, rgb(3, 47, 22) 0%, rgb(134, 204, 164) 15%, rgb(255, 255, 255) 30%);
+  background: linear-gradient(
+        180deg,
+        #69a7a1 0%,
+        #b9e8e4 7.5%,
+        rgb(255, 255, 255) 15%
+      )
+      top,
+    linear-gradient(0deg, #69a7a1 0%, #b9e8e4 7.5%, rgb(255, 255, 255) 15%)
+      bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 50%;
   color: #15243b;
   border-right: 2px solid #ccc;
   overflow-y: auto;
@@ -20,7 +30,7 @@
 }
 
 .hamburger-btn {
-  all:unset;
+  all: unset;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -36,11 +46,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: transparent 2px solid;
 }
 
-.hamburger-btn:hover{
+.hamburger-btn:hover {
   background-color: unset;
   color: #008080;
+  border: white 2px solid;
+  transition: border 0.4s ease-in-out;
+  border-radius: 10px;
+  
 }
 
 .sidebar-content {
@@ -67,7 +82,7 @@
 }
 
 .search-container {
-  all:unset;
+  all: unset;
   position: relative;
   width: 100%;
   max-width: 200px;
@@ -75,26 +90,34 @@
 }
 
 .search-box {
-  all:unset;
+  all: unset;
   color: black;
   background-color: white;
   padding: 10px;
   border: 2px solid #008080;
   border-radius: 0px;
   width: 180px;
-  font-size: 16px;
+  font-size: 14px;
   text-align: start;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  transition: border-radius ease-in-out 0.3s;
 }
 
+
+
 .search-box:hover {
-  all:unset;
   color: black;
   background-color: white;
   padding: 10px;
   border: 2px solid #008080;
   border-radius: 0px;
   width: 180px;
-  
+}
+
+.search-box:focus {
+  border-radius: 10px 10px 0px 0px;
+  transition: border-radius ease-in-out 0.3s;
 }
 
 .search-results {
@@ -173,7 +196,7 @@
   .sidebar {
     width: 240px !important;
   }
-  
+
   .hamburger-btn {
     display: none;
   }
