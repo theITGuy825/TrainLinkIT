@@ -1,0 +1,89 @@
+.post-detail-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+  }
+  
+  .post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .post-content {
+    text-align: left; /* More natural for reading */
+    color: #333; /* Off-black for readability */
+  }
+  
+  .post-meta {
+    font-size: 12px;
+    color: #666; /* Off-grey */
+    margin-top: 5px;
+  }
+  
+  .profilepic {
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .post-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .post-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333; /* Default text color */
+  }
+  
+  .liked {
+    color: red;
+  }
+  
+  .comments-section {
+    margin-top: 20px;
+  }
+  
+  .comment {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+    color: #333;
+  }
+  
+  .comment-meta {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .comment-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  
+  .comment-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .comment-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #333;
+  }
+  
+  p {
+    color: #333; /* Off-black for consistency */
+  }
