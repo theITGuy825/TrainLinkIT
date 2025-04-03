@@ -226,8 +226,8 @@ function JobBoard({ title }) {
                 <p>
                   <strong>Language:</strong> {post.language}
                 </p>
-                <a href={post.link} target="_blank" rel="noopener noreferrer">
-                  View Job
+                <a className="view-job-link-button" href={post.link} target="_blank" rel="noopener noreferrer">
+                  View Job Link
                 </a>
                 {/* Add View Job Details Button */}
                 <Link to={`/jobboarddetail/${post.id}`} className="view-job-details-button">
