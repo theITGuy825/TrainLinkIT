@@ -5,11 +5,11 @@ import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
 import PostDetail from "./components/postdetail/postdetail";
-import Messenger from "./components/messenger/messenger";
+import Messenger from "./components/Messenger/messenger";
 import { AuthProvider, useAuth } from './context/AuthContext';
 import JobBoard from "./components/JobBoard/JobBoard";
 import Training from "./components/Training/Training";
-
+import JobBoardDetail from "./components/JobBoardDetail/JobBoardDetail";
 function App() {
   return (
     <AuthProvider>
@@ -24,6 +24,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/profile/:userId" element={<Profile />} />
             <Route path="/post/:postId" element={<PostDetail />} />
+            <Route path="/jobboarddetail/:jobId" element={<JobBoardDetail />} />
             <Route path="/jobs" element={<JobBoard/>} />
             <Route path="/trainings" element={<Training/>} />
             <Route path="/messenger" element={<Messenger />} />

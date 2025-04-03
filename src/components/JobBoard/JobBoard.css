@@ -1,8 +1,7 @@
 .jobboard-content {
     margin-left: 250px;
 }
-
-.select{
+.select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -12,16 +11,64 @@
 
 }
 
-.jobboard-header{
+.jobboard-header {
     font-family: "Playwrite HU", cursive;
     padding: 10px;
     background-color: #ffc;
-    border: 3px solid #15243b;
-    font-style: italic;
-    text-align: center;
-    border-radius: 10px;
 }
 
 .user-full-name {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.job-link-button,
+.view-job-details-button {
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 70%;
+    padding: 10px 50px;
+    font-size: 16px;
+    color: #66b2b2;
+    background-color: #15243b;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.job-link-button:hover,
+.view-job-details-button:hover {
+    background-color: #FFF0F0;
+    color: #15243b;
+}
+
+.post {
+    background-color: #66b2b2;
+    padding: 10px;
+    border-bottom: solid 2px #15243b;
+    border-left: solid 2px #15243b;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 20px 20px 20px 0px;
+    font-family: "Inconsolata", monospace;
+}
+
+.post-header h4 {
+    color: #15243b;
+    font-size: 20px;
+}
+
+.post p {
+    color: #15243b;
+    font-size: 16px;
+    font-family: 'Inconsolata', monospace;
+    border: 1px solid #15243b;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: white;
+    text-align: left; /* Aligns text to the left */
+    direction: ltr;
 }
