@@ -5,25 +5,24 @@ import {
   getDoc,
   doc,
   query,
+  where,
   orderBy,
   onSnapshot,
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
-import './ProfilePost.css';
+import "./ProfilePost.css";
 
-function ProfilePost({ profileUserId }) {
+function ProfilePost() {
   const [posts, setPosts] = useState([]);
   const [userId, setUserId] = useState(null);
-  const [editingPostId, setEditingPostId] = useState(null);
-  const [editingContent, setEditingContent] = useState("");
+  const [editingPost, setEditingPost] = useState(null);
 
   // Get current user ID
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged((user) => {
       setUserId(user ? user.uid : null);
     });
-
     return () => unsubscribeAuth();
   }, []);
 
@@ -38,47 +37,38 @@ function ProfilePost({ profileUserId }) {
     }
   };
 
-  // Fetch posts by the profile user ID
+  // Fetch only the logged-in user's posts
   useEffect(() => {
-    if (!profileUserId) return;
-  
-    const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+    let isMounted = true;
+    if (!userId) return;
+
+    const q = query(collection(db, "posts"), where("userId", "==", userId), orderBy("timestamp", "desc"));
     const unsubscribe = onSnapshot(q, async (snapshot) => {
-      console.log("Fetched snapshot docs:", snapshot.docs); // Check if there are posts in the snapshot
-  
+      if (!isMounted) return;
+
       const postsArray = await Promise.all(
         snapshot.docs.map(async (doc) => {
           const postData = doc.data();
-          console.log("Post data:", postData); // Log post data to check if userId matches profileUserId
-          
-          if (postData.userId !== profileUserId) {
-            console.log(`Skipping post from userId: ${postData.userId}`);
-            return null; // Skip posts that don't match profileUserId
-          }
-  
           const fullName = await getUserName(postData.userId);
           return { id: doc.id, author: fullName, ...postData };
         })
       );
-  
-      const filteredPosts = postsArray.filter(Boolean);
-      console.log("Filtered Posts:", filteredPosts); // Check filtered posts before setting state
-      setPosts(filteredPosts);
+
+      setPosts(postsArray);
     });
-  
-    return () => unsubscribe();
-  }, [profileUserId]);
-  
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
+  }, [userId]);
 
   // Handle post deletion
   const handleDeletePost = async (postId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this post?");
-    if (!confirmDelete) return;
-  
+    if (!window.confirm("Are you sure you want to delete this post?")) return;
     try {
       await deleteDoc(doc(db, "posts", postId));
-      setPosts(posts.filter((post) => post.id !== postId));
-      alert("Post deleted successfully!");
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
     } catch (error) {
       console.error("Error deleting post:", error);
       alert("Failed to delete post. Please try again.");
@@ -87,19 +77,23 @@ function ProfilePost({ profileUserId }) {
 
   // Start editing a post
   const handleEditPost = (post) => {
-    setEditingPostId(post.id);
-    setEditingContent(post.content);
+    setEditingPost({ id: post.id, content: post.content });
   };
 
   // Update post
-  const handleUpdatePost = async (postId) => {
+  const handleUpdatePost = async () => {
+    if (!editingPost?.content.trim()) return;
+
     try {
-      await updateDoc(doc(db, "posts", postId), {
-        content: editingContent,
+      await updateDoc(doc(db, "posts", editingPost.id), {
+        content: editingPost.content,
       });
-      setPosts(posts.map((post) => (post.id === postId ? { ...post, content: editingContent } : post)));
-      setEditingPostId(null);
-      setEditingContent("");
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.id === editingPost.id ? { ...post, content: editingPost.content } : post
+        )
+      );
+      setEditingPost(null);
     } catch (error) {
       console.error("Error updating post:", error);
     }
@@ -107,7 +101,7 @@ function ProfilePost({ profileUserId }) {
 
   return (
     <div>
-      <h2>{profileUserId === userId ? "Your Posts" : "User's Posts"}</h2>
+      <h2>Your Posts</h2>
       <div className="post-feed-container">
         {posts.length > 0 ? (
           posts.map((post) => (
@@ -117,29 +111,25 @@ function ProfilePost({ profileUserId }) {
                 <h4>{post.author}</h4>
               </div>
 
-              {editingPostId === post.id ? (
+              {editingPost?.id === post.id ? (
                 <div>
                   <textarea
-                    value={editingContent}
-                    onChange={(e) => setEditingContent(e.target.value)}
+                    value={editingPost.content}
+                    onChange={(e) => setEditingPost({ ...editingPost, content: e.target.value })}
                   />
-                  <button onClick={() => handleUpdatePost(post.id)}>Save</button>
-                  <button onClick={() => setEditingPostId(null)}>Cancel</button>
+                  <button onClick={handleUpdatePost}>Save</button>
+                  <button onClick={() => setEditingPost(null)}>Cancel</button>
                 </div>
               ) : (
                 <div>
                   <p>{post.content}</p>
                   <div className="post-actions">
-                    {profileUserId === userId && (
-                      <>
-                        <button className="edit-button" onClick={() => handleEditPost(post)}>
-                          ✏️ Edit
-                        </button>
-                        <button className="delete-button" onClick={() => handleDeletePost(post.id)}>
-                          🗑 Delete
-                        </button>
-                      </>
-                    )}
+                    <button className="edit-button" onClick={() => handleEditPost(post)}>
+                      ✏️ Edit
+                    </button>
+                    <button className="delete-button" onClick={() => handleDeletePost(post.id)}>
+                      🗑 Delete
+                    </button>
                   </div>
                 </div>
               )}
